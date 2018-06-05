@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:include schemaLocation="types.xsd"/>
+
+    <xs:element name="UseCases">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="UseCase"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="UseCase">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ClassName"/>
+                <xs:element ref="Description"/>
+                <xs:element ref="Environment"/>
+                <xs:element minOccurs="0" ref="Parameters"/>
+            </xs:sequence>
+            <xs:attribute name="Id" use="required" type="xs:NCName"/>
+            <xs:attribute name="Domain" use="required" type="domains"/>
+            <xs:attribute name="SubDomain" use="required" type="subdomains"/>
+            <xs:attribute name="OS" use="required" type="os"/>
+            <xs:attribute name="Status" use="required" type="status"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ClassName" type="classname"/>
+    <xs:element name="Description" type="description"/>
+    <xs:element name="Capabilities" type="xs:NCName"/>
+    <xs:element name="PossibleValues" type="mixed"/>
+    <xs:element name="DefaultValue" type="xs:string"/>
+    <xs:element name="Blank" type="mixed"/>
+
+    <xs:element name="Environment">
+        <xs:complexType mixed="true">
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="Dependency"/>
+                <xs:element ref="Capabilities"/>
+            </xs:choice>
+            <xs:attribute name="name" use="required" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Parameters">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Parameter"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Parameter">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Description"/>
+                <xs:element ref="PossibleValues"/>
+                <xs:element ref="DefaultValue"/>
+                <xs:element ref="Blank"/>
+                <xs:element minOccurs="0" ref="Dependencies"/>
+            </xs:sequence>
+            <xs:attribute name="isOptional" use="required" type="xs:boolean"/>
+            <xs:attribute name="name" use="required" type="xs:token"/>
+            <xs:attribute name="type" use="required" type="xs:token"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Dependencies">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="Dependency"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Dependency">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:NCName">
+                    <xs:attribute name="isOptional" type="xs:boolean"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

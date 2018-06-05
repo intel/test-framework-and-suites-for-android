@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:simpleType name="capability">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="touchscreen"/>
+            <xs:enumeration value="touchsensor"/>
+            <xs:enumeration value="modem"/>
+            <xs:enumeration value="modem_LTE"/>
+            <xs:enumeration value="camera"/>
+            <xs:enumeration value="nfc"/>
+            <xs:enumeration value="gps"/>
+            <xs:enumeration value="usb_charging"/>
+            <xs:enumeration value="usb_host"/>
+            <xs:enumeration value="sdcard_ext"/>
+            <xs:enumeration value="wireless_charging"/>
+            <xs:enumeration value="bluetooth"/>
+            <xs:enumeration value="microphone"/>
+            <xs:enumeration value="speaker"/>
+            <xs:enumeration value="earpiece"/>
+            <xs:enumeration value="headset"/>
+            <xs:enumeration value="ethernet"/>
+            <xs:enumeration value="torchlight"/>
+            <xs:enumeration value="vibrator"/>
+            <xs:enumeration value="wifi"/>
+            <xs:enumeration value="widi"/>
+            <xs:enumeration value="io"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

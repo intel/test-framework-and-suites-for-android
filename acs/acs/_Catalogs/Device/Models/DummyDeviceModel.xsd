@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:include schemaLocation="common.xsd" />
+
+    <xsd:element name="Implementation">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Parameter">
+                    <xsd:complexType>
+                        <xsd:attributeGroup ref="AG_DUMMY_IMPLEMENTATION"/>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="DeviceModel">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element ref="DeviceModule"/>
+                <xsd:element ref="Implementation"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

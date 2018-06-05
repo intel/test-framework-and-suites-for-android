@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Campaign version="13.49">
+    <Parameters>
+        <Parameter isControlledPSUsed="False" />
+        <Parameter isIoCardUsed="False" />
+        <!-- Set skipBootOnPowerCycle to True to disable the accs boot procedure -->
+        <!-- Important, it means that boot will be handle inside the campaign/tc -->
+        <Parameter skipBootOnPowerCycle="False" />
+        <!-- Set bootRetryNumber to maximum number of boot retries during the acs boot procedure -->
+        <!-- Important, it means that bootRetryNumber is set by default to 0 if not specified -->
+        <Parameter bootRetryNumber="0" />
+        <Parameter runHookScripts="False" />
+        <Parameter powerCycleBetweenTC="False" />
+        <Parameter powerCycleOnFailure="False" />
+        <!-- finalDutState allows user to leave the DUT in a specific state at the end of the campaign
+            Possible values: PowerOn | PowerOff | Charging | NoChange
+            By default DUT is leaved in NoChange state.
+            In case the user selects Charging as final state of the DUT and that DUT fails to enter Charging,
+            ACS shall try to switch the DUT off -->
+        <Parameter finalDutState="NoChange" />
+        <Parameter stopCampaignOnCriticalFailure="False" />
+        <Parameter stopCampaignOnFirstFailure="False" />
+        <!-- LoggingLevel possible values: info | warning | debug | error -->
+        <Parameter loggingLevel="info" />
+        <!-- CampaignType format -> <TEAM>_<CAMPAIGNTYPE>
+            Possible values:
+            FT(Feature Team)-> SANITY | REGRESSION | STRESS, RELIABILTY | MTBF
+            ST(System Test)-> SANITY | REGRESSION | STRESS, RELIABILTY | MTBF | EM
+            SI(System Integration)-> EAT | STAB | PACT | CAT0 | RELIABILITY | MTBF | CTS | ACS_CI
+            Otherwise "Others" should be used -->
+        <Parameter CampaignType="Others" />
+        <!-- TCRReportViaRESTAPI allows user to push campaign/test results to TCR via REST API
+            Possible values: False | True
+            ReportViaMsgBus allows user to push campaign/test results to TCR via Message bus
+            To avoid conflict when sending reports to TCR, both parameters can not be set to True at same time:
+            default choice is to push campaign/test results to TCR via REST API-->
+        <Parameter TCRReportViaRESTAPI="True"/>
+        <Parameter ReportViaMsgBus="True"/>
+    </Parameters>
+    <Targets>
+        <!-- Target Values -->
+        <Target targetB2bPassRate="100" />
+    </Targets>
+    <TestCases>
+        <!-- Testcase campaign - Id: Testcase name -->
+        <TestCase Id="DUMMY_1" />
+
+        <!-- SubCampaign campaign - Id: Campaign name -->
+        <SubCampaign Id="Campaign_Config_1" />
+
+        <!-- Testcase mandatory attribute: Id: Testcase name -->
+        <!-- Testcase optional attributes: b2bIteration, b2bIteration, b2bContinuousMode, TcMaxAttempt, TcExpectedResult, TcAcceptanceCriteria, IsCritical -->
+        <!-- can be overridden here from campaign config file for a given TestCase instance -->
+        <!-- else default attribute values set in test case Id template are taken -->
+        <TestCase Id="DUMMY_1" b2bIteration="2" b2bContinuousMode="True" TcMaxAttempt="4" TcExpectedResult="FAIL" TcAcceptanceCriteria="2" IsCritical="True" />
+
+        <!-- SubCampaign mandatory attribute: Id: Campaign name -->
+        <!-- SubCampaign optional attribute: runNumber: nb of sub campaign execution (= 1 by default) -->
+        <SubCampaign Id="Campaign_Config_2" runNumber="2" />
+
+        <!-- Group of test case that will be randomize -->
+        <RANDOM>
+            <!-- Grouping enable you to have always the same sequence -->
+            <!-- in an RANDOM group -->
+            <!-- Here DUMMY_2_1, then DUMMY_2_2 -->
+            <GROUP>
+                <TestCase Id="DUMMY_2_1" />
+                <TestCase Id="DUMMY_2_2" TcMaxAttempt="4" TcAcceptanceCriteria="2" IsCritical="True"/>/>
+            </GROUP>
+
+            <TestCase Id="DUMMY_3" />
+
+            <GROUP>
+                <TestCase Id="DUMMY_4_1" />
+                <TestCase Id="DUMMY_4_2" />
+            </GROUP>
+
+            <TestCase Id="DUMMY_5" b2bIteration="2" b2bContinuousMode="True" TcMaxAttempt="4" TcExpectedResult="FAIL" TcAcceptanceCriteria="2" IsCritical="True"/>
+            <TestCase Id="DUMMY_6" />
+        </RANDOM>
+
+    </TestCases>
+</Campaign>

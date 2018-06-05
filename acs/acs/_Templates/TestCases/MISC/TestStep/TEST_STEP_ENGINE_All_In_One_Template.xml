@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase version="13.41">
+    <UseCase>TEST_STEP_ENGINE</UseCase>
+    <Description></Description>
+    <b2bIteration>1</b2bIteration>
+    <b2bContinuousMode>False</b2bContinuousMode>
+    <TcMaxAttempt>1</TcMaxAttempt>
+    <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+    <TcExpectedResult>PASS</TcExpectedResult>
+    <Parameters>
+        <!--
+        In case of test steps sequence is include in the TC file, 'Parameters' section is optional.
+        The user does not need to set values for test steps as they can be set directly
+        The user does not need to set the value of TEST_STEP_ENGINE_ENTRY as test steps sequence will be read
+        directly from the current XML file.
+        -->
+        <Parameter>
+            <Name>WAIT_FOR</Name>
+            <Value>0.5</Value>
+        </Parameter>
+        <Parameter>
+            <Name>CONDITION</Name>
+            <Value>True</Value>
+        </Parameter>
+    </Parameters>
+
+    <TestSteps>
+        <!--
+        This example shows how test steps instructions can be contained in a single XML file.
+        This XML file has not dependencies on others.
+        It also shows a definition of a test step set and it's use in the setup
+        -->
+        <Include Src="SecondaryTeststepCatalog.xml" />
+
+        <TestStepSet Id="Multisuspend">
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="2.6"/>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="0.2"/>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="DEFAULT"/>
+        </TestStepSet>
+
+        <Setup>
+            <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="this is a generic comment" INPUT_1="1" INPUT_2="2.63" CTX_DATA_1="DELAY" CTX_DATA_2="BUNDLE"/>
+        </Setup>
+
+        <RunTest>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_CTX:DELAY"/>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_CTX:BUNDLE:INPUT_1"/>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_CTX:BUNDLE:INPUT_2"/>
+
+            <Fork Id="fork test">
+                <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_DEVICE:PHONE1:waitBetweenCmd"/>
+                <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_TC:WAIT_FOR"/>
+            </Fork>
+            <Loop Id="loop test" Nb="5">
+                <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_TC:WAIT_FOR"/>
+                <TestStep SetId="Multisuspend"/>
+            </Loop>
+            <If Id="if test" Condition="FROM_TC:CONDITION">
+                <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_TC:WAIT_FOR"/>
+                <TestStep SetId="Multisuspend"/>
+            </If>
+        </RunTest>
+
+        <TearDown>
+            <TestStep SetId="Multisuspend"/>
+        </TearDown>
+
+    </TestSteps>
+</TestCase>

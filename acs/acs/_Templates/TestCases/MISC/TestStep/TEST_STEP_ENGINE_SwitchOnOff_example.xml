@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase version="13.41">
+    <UseCase>TEST_STEP_ENGINE</UseCase>
+    <Description></Description>
+    <b2bIteration>1</b2bIteration>
+    <b2bContinuousMode>False</b2bContinuousMode>
+    <TcMaxAttempt>1</TcMaxAttempt>
+    <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+    <TcExpectedResult>PASS</TcExpectedResult>
+    <Parameters/>
+
+    <TestSteps>
+        <!--
+        This example shows how test steps instructions can be contained in a single XML file.
+        This XML file has not dependencies on others.
+        It also shows a definition of a test step set and it's use in the setup
+        -->
+        <TestStepSet Id="SwitchOff">
+            <TestStep Id="DISCONNECT_DEVICE"/>
+            <TestStep Id="PRESS_POWER_BUTTON" TIME="11.0"/>
+            <TestStep Id="REMOVE_USB"/>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_DEVICE:PHONE1:usbSleep"/>
+        </TestStepSet>
+
+        <TestStepSet Id="SwitchOn">
+            <TestStep Id="PRESS_POWER_BUTTON" TIME="FROM_DEVICE:PHONE1:pressPowerBtnTimeSwitchOn"/>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="40.0"/>
+            <TestStep Id="CONNECT_DEVICE"/>
+        </TestStepSet>
+
+        <Setup>
+            <TestStep SetId="SwitchOff" EQT="IO_CARD" DEVICE="PHONE1"/>
+        </Setup>
+        <RunTest>
+            <TestStep SetId="SwitchOn" EQT="IO_CARD"  DEVICE="PHONE1"/>
+            <TestStep Id="ENABLE_FLIGHT_MODE" DEVICE="PHONE1"/>
+        </RunTest>
+        <TearDown>
+            <TestStep Id="DISABLE_FLIGHT_MODE" DEVICE="PHONE1"/>
+        </TearDown>
+    </TestSteps>
+</TestCase>

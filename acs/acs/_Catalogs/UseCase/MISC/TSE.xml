@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<UseCases xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../usecase.xsd">
+    <UseCase Id="TEST_STEP_ENGINE" Domain="MISC" SubDomain="TSE" OS="N/A" Status="DONE">
+        <ClassName>acs.UseCase.Misc.TEST_STEP_ENGINE.TestStepEngine</ClassName>
+        <Description>Test Step Engine. Used to run test steps</Description>
+        <Environment name="ANY"/>
+    </UseCase>
+</UseCases>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:complexType name="mixed" mixed="true"/>
+
+    <xs:simpleType name="classname">
+        <xs:restriction base="xs:normalizedString">
+            <xs:minLength value="1"/>
+            <xs:pattern value="([a-zA-Z0-9|.|_])+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="description">
+        <xs:restriction base="xs:normalizedString">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PLANNED"/>
+            <xs:enumeration value="KO"/>
+            <xs:enumeration value="WIP"/>
+            <xs:enumeration value="DONE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="os">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ANDROID"/>
+            <xs:enumeration value="WINDOWS"/>
+            <xs:enumeration value="ALL"/>
+            <xs:enumeration value="N/A"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="domains">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="MISC"/>
+            <xs:enumeration value="SYSTEM"/>
+            <xs:enumeration value="CWS"/>
+            <xs:enumeration value="ENERGY_MGMT"/>
+            <xs:enumeration value="MULTIMEDIA"/>
+            <xs:enumeration value="PERF_MGMT"/>
+            <xs:enumeration value="PWR_MGMT"/>
+            <xs:enumeration value="CELLULAR"/>
+            <xs:enumeration value="GRAPHICS"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="subdomains">
+        <xs:restriction base="xs:normalizedString">
+
+            <xs:enumeration value="MISC"/>
+
+            <xs:enumeration value="CHECKS"/>
+            <xs:enumeration value="EXEC"/>
+            <xs:enumeration value="INSTR"/>
+            <xs:enumeration value="TSE"/>
+            <xs:enumeration value="UI"/>
+            <xs:enumeration value="CTS"/>
+            <xs:enumeration value="JUNIT"/>
+            <xs:enumeration value="GFX_FWK"/>
+            <xs:enumeration value="GOOGLE_TEST"/>
+            <xs:enumeration value="EQT"/>
+            <xs:enumeration value="UI_AUTOMATOR"/>
+
+            <xs:enumeration value="FLASH"/>
+            <xs:enumeration value="BOOT"/>
+            <xs:enumeration value="SETUP"/>
+            <xs:enumeration value="SLEEP"/>
+            <xs:enumeration value="MODEM"/>
+            <xs:enumeration value="SENSOR"/>
+
+            <xs:enumeration value="WIFI"/>
+            <xs:enumeration value="BT"/>
+            <xs:enumeration value="NFC"/>
+            <xs:enumeration value="GNSS"/>
+            <xs:enumeration value="FIT"/>
+
+            <xs:enumeration value="BATTERY"/>
+            <xs:enumeration value="POWER_SUPPLY"/>
+
+            <xs:enumeration value="AUDIO"/>
+            <xs:enumeration value="IMAGE"/>
+            <xs:enumeration value="VIDEO"/>
+            <xs:enumeration value="CAMERA"/>
+
+            <xs:enumeration value="BENCHMARK"/>
+            <xs:enumeration value="SETTINGS"/>
+
+            <xs:enumeration value="CELLULAR"/>
+            <xs:enumeration value="APP"/>
+
+            <xs:enumeration value="REG"/>
+            <xs:enumeration value="VOICECALL"/>
+            <xs:enumeration value="VIDEOCALL"/>
+            <xs:enumeration value="MMS"/>
+            <xs:enumeration value="SMSCB"/>
+            <xs:enumeration value="SMS"/>
+            <xs:enumeration value="MOBILITY"/>
+            <xs:enumeration value="DATA_XFER"/>
+            <xs:enumeration value="BROWSING"/>
+            <xs:enumeration value="SECURITY"/>
+
+            <xs:enumeration value="CONFORMANCE"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

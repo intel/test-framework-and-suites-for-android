@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Phone name="PHONE1"
+       deviceModel = "REDHOOKBAY-Android-JB-MR1"
+       description="Phone to use during test campaign. Please refer to Device_Catalog.xml to add device parameters">
+    <!-- You can override any parameter's value from Device_Catalog.xml file
+    e.g:
+    <Parameter phoneNumber="1234"/>
+    -->
+    
+    <!-- When multiple devices are controlled within a single ACS execution, user needs to specify the device model for each devices as well as its serial number (for Android) -->
+    <Parameter serialNumber="Medfield3CFCDD42"/>
+</Phone>
+
+<Phone name="PHONE2"
+       deviceModel = "REDHOOKBAY-Android-JB-MR1"
+       description="Phone to use during test campaign. Please refer to Device_Catalog.xml to add device parameters">
+    <!-- You can override any parameter's value from Device_Catalog.xml file
+    e.g:
+    <Parameter phoneNumber="1234"/>
+    -->
+    
+    <!-- When multiple devices are controlled within a single ACS execution, user needs to specify the device model for each devices as well as its serial number (for Android) -->
+    <Parameter serialNumber="RHBEC244201475"/>
+</Phone>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:complexType name="mixed" mixed="true"/>
+
+    <xs:simpleType name="classname">
+        <xs:restriction base="xs:normalizedString">
+            <xs:minLength value="1"/>
+            <xs:pattern value="([a-zA-Z0-9|.|_])+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="description">
+        <xs:restriction base="xs:normalizedString">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PLANNED"/>
+            <xs:enumeration value="KO"/>
+            <xs:enumeration value="WIP"/>
+            <xs:enumeration value="DONE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="domains">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="APPS"/>
+            <xs:enumeration value="WIRELESS"/>
+            <xs:enumeration value="COMMS"/>
+            <xs:enumeration value="MULTIMEDIA"/>
+            <xs:enumeration value="SYSTEM"/>
+            <xs:enumeration value="SENSORS"/>
+
+            <xs:enumeration value="EQUIPMENT"/>
+
+            <xs:enumeration value="UTILITIES"/>
+            <xs:enumeration value="LOWSPEEDIO"/>
+            <xs:enumeration value="STORAGE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="subdomains">
+        <xs:restriction base="xs:normalizedString">
+            <xs:enumeration value="CORE"/>
+            <xs:enumeration value="GMS"/>
+            <xs:enumeration value="HOUDINI"/>
+            <xs:enumeration value="CONCURRENCY"/>
+            <xs:enumeration value="STRESS"/>
+            <xs:enumeration value="BENCHMARKS"/>
+
+            <xs:enumeration value="WIFI"/>
+            <xs:enumeration value="BT"/>
+            <xs:enumeration value="NFC"/>
+            <xs:enumeration value="GNSS"/>
+            <xs:enumeration value="CELLULAR"/>
+            <xs:enumeration value="COMMON"/>
+
+            <xs:enumeration value="VOICECALL"/>
+            <xs:enumeration value="VIDEOCALL"/>
+            <xs:enumeration value="MSG"/>
+            <xs:enumeration value="DATA_XFER"/>
+            <xs:enumeration value="BROWSING"/>
+            <xs:enumeration value="MISC"/>
+
+            <xs:enumeration value="AUDIO"/>
+            <xs:enumeration value="IMAGING"/>
+            <xs:enumeration value="VIDEO"/>
+            <xs:enumeration value="STREAMING"/>
+
+            <xs:enumeration value="ADB"/>
+            <xs:enumeration value="FLASHING"/>
+            <xs:enumeration value="APP_MGMT"/>
+            <xs:enumeration value="ENERGY_MGMT"/>
+            <xs:enumeration value="PWR_MGMT"/>
+            <xs:enumeration value="AUDIO_MGMT"/>
+            <xs:enumeration value="MODEM_MGMT"/>
+            <xs:enumeration value="THERMAL"/>
+            <xs:enumeration value="DISPLAY"/>
+            <xs:enumeration value="FILES"/>
+            <xs:enumeration value="KERNEL"/>
+            <xs:enumeration value="SECURITY"/>
+            <xs:enumeration value="IPC"/>
+            <xs:enumeration value="OS"/>
+            <xs:enumeration value="DEBUG"/>
+            <xs:enumeration value="SETTINGS" />
+            <xs:enumeration value="LOGS" />
+
+            <xs:enumeration value="GYROSCOP"/>
+            <xs:enumeration value="AMBIENT_LIGHT"/>
+            <xs:enumeration value="MAGNETOMETER"/>
+            <xs:enumeration value="ACCELEROMETER"/>
+            <xs:enumeration value="HUB"/>
+
+            <xs:enumeration value="BT_HEADSET"/>
+            <xs:enumeration value="HID_MOUSE"/>
+            <xs:enumeration value="IO_CARDS"/>
+            <xs:enumeration value="ARTIFACT_MGMT"/>
+            <xs:enumeration value="USB_EXERCISERS"/>
+            <xs:enumeration value="CONFIGURABLE_AP"/>
+            <xs:enumeration value="WIFI_SNIFFER"/>
+            <xs:enumeration value="COMPUTER"/>
+            <xs:enumeration value="NETWORK_SIMULATOR"/>
+            <xs:enumeration value="POWER_ANALYZER"/>
+            <xs:enumeration value="LOGIC_ANALYZER"/>
+            <xs:enumeration value="RF_ATTENUATOR"/>
+            <xs:enumeration value="SERIAL_CMD" />
+
+            <xs:enumeration value="CHECKS"/>
+            <xs:enumeration value="COVERAGE"/>
+            <xs:enumeration value="FILES"/>
+            <xs:enumeration value="TIMINGS"/>
+            <xs:enumeration value="USB"/>
+            <xs:enumeration value="AUDIO"/>
+            <xs:enumeration value="RESOURCE_MGMT"/>
+            <xs:enumeration value="NETWORKING"/>
+            <xs:enumeration value="USB_TETHERING"/>
+            <xs:enumeration value="GPIO"/>
+            <xs:enumeration value="LOCAL_TASKS"/>
+            <xs:enumeration value="CONF_MGMT"/>
+            <xs:enumeration value="MATH"/>
+            <xs:enumeration value="RESULT"/>
+            <xs:enumeration value="STRING"/>
+            <xs:enumeration value="BENCH_CONFIG"/>
+            <xs:enumeration value="FRAMEWORK"/>
+            <xs:enumeration value="MESSAGING"/>
+            <xs:enumeration value="CELL_COEX"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="features">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value=""/>
+            <xs:enumeration value="CONTACTS"/>
+            <xs:enumeration value="GALLERY"/>
+            <xs:enumeration value="MUSIC"/>
+            <xs:enumeration value="CALENDAR"/>
+            <xs:enumeration value="BROWSER"/>
+            <xs:enumeration value="LAUNCHER"/>
+            <xs:enumeration value="CALCULATOR"/>
+
+            <xs:enumeration value="BOOKS"/>
+            <xs:enumeration value="GOOGLEMAPS"/>
+            <xs:enumeration value="YOUTUBE"/>
+            <xs:enumeration value="CHROME"/>
+            <xs:enumeration value="ALARMCLOCK"/>
+            <xs:enumeration value="STREETVIEW"/>
+
+            <xs:enumeration value="ARM"/>
+            <xs:enumeration value="MODEM"/>
+
+            <xs:enumeration value="SOFTAP"/>
+            <xs:enumeration value="WIFI_DIRECT"/>
+            <xs:enumeration value="WIFI_DISPLAY"/>
+            <xs:enumeration value="CERTIFICATES"/>
+            <xs:enumeration value="BT" />
+            <xs:enumeration value="WIFI" />
+
+            <xs:enumeration value="COMMON"/>
+            <xs:enumeration value="PAIR"/>
+            <xs:enumeration value="OPP"/>
+            <xs:enumeration value="PAN"/>
+            <xs:enumeration value="NAP"/>
+            <xs:enumeration value="A2DP"/>
+            <xs:enumeration value="SDP"/>
+            <xs:enumeration value="HID"/>
+            <xs:enumeration value="AVRCP"/>
+            <xs:enumeration value="GATT"/>
+
+            <xs:enumeration value="P2P"/>
+            <xs:enumeration value="SCAPI"/>
+
+            <xs:enumeration value="AUTONOMOUS_GNSS"/>
+            <xs:enumeration value="CONTROL_PLANE"/>
+            <xs:enumeration value="SUPL"/>
+
+            <xs:enumeration value="SETTINGS"/>
+            <xs:enumeration value="SECURITY"/>
+
+            <xs:enumeration value="IP_MGMT"/>
+
+            <xs:enumeration value="SMS"/>
+            <xs:enumeration value="MMS"/>
+            <xs:enumeration value="SMSCB"/>
+
+            <xs:enumeration value="PING"/>
+            <xs:enumeration value="FTP"/>
+            <xs:enumeration value="IPERF"/>
+            <xs:enumeration value="HTTP"/>
+
+            <xs:enumeration value="PLAYBACK"/>
+            <xs:enumeration value="RECORD"/>
+            <xs:enumeration value="USB_DOCK"/>
+
+            <xs:enumeration value="STILL"/>
+            <xs:enumeration value="BURST"/>
+            <xs:enumeration value="VIDEO"/>
+
+            <xs:enumeration value="CONVERSION"/>
+            <xs:enumeration value="STORE"/>
+
+            <xs:enumeration value="AUDIO"/>
+
+            <xs:enumeration value="UEFI_VAR"/>
+
+            <xs:enumeration value="CONSUMPTION"/>
+            <xs:enumeration value="RESIDENCY"/>
+            <xs:enumeration value="WAKELOCKS"/>
+
+            <xs:enumeration value="MMGR"/>
+            <xs:enumeration value="COREDUMP"/>
+            <xs:enumeration value="NVM"/>
+
+            <xs:enumeration value="STRESS"/>
+            <xs:enumeration value="CHECKS"/>
+
+            <xs:enumeration value="PIN"/>
+            <xs:enumeration value="ENCRYPTION"/>
+
+            <xs:enumeration value="HSIC"/>
+
+            <xs:enumeration value="PARTITION"/>
+            <xs:enumeration value="POWERUP"/>
+            <xs:enumeration value="POWERDOWN"/>
+            <xs:enumeration value="RESET"/>
+            <xs:enumeration value="STATES"/>
+            <xs:enumeration value="INPUTS"/>
+            <xs:enumeration value="COMMANDS"/>
+
+            <xs:enumeration value="CRASH"/>
+            <xs:enumeration value="LOGS"/>
+            <xs:enumeration value="WATCHDOG"/>
+            <xs:enumeration value="CAPTURE"/>
+
+            <xs:enumeration value="RT_PARSER"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

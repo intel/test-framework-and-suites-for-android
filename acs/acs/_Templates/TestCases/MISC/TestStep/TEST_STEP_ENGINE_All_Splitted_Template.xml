@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase version="13.41">
+    <UseCase>TEST_STEP_ENGINE</UseCase>
+    <Description></Description>
+    <b2bIteration>1</b2bIteration>
+    <b2bContinuousMode>False</b2bContinuousMode>
+    <TcMaxAttempt>1</TcMaxAttempt>
+    <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+    <TcExpectedResult>PASS</TcExpectedResult>
+    <Parameters>
+        <!--
+        This example shows how test steps instructions can be contained in an external XML file.
+        If the sequence uses TC parameters, the user need to set them here.
+        -->
+        <Parameter>
+            <Name>WAIT_FOR</Name>
+            <Value>5</Value>
+        </Parameter>
+        <!-- The user MUST set the sequence to use -->
+        <Parameter>
+            <Name>TEST_STEP_ENGINE_ENTRY</Name>
+            <Value>SEQUENCE.xml</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>

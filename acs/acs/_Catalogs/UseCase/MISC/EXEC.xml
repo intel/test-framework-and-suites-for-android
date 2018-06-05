@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<UseCases xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../usecase.xsd">
+    <UseCase Id="EXEC_SCRIPT" Domain="MISC" SubDomain="EXEC" OS="ANDROID" Status="DONE">
+        <ClassName>acs.UseCase.Misc.EXEC_SCRIPT.ExecScript</ClassName>
+        <Description>Open implementation script taking python scripts as inputs.</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="SETUP_SCRIPT_PATH" type="SCRIPT" isOptional="true">
+                <Description>Script to set up the test - python script, (e.g. exec_script_setup.py)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="SCRIPT_PATH" type="SCRIPT" isOptional="false">
+                <Description>Script to run the test - python script, (e.g. scripts/check_screen_on.py)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="TEAR_DOWN_SCRIPT_PATH" type="SCRIPT" isOptional="true">
+                <Description>Script to clean the test - python script, (e.g. exec_script_tear_down.py)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="FINALIZE_SCRIPT_PATH" type="FINALIZE_SCRIPT" isOptional="true">
+                <Description>Script to finalize the test - python script, (e.g. exec_script_finalize.py)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="ANY_VALUE" type="STRING" isOptional="true">
+                <Description>User customized parameter for script execution. Can have any name with any value (e.g. PKP
+                    DURATION, DATA_CODING_SCHEME, SCREEN_SHOT_REF, DISABLE_NFC)
+                </Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+        </Parameters>
+    </UseCase>
+    <UseCase Id="EXEC" Domain="MISC" SubDomain="EXEC" OS="N/A" Status="DONE">
+        <ClassName>acs.UseCase.Misc.EXEC.Exec</ClassName>
+        <Description>General execution use case. Run cmd one after the other</Description>
+        <Environment name="ANY"/>
+        <!--
+        This use case will export all ACS Global parameters as an JSON object into ACS_GLOBAL_PARAMETERS
+        environment variable so that user can access them from inside the script that is being executed
+        -->
+        <Parameters>
+            <Parameter name="SETUP_CMD" type="STRING" isOptional="true">
+                <Description>Action or sequence of actions (SETUP_CMD, SETUP_CMD1, SETUP_CMD2, ...)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="SETUP_TIMEOUT" type="FLOAT" isOptional="true">
+                <Description>Timeout is seconds for the setup cmd [mandatory if SETUP_CMD defined]</Description>
+                <PossibleValues/>
+                <DefaultValue>1</DefaultValue>
+                <Blank/>
+            </Parameter>
+            <Parameter name="SETUP_EXPECT_RESULT" type="STRING" isOptional="true">
+                <Description>Expected result int (exec return code) or string (that will be search in the stdout)
+                    If you need to check device log, add [TRIG_LOG] message to trigger as valueExpected
+                    result (return code or pattern) [optional, default value is 0]
+                </Description>
+                <PossibleValues/>
+                <DefaultValue>0</DefaultValue>
+                <Blank/>
+            </Parameter>
+            <Parameter name="RUN_CMD" type="STRING" isOptional="false">
+                <Description>Action or sequence of actions (SETUP_CMD, SETUP_CMD1, SETUP_CMD2, ...)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="RUN_TIMEOUT" type="FLOAT" isOptional="true">
+                <Description>Timeout is seconds for the run cmd</Description>
+                <PossibleValues/>
+                <DefaultValue>1</DefaultValue>
+                <Blank/>
+            </Parameter>
+            <Parameter name="RUN_EXPECT_RESULT" type="STRING" isOptional="true">
+                <Description>Expected result int (exec return code) or string (that will be search in the stdout)
+                    If you need to check device log, add [TRIG_LOG] message to trigger as
+                    value (optional, default value = 0)
+                </Description>
+                <PossibleValues/>
+                <DefaultValue>0</DefaultValue>
+                <Blank/>
+            </Parameter>
+            <Parameter name="TEAR_DOWN_CMD" type="STRING" isOptional="true">
+                <Description>Action or sequence of actions (SETUP_CMD, SETUP_CMD1, SETUP_CMD2, ...)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="TEAR_DOWN_TIMEOUT" type="FLOAT" isOptional="true">
+                <Description>Timeout of the teardown cmd [mandatory if TEAR_DOWN_CMD defined]</Description>
+                <PossibleValues/>
+                <DefaultValue>1</DefaultValue>
+                <Blank/>
+            </Parameter>
+            <Parameter name="TEAR_DOWN_EXPECT_RESULT" type="STRING" isOptional="true">
+                <Description>Expected result int (exec return code) or string (that will be search in the stdout)
+                    If you need to check device log, add [TRIG_LOG] message to trigger as
+                    value (optional, default value = 0)
+                </Description>
+                <PossibleValues/>
+                <DefaultValue>0</DefaultValue>
+                <Blank/>
+            </Parameter>
+        </Parameters>
+    </UseCase>
+</UseCases>

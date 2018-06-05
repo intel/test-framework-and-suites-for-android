@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase version="13.37">
+    <UseCase>EXEC</UseCase>
+    <Description>General execution use case</Description>
+    <b2bIteration>1</b2bIteration>
+    <b2bContinuousMode>True</b2bContinuousMode>
+    <TcExpectedResult>PASS</TcExpectedResult>
+
+    <Parameters>
+        <!--__________________________ -->
+        <!-- SETUP SECTION (optional) -->
+        <!--__________________________ -->
+        <!-- One action or sequence of actions (SETUP_CMD, SETUP_CMD1, SETUP_CMD2, ...) -->
+        <Parameter>
+            <!-- Action to be run, should be in the executable path of the system -->
+            <!-- (mandatory) -->
+            <!-- For this template, we are running windows only command -->
+            <Name>SETUP_CMD</Name>
+            <Value>cmd /c echo "setup"</Value>
+        </Parameter>
+        <Parameter>
+            <!-- Timeout action in second -->
+            <!-- (optional, default value = 5) -->
+            <Name>SETUP_TIMEOUT</Name>
+            <Value>1</Value>
+        </Parameter>
+        <Parameter>
+            <!-- Expected result int (exec return code) or string (that will be search in the stdout)
+                If you need to check device log, add [TRIG_LOG] <message to trigger> as value -->
+            <!-- (optional, default value = 0) -->
+            <Name>SETUP_EXPECT_RESULT</Name>
+            <Value>0</Value>
+        </Parameter>
+        <!--_____________ -->
+        <!-- RUN SECTION -->
+        <!--_____________ -->
+        <!-- One action or sequence of actions (RUN_CMD, RUN_CMD1, RUN_CMD2, ...) -->
+        <!-- FIRST ACTION -->
+        <Parameter>
+            <!-- Action to be run, should be in the executable path of the system -->
+            <!-- (mandatory) -->
+            <!-- For this template, we are running windows only command -->
+            <Name>RUN_CMD</Name>
+            <Value>cmd /c echo "run"</Value>
+        </Parameter>
+        <Parameter>
+            <!-- Timeout action in second -->
+            <!-- (optional, default value = 5) -->
+            <Name>RUN_TIMEOUT</Name>
+            <Value>1</Value>
+        </Parameter>
+        <!--Changes the execution folder for os commands and scripts to the Test Case directory-->
+        <!--Use cases: to run scripts/os commands relative to the location of the Test Case-->
+        <!--Ex.: there is a "scripts" folder at the TC location, with this enabled we can use this to run the script:-->
+        <!--<Parameter>-->
+        <!--    <Name>RUN_CMD</Name>-->
+        <!--    <Value>./scripts/<script_name></Value>-->
+        <!--</Parameter>-->
+        <Parameter>
+            <Name>RUN_FROM_TCDIRECTORY</Name>
+            <Value>True</Value>
+        </Parameter>
+        <Parameter>
+            <!-- Expected result int (exec return code) or string (that will be search in the stdout)
+                If you need to check device log, add [TRIG_LOG] <message to trigger> as value -->
+            <!-- (optional, default value = 0) -->
+            <Name>RUN_EXPECT_RESULT</Name>
+            <Value>run</Value>
+        </Parameter>
+        <!-- SECOND ACTION (optional) -->
+        <Parameter>
+            <!-- Next action to be run, should be in the executable path of the system -->
+            <!-- (mandatory) -->
+            <!-- For this template, we are running windows only command -->
+            <Name>RUN_CMD1</Name>
+            <Value>cmd /c echo "run1"</Value>
+        </Parameter>
+        <Parameter>
+            <!-- Timeout action in second -->
+            <!-- (optional, default value = 5) -->
+            <Name>RUN_TIMEOUT1</Name>
+            <Value>1</Value>
+        </Parameter>
+        <Parameter>
+            <!-- Expected result int (exec return code) or string (that will be search in the stdout)
+                If you need to check device log, add [TRIG_LOG] <message to trigger> as value -->
+            <!-- (optional, default value = 0) -->
+            <Name>RUN_EXPECT_RESULT1</Name>
+            <Value>run1</Value>
+        </Parameter>
+        <!-- ACTION N (optional, replace N by the next sequence)
+            <Parameter>
+            <Name>RUN_CMDN</Name>
+            <Value>echo "run1"</Value>
+            </Parameter>
+            <Parameter>
+            <Name>RUN_TIMEOUTN</Name>
+            <Value>1</Value>
+            </Parameter>
+            <Parameter>
+            <Name>RUN_EXPECT_RESULTN</Name>
+            <Value>run1</Value>
+            </Parameter>
+        -->
+        <!--______________________________ -->
+        <!-- TEAR DOWN SECTION (optional) -->
+        <!--______________________________ -->
+        <!-- One action or sequence of actions (TEAR_DOWN_CMD, TEAR_DOWN_CMD1, TEAR_DOWN_CMD2, ...) -->
+        <Parameter>
+            <!-- Action to be run, should be in the executable path of the system -->
+            <!-- (mandatory) -->
+            <!-- For this template, we are running windows only command -->
+            <Name>TEAR_DOWN_CMD</Name>
+            <Value>cmd /c echo "tear down"</Value>
+        </Parameter>
+        <Parameter>
+            <!-- Timeout action in second -->
+            <!-- (optional, default value = 5) -->
+            <Name>TEAR_DOWN_TIMEOUT</Name>
+            <Value>1</Value>
+        </Parameter>
+        <Parameter>
+            <!-- Expected result int (exec return code) or string (that will be search in the stdout)
+                If you need to check device log, add [TRIG_LOG] <message to trigger> as value -->
+            <!-- (optional, default value = 0) -->
+            <Name>TEAR_DOWN_EXPECT_RESULT</Name>
+            <Value>0</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Phone name="PHONE1"
+       deviceModel=""
+       description="Phone to use during test campaign. Please refer to Device_Catalog.xml to add device parameters">
+    <!-- You can override any parameter's value from Device_Catalog.xml file
+    e.g:
+    <Parameter serialNumber="abcd" />
+    -->
+</Phone>

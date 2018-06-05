@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<BenchConfig version="13.41">
+    <Phones>
+        <!--
+            To configure devices, please refer to _Templates\BenchConfigs\DUT folder ...
+        -->
+    </Phones>
+    <Equipments>
+        <!--
+            To configure equipments, please refer to _Templates\BenchConfigs\EQUIPMENT\<EQUIPMENT_TYPE> folder(s) ...
+        -->
+    </Equipments>
+</BenchConfig>

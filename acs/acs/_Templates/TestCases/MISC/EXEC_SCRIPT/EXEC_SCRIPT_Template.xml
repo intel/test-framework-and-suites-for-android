@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase version="13.45">
+    <UseCase>EXEC_SCRIPT</UseCase>
+    <Description>General execution use case</Description>
+    <b2bIteration>1</b2bIteration>
+    <b2bContinuousMode>True</b2bContinuousMode>
+    <TcExpectedResult>PASS</TcExpectedResult>
+    <Parameters>
+        <!--<Parameter>
+            <Name>SETUP_SCRIPT_PATH</Name>
+            <Value>exec_script_setup.py[optional]</Value>
+            </Parameter> -->
+        <Parameter>
+            <Name>SCRIPT_PATH</Name>
+            <Value>exec_script.py</Value>
+        </Parameter>
+        <!--<Parameter>
+            <Name>TEAR_DOWN_SCRIPT_PATH</Name>
+            <Value>exec_script_tear_down.py[optional]</Value>
+            </Parameter> -->
+        <!-- Optional -->
+        <!--<Parameter>
+            <Name>FINALIZE_SCRIPT_PATH</Name>
+            <Value>exec_script_finalize.py[optional]</Value>
+            </Parameter> -->
+        <!-- Optional -->
+        <Parameter>
+            <Name>OPTIONAL_PARAMETER_1</Name>
+            <Value>option_parameter_value_1</Value>
+        </Parameter>
+        <!-- <Parameter>
+            <Name>OPTIONAL_PARAMETER_2</Name>
+            <Value>option_parameter_value_2</Value>
+        </Parameter> -->
+    </Parameters>
+</TestCase>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:include schemaLocation="common.xsd" />
+
+    <!-- UECmd Type is specific to each OS family -->
+    <!-- Should be redefined in each OS family -->
+
+    <xsd:simpleType name="UECmd">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:minLength value="1"/>
+                    <xsd:pattern value=".+Device\.UECmd\.Imp\.Linux\.Common|.+Device\.UECmd\.Imp\.Linux\.Yocto"/>
+                </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:element name="BootShutdown">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Parameter" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:attributeGroup ref="AG_BOOTSHUTDOWN"/>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="Connection">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Parameter" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:attributeGroup ref="AG_CONNECTION"/>
+                        <xsd:attribute name="ipAddress" type="IPv4"/>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="Debug">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Parameter" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:attributeGroup ref="AG_DEBUG"/>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="Devices">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Parameter" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:attributeGroup ref="AG_DEVICES"/>
+                        <!-- Allow to have any other attribute no processing is done to it -->
+                        <xsd:anyAttribute processContents="skip"/>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="Implementation">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Parameter">
+                    <xsd:complexType>
+                        <xsd:attributeGroup ref="AG_IMPLEMENTATION"/>
+                        <xsd:attribute name="UECmd" type="UECmd" use="required"/>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="DeviceModel">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="Telephony" minOccurs="0" type="SkipSection"/>
+                <xsd:element ref="DeviceModule"/>
+                <xsd:element ref="BootShutdown"/>
+                <xsd:element ref="Connection"/>
+                <xsd:element ref="Debug"/>
+                <xsd:element ref="Devices"/>
+                <xsd:element ref="Implementation"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>
