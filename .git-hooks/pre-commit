@@ -1,0 +1,131 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import os
+import re
+import sys
+import subprocess
+import platform
+
+ON_CYGWIN = 'CYGWIN' in platform.system()
+ON_WINDOWS = 'Windows' in platform.system()
+
+
+def get_path(win_paths, linux_paths):
+    if ON_CYGWIN or ON_WINDOWS:
+        possible_paths = win_paths
+    else:
+        possible_paths = linux_paths
+
+    for _path in possible_paths:
+        if os.path.isfile(_path):
+            return _path
+        else:
+            for sys_path in os.environ["PATH"].split(os.pathsep):
+                sys_path = sys_path.strip('"')
+                exec_file = os.path.join(sys_path, _path)
+                if os.path.isfile(exec_file):
+                    return _path
+
+    print("\nCannot find {0} on your system.".format(possible_paths))
+    sys.exit(1)
+
+
+def get_list_of_committed_files():
+    """
+    Returns a list of files about to be commited.
+    """
+    files = []
+    # pylint: disable=E1103
+    proc = subprocess.Popen('git diff-index --name-only --cached HEAD'.split(),
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
+    output, _ = proc.communicate()
+    for result in output.split('\n'):
+        if result and "__init__.py" not in result:
+            files.append(result)
+
+    return files
+
+
+def get_python_files():
+    # Return only python files
+
+    python_files = []
+
+    # Find Python files
+    for filename in get_list_of_committed_files():
+        if "pre-commit" in filename:
+            # Skip pre-commit script
+            continue
+
+        if not os.path.isfile(filename):
+            # Should be a rename, skip it
+            continue
+
+        # Check the file extension
+        if filename[-3:] == '.py':
+            python_files.append((filename, None))
+            continue
+
+        # Check the first line for a python shebang
+        try:
+            with open(filename, 'r') as file_handle:
+                first_line = file_handle.readline()
+            if 'python' in first_line and '#!' in first_line:
+                python_files.append((filename, None))
+        except IOError:
+            print 'File not found (probably deleted): %s\t\tSKIPPED' % filename
+
+    return python_files
+
+
+def autopep8(python_files):
+    # To be compliant pep8
+    autopep8_path = get_path([r"/cygdrive/c/Python27/Scripts/autopep8.exe",
+                              r"/drives/c/Python27/Scripts/autopep8.exe",
+                              r"/cygdrive/c/Python26/Scripts/autopep8.exe",
+                              r"/drives/c/Python26/Scripts/autopep8.exe"],
+                             [r"autopep8"])
+    for filename, nil in python_files:
+        print "Running Autopep8 on {0}... ".format(filename),
+        try:
+            subprocess.call([autopep8_path, "-i", "--max-line-length=120",
+                             "--ignore=E125", filename])
+        except OSError:
+            print "\nAn error occurred. Is autopep8 installed?"
+            sys.exit(1)
+        print "\tDone"
+
+
+def flake8(python_files):
+    flake8_path = get_path([r"/cygdrive/c/Python27/Scripts/flake8.exe",
+                            r"/drives/c/Python27/Scripts/flake8.exe",
+                            r"/cygdrive/c/Python26/Scripts/flake8.exe",
+                            r"/drives/c/Python26/Scripts/flake8.exe"],
+                           [r"flake8"])
+    for filename, nil in python_files:
+        print "Running flake8 on {0}... ".format(filename),
+        try:
+            # Add "--max-complexity=12" when we are ready
+            result = subprocess.call([flake8_path,
+                                      "--ignore=E125,E501,W503,E722",
+                                      "--max-line-length=120", filename])
+        except OSError:
+            print "\nAn error occurred. Is flake8 installed?"
+            sys.exit(1)
+        if result != 0:
+            print "\nFlake8 issue, please fix it"
+            sys.exit(result)
+        else:
+            print "\tOK"
+
+
+if __name__ == '__main__':
+    print("Start ACS pre-commit checks...")
+    python_files = get_python_files()
+    if python_files:
+        autopep8(python_files)
+        flake8(python_files)
+    else:
+        print("No python files updated !")
+    sys.exit(0)
