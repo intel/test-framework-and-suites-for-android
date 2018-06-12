@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<UseCases xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../acs/acs/_Catalogs/UseCase/usecase.xsd">
+    <UseCase Id="PY_UNIT" Domain="MISC" SubDomain="EXEC" OS="ANDROID" Status="DONE">
+        <ClassName>UseCase.Misc.PY_UNIT.PyUnit</ClassName>
+        <Description>Use case for running existing test cases target to be run via noserunner</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="TEST_DATA_ROOT" type="STRING" isOptional="false">
+                <Description>Config root for py unit</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="TEST_CASE" type="STRING" isOptional="false">
+                <Description>test case name (format should be 'module.class.method')</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+        </Parameters>
+    </UseCase>
+</UseCases>
