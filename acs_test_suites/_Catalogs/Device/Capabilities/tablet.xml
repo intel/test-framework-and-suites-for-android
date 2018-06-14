@@ -1,0 +1,16 @@
+<DeviceCapabilities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:noNamespaceSchemaLocation="../../../../acs/acs/_Catalogs/Device/Capabilities/DeviceCapabilities.xsd">
+    <Capability>touchscreen</Capability>
+    <Capability>camera</Capability>
+    <Capability>wifi</Capability>
+    <Capability>widi</Capability>
+    <Capability>nfc</Capability>
+    <Capability>gps</Capability>
+    <Capability>bluetooth</Capability>
+    <Capability>microphone</Capability>
+    <Capability>speaker</Capability>
+    <Capability>headset</Capability>
+    <Capability>torchlight</Capability>
+    <Capability>vibrator</Capability>
+    <Capability>usb_charging</Capability>
+</DeviceCapabilities>

@@ -1,0 +1,6 @@
+<DeviceCapabilities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:noNamespaceSchemaLocation="../../../../acs/acs/_Catalogs/Device/Capabilities/DeviceCapabilities.xsd">
+    <Capability>wifi</Capability>
+    <Capability>bluetooth</Capability>
+    <Capability>ethernet</Capability>
+</DeviceCapabilities>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<DeviceModel xsi:noNamespaceSchemaLocation="../../../../../../acs/acs/_Catalogs/Device/Models/AndroidDeviceModel.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <BootShutdown></BootShutdown>
+    <Connection></Connection>
+    <Debug></Debug>
+    <UITesting></UITesting>
+    <Telephony></Telephony>
+    <EM></EM>
+    <LocalConnectivity></LocalConnectivity>
+    <Devices></Devices>
+    <Power/>
+    <Implementation>
+        <Parameter deviceCapabilities="Capabilities/phone.xml"
+                   ClassName="Device.Model.AndroidDevice.ReferenceDeviceBase.ReferenceDeviceBase"
+                   UECmd="acs_test_scripts.Device.UECmd.Imp.Android.M"
+                   OS="ANDROID" OSVersion="M"
+                   defaultTimeout="50"
+                   waitBetweenCmd="5"/>
+    </Implementation>
+</DeviceModel>

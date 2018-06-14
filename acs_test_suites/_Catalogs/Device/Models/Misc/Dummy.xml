@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<DeviceModel xsi:noNamespaceSchemaLocation="../../../../../acs/acs/_Catalogs/Device/Models/DummyDeviceModel.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Implementation>
+        <Parameter deviceCapabilities="Capabilities/dummy.xml"
+                   ClassName="acs.Device.Model.Dummy.Dummy.Dummy"
+                   waitBetweenCmd="2" />
+    </Implementation>
+</DeviceModel>

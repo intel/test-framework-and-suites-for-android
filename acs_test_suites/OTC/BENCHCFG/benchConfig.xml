@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<BenchConfig>
+    <Phones>
+        <Phone name="PHONE1"
+                deviceModel="Android"
+                description="Test DUI, please refer to Device_Catalog.xml to add device parameters">
+        </Phone>
+    </Phones>
+    <Equipments>
+    </Equipments>
+</BenchConfig>
