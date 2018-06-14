@@ -98,8 +98,9 @@ class EquipmentManager(object):
         :param global_config: the global configuration to use
         """
         cls.__global_cfg = global_config
-        cls.__power_supply_required_by_user = str_to_bool(global_config.campaignConfig.get("isControlledPSUsed"))
-        cls.__io_card_required_by_user = str_to_bool(global_config.campaignConfig.get("isIoCardUsed"))
+        cls.__power_supply_required_by_user = str_to_bool(
+            global_config.campaignConfig.get("isControlledPSUsed", "false"))
+        cls.__io_card_required_by_user = str_to_bool(global_config.campaignConfig.get("isIoCardUsed", "false"))
 
     @classmethod
     def get_global_config(cls):

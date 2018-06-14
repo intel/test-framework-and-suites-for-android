@@ -632,10 +632,10 @@ class TestCaseManager(object):
             else:
                 self._final_dut_state = DeviceState.ON
 
-        # By default finalDutState is power off
+        # By default finalDutState is no-change
         else:
-            self._logger.info("'finalDutState' campaign parameter is not set ! Use its default value 'POWEROFF'.")
-            self._final_dut_state = DeviceState.OFF
+            self._logger.info("'finalDutState' campaign parameter is not set ! Use its default value 'NOCHANGE'.")
+            self._final_dut_state = DeviceState.NC
 
         # Override the value of finalDutState into globalconfig dictionary
         self._global_config.campaignConfig["finalDutState"] = self._final_dut_state
