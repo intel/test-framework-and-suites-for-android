@@ -1,0 +1,3 @@
+*.pyc
+acs/acs/_ExecutionConfig/
+acs/acs/_Reports/
