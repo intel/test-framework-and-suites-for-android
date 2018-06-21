@@ -124,7 +124,7 @@ if __name__ == '__main__':
     print("Start ACS pre-commit checks...")
     python_files = get_python_files()
     if python_files:
-        autopep8(python_files)
+        # autopep8(python_files)
         flake8(python_files)
     else:
         print("No python files updated !")
