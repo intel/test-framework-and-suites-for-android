@@ -1675,7 +1675,7 @@ class AndroidDeviceBase(DeviceBase):
         Synchronize the device time and the acs host time
         """
         # FIXME: UECMD will result in errors
-        return Global.SUCCESS, "";
+        return Global.SUCCESS, ""
 
         system_api = self.get_uecmd("System")
 
