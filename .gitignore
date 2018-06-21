@@ -1,3 +1,4 @@
 *.pyc
+*.swp
 acs/acs/_ExecutionConfig/
 acs/acs/_Reports/
