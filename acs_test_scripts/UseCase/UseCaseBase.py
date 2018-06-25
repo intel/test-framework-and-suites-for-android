@@ -16,8 +16,6 @@ and limitations under the License.
 
 SPDX-License-Identifier: Apache-2.0
 """
-import acs_test_scripts.Device.UECmd.UECmdTypes as UECmdTypes
-
 from acs.UseCase.UseCaseBase import UseCaseBase as UCBase
 
 
@@ -31,6 +29,3 @@ class UseCaseBase(UCBase):
         Constructor
         """
         UCBase.__init__(self, tc_conf, global_config)
-
-        # UECmd type
-        self._uecmd_types = UECmdTypes

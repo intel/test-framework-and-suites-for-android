@@ -148,9 +148,9 @@ class PyUnit(UseCaseBase):
         if (env_script_root is not None):
             script_root = env_script_root
         else:
-            matchobj = re.match(r'(.*)TC\/TP\/TC\/(.*)', self._name, re.I)
+            matchobj = re.match(r'(.*)TC\/PY_UNIT\/(.*)', self._name, re.I)
             if (matchobj):
-                extra_sub_folders = matchobj.group(1) + 'TC/TP/'
+                extra_sub_folders = matchobj.group(1) + 'libs/pyunit/'
             else:
                 raise Exception("Couldn't parse the script root path, \
                                 please set PYUNIT_script_root!")
