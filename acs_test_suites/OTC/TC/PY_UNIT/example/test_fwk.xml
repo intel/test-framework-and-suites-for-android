@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TestCase>
+    <UseCase>PY_UNIT</UseCase>
+    <Discription>Test PY_UNIT framework</Discription>
+    <Parameters>
+        <Parameter>
+            <Name>TEST_DATA_ROOT</Name>
+            <Value>test_data/</Value>
+        </Parameter>
+        <Parameter>
+            <Name>TEST_CASE</Name>
+            <Value>tests.example.example.FwkTest.test_fwk</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>

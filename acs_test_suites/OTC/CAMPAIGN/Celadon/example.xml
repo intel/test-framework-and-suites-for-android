@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<Campaign version="13.49">
+    <TestCases>
+        <TestCase Id="../../TC/PY_UNIT/example/test_fwk"></TestCase>
+    </TestCases>
+</Campaign>
+
