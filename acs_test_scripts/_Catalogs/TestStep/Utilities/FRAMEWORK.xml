@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestSteps xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../acs/acs/_Catalogs/TestStep/teststep.xsd">
+    <TestStep Id="STORE_STRING_IN_CTX" Domain="UTILITIES" SubDomain="FRAMEWORK" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.Framework.StoreStringInContext.StoreStringInContext</ClassName>
+        <Description>Add input string into context</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="INPUT" type="STRING" isOptional="false">
+                <Description>String to add into context</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="OUTPUT" type="CONTEXT" isOptional="false">
+                <Description>
+                    <Key name="STORED_STRING" type="STRING">String copied from INPUT</Key>
+                </Description>
+                <PossibleValues />
+                <DefaultValue />
+            </Parameter>
+        </Parameters>
+    </TestStep>
+    <TestStep Id="EXEC_SCRIPT" Domain="UTILITIES" SubDomain="FRAMEWORK" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.Framework.ExecScript.ExecScript</ClassName>
+        <Description>Execute an external python script</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="SCRIPT_PATH" type="STRING" isOptional="false">
+                <Description>Script's path, absolute, or relative to ExecutionConfig folder,
+                    or relative to test case's folder</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+        </Parameters>
+    </TestStep>
+</TestSteps>

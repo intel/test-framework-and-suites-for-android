@@ -29,7 +29,7 @@ import os
 import sys
 
 # fix pkg import error in source code folder
-pkg_path = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
+pkg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if pkg_path not in sys.path:
     sys.path.append(pkg_path)
 

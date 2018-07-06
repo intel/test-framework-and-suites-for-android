@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Common Parameters Catalog Template : new template to automatically populate i-TAP database with Common TC params -->
+<Parameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../acs/src/_Catalogs/Parameter/parameter.xsd">
+    <Parameter name="FLOAT">
+        <Description>Simple float</Description>
+        <Domain>COMMON</Domain>
+        <Type>float</Type>
+        <PossibleValues override="true"/>
+        <DefaultValue override="true">1.0</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="INTEGER">
+        <Description>Simple integer</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="true"/>
+        <DefaultValue override="true">1</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="STRING">
+        <Description>Simple character string</Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="true"/>
+        <DefaultValue override="true"/>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="BOOLEAN">
+        <Description>Simple boolean</Description>
+        <Domain>COMMON</Domain>
+        <Type>bool</Type>
+        <PossibleValues override="false">true;false</PossibleValues>
+        <DefaultValue override="true">false</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="SCRIPT">
+        <Description>Script to run</Description>
+        <Domain>COMMON</Domain>
+        <Type>scriptfile</Type>
+        <PossibleValues override="false"/>
+        <DefaultValue override="false"/>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="CONTEXT">
+        <Description>String representing key name of a single piece of information to be saved into a context
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="true"/>
+        <DefaultValue override="true"/>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="LIST">
+        <Description>String representing a list of values separated by '[|]'
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>list</Type>
+        <PossibleValues override="true"/>
+        <DefaultValue override="true"/>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="VOLUME_IN_PERCENT">
+        <Description>Volume value in percent from 0 to 100</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="false">[0:100]</PossibleValues>
+        <DefaultValue override="true">10</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="DURATION_IN_MSEC">
+        <Description>Duration in milliseconds</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="true">[0:1000000]</PossibleValues>
+        <DefaultValue override="true">300000</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="DURATION_IN_SEC">
+        <Description>Duration in seconds</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="true">[0:100000]</PossibleValues>
+        <DefaultValue override="true">300</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="TIMEOUT_IN_SEC">
+        <Description>Timeout in seconds</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="true">[0:200000]</PossibleValues>
+        <DefaultValue override="true">10</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="TIMEOUT_IN_MSEC">
+        <Description>Timeout in milliseconds</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="true">[0:200000]</PossibleValues>
+        <DefaultValue override="true">10000</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="AUDIO_OUTPUT">
+        <Description>The device used for audio output, could be speaker, headset or none</Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="false">speaker;headset;none</PossibleValues>
+        <DefaultValue override="true">none</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="XFER_DIRECTION">
+        <Description>Transfer direction</Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="false">UL;DL;BOTH</PossibleValues>
+        <DefaultValue override="true">UL</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="IS_FLIGHT_MODE_ENABLED">
+        <Description>Enabled/Disabled Flight mode</Description>
+        <Domain>COMMON</Domain>
+        <Type>bool</Type>
+        <PossibleValues override="true"/>
+        <DefaultValue override="true">false</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="IS_BLUETOOTH_ENABLED">
+        <Description>Enabled/Disabled Bluetooth</Description>
+        <Domain>COMMON</Domain>
+        <Type>bool</Type>
+        <PossibleValues override="false">true;false</PossibleValues>
+        <DefaultValue override="true">false</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="IS_DATA_ENABLED">
+        <Description>Enabled/Disabled Data</Description>
+        <Domain>COMMON</Domain>
+        <Type>bool</Type>
+        <PossibleValues override="false">true;false</PossibleValues>
+        <DefaultValue override="true">false</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="IS_HPLMN_COVERAGE_AVAILABLE">
+        <Description>iS Home Public Land Mobile Network Coverage available ?</Description>
+        <Domain>COMMON</Domain>
+        <Type>bool</Type>
+        <PossibleValues override="false">true;false</PossibleValues>
+        <DefaultValue override="true">false</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="DL_FILENAME">
+        <Description>File to download from a server. ACS gets its value from BenchConfig using ftp_path key of SERVER
+            equipments (WIFI_SERVER, LAB_SERVER...)
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="false"/>
+        <DefaultValue override="false"/>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="UL_FILENAME">
+        <Description>File to upload on the server. This file shall be available on the device. ACS gets its value from
+            DeviceCatalog, BenchConfig or CLI using key ftpPath
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>file</Type>
+        <PossibleValues override="false"/>
+        <DefaultValue override="false"/>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="MUM_FILE">
+        <Description>Multimedia file to play (audio, video, picture) - Ex : toto.mp3, tata.mp4, titi.jpg</Description>
+        <Domain>COMMON</Domain>
+        <Type>file</Type>
+        <PossibleValues override="false"/>
+        <DefaultValue override="false"/>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="IS_SILENT_MODE_ENABLED">
+        <Description>Enable/Disable silent mode</Description>
+        <Domain>COMMON</Domain>
+        <Type>bool</Type>
+        <PossibleValues override="false">true;false</PossibleValues>
+        <DefaultValue override="true">false</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="IPERF_PORT">
+        <Description>IPERF port to be used. 5001 for TCP 5009 for UDP</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="false">5001;5009</PossibleValues>
+        <DefaultValue override="true">5001</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="IPERF_MODE">
+        <Description>[Optional] Choose from single|concurrency|dual IPerf mode. Default is dual if unspecified:
+            - Single will do a DUT client and equipment server IPerf transfer (If using AGILENT_E6621A IPerf server must
+            be launched manually)
+            - Dual will do for DL: a DUT server and equipment client IPerf transfer, and for UL: the same as single mode
+            (same comment as above for AGILENT_E6621A)
+            - Concurrency will do two IPerf transfer at the same time: DUT and equipment are both client and server.
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="false">single;dual;concurrency</PossibleValues>
+        <DefaultValue override="true">dual</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="TEST_SERVER">
+        <Description>
+            Server Configuration used for FTP, IPERF on test automation.
+            Refers to a configuration on Bench_Config.
+            Should contain at least these parameters:
+            - IP (ip address of the equipment)
+            - username (login used for the connection)
+            - password (password used for the connection)
+            Can contain:
+            - IPV6 (prefix and ipv6 address of the equipment)
+            - ftp_path (full path of home ftp directory)
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <!-- Warning for later acs evolution, possible values to be checked-->
+        <PossibleValues override="true">LAB_LTE_SERVER;LAB_SERVER;LIVE_SERVER;WIFI_SERVER</PossibleValues>
+        <DefaultValue override="true">LAB_SERVER</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="REMOTE_COMPUTER">
+        <Description>
+            Computer connected to the local ethernet network (bench)
+            Refers to a configuration on Bench_Config.
+            Should contain at least these parameters:
+            - Model (LOCAL_COMPUTER or REMOTE_COMPUTER)
+            - IP (ip address of the equipment)
+            - username (login used for the connection)
+            - Interface (WireLess Interface to use (wlan1/ra0))
+            - IPv6Prefix (IPv6 prefix of the computer)
+            Can optionally contain:
+            - SshPath (full path to local SSH client binary (default 'ssh'))
+            - ScpPath (full path to local SCP client binary (default 'scp'))
+            - IP_TEST (ip address of the equipment from DUT point of view (only required on Conformance Bench)")
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="true"></PossibleValues>
+        <DefaultValue override="true">COMPUTER1</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="LOCAL_COMPUTER">
+        <Description>
+            Computer connected to the local ethernet network (bench)
+            Refers to a configuration on Bench_Config.
+            Should contain at least these parameters:
+            - Model (LOCAL_COMPUTER or REMOTE_COMPUTER)
+            - USBInterface (USB Interface to use (usb0))
+            - BenchNetInterface (Network Interface use to connect to the Bench network (eth0) [Linux])
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="true"></PossibleValues>
+        <DefaultValue override="true">COMPUTER1</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="TRANSPORT_PROTOCOL">
+        <Description>Transport layer protocol</Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="false">UDP;TCP</PossibleValues>
+        <DefaultValue override="true">TCP</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="IP_VERSION">
+        <Description>IP Version - IPV4 | IPV6 | IPV4V6</Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="false">IPV4;IPV6;IPV4V6</PossibleValues>
+        <DefaultValue override="true">IPV4</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="DATA_PACKET_COUNT">
+        <Description>Number of data packet</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="true">[0:200]</PossibleValues>
+        <DefaultValue override="true">10</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="DATA_PACKET_LOSS_RATE_IN_PERCENT">
+        <Description>Rate of lost data packets in percent</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="true">[0:100]</PossibleValues>
+        <DefaultValue override="true">10</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="DATA_PACKET_SIZE_IN_BYTES">
+        <Description>Size of data packet in bytes</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="true">[0:500]</PossibleValues>
+        <DefaultValue override="true">64</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="TEXT_MESSAGE">
+        <Description>Text message</Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="false"/>
+        <DefaultValue override="true"/>
+        <Blank override="true">true</Blank>
+    </Parameter>
+    <Parameter name="THROUGHPUT_IN_KBPS">
+        <Description>[Optionnal]Throughput value in Kbps.If no value is set, default value will be retrieved from
+            Throughput_Targets.xml
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="true">[0:100000]</PossibleValues>
+        <DefaultValue override="true">70000</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="BROWSER_TYPE">
+        <Description>Browser to use.Possible values : "NATIVE", "ACS_AGENT". WARNING ! NATIVE mode is not verbose in
+            term of verdict, because it uses the default browser of the system. So the user should check manually in
+            this mode if the page is correctly loaded
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="false">NATIVE;ACS_AGENT;CHROME</PossibleValues>
+        <DefaultValue override="true">NATIVE</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="WEBSITE_URL">
+        <Description>Website url - Should follow the format: http://xxx. Multiple page browsing can also be achieved by
+            providing multiple website urls separated by ";". Each page will be loaded one after an other
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>str</Type>
+        <PossibleValues override="false"/>
+        <DefaultValue override="true"/>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="ITERATION">
+        <Description>Number of iterations</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="true">[0:1000000]</PossibleValues>
+        <DefaultValue override="true">10</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="FAIL_ON_ERROR">
+        <Description>A value indicating whether we want that the Use Case fails one error or not.</Description>
+        <Domain>COMMON</Domain>
+        <Type>bool</Type>
+        <PossibleValues override="true"/>
+        <DefaultValue override="true">true</DefaultValue>
+        <Blank override="true">true</Blank>
+    </Parameter>
+    <Parameter name="ARE_BOTH_DIRECTIONS_SUPPORTED">
+        <Description>When set to "True", the test will request for starting a second transfer in the opposite direction
+            of the one specified in DIRECTION parameter. This request should occur during the 1st file transfer. Note
+            that this is not possible to transfer in both directions in the same
+            time. The request for the other direction should be stored by the receiver and the second transfer should
+            start at the end of the first one Possible values: True/False
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>bool</Type>
+        <PossibleValues override="false">True;False</PossibleValues>
+        <DefaultValue override="true">False</DefaultValue>
+        <Blank override="false">false</Blank>
+    </Parameter>
+    <Parameter name="DOUBLE_CHECK_AFTER_REBOOT">
+        <Description>A value indicating that we want the usecase to check a feature another time, after a device
+            reboot
+        </Description>
+        <Domain>COMMON</Domain>
+        <Type>bool</Type>
+        <PossibleValues override="true"/>
+        <!-- value set by default to false because this feature will cost a lot of TIME -->
+        <DefaultValue override="true">false</DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+    <Parameter name="PERCENTAGE">
+        <Description>a percentage, typically from 0 to 100</Description>
+        <Domain>COMMON</Domain>
+        <Type>int</Type>
+        <PossibleValues override="true">[0:100]</PossibleValues>
+        <DefaultValue override="true"></DefaultValue>
+        <Blank override="true">false</Blank>
+    </Parameter>
+</Parameters>

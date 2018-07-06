@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestSteps xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../acs/acs/_Catalogs/TestStep/teststep.xsd">
+    <TestStep Id="GET_EQT_CONFIG" Domain="UTILITIES" SubDomain="BENCH_CONFIG" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.BenchConfig.GetEqtConfig.GetEqtConfig</ClassName>
+        <Description>Save equipment config in a context variable</Description>
+        <Environment name="ANY">
+        </Environment>
+        <Parameters>
+            <Parameter name="EQT" type="STRING" isOptional="false">
+                <Description>The equipment name shall refer to an existing equipment of the Bench config.</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="SAVE_AS" type="CONTEXT" isOptional="false">
+                <Description>
+                    <Key name="KEY_NAME_DEFINED_BY_USER" type="STRING">Name of the context variable where the equipment config will be saved.</Key>
+                </Description>
+                <PossibleValues />
+                <DefaultValue />
+            </Parameter>
+        </Parameters>
+    </TestStep>
+</TestSteps>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestSteps xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../acs/acs/_Catalogs/TestStep/teststep.xsd">
+    <TestStep Id="SPLIT" Domain="UTILITIES" SubDomain="STRING" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.String.Split.Split</ClassName>
+        <Description>Split a string</Description>
+        <Environment name="ANY">
+        </Environment>
+        <Parameters>
+            <Parameter name="STRING" type="STRING" isOptional="false">
+                <Description>String to split</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="SEP" type="STRING" isOptional="true">
+                <Description>Separator</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="ELEMENT" type="INTEGER" isOptional="true">
+                <Description>Element number of the split result to retrieve (if None, all the table will be copied)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="SAVE_AS" type="CONTEXT" isOptional="false">
+                <Description>
+                    <Key name="KEY_NAME_DEFINED_BY_USER" type="STRING">Name of the context variable where the result string will be saved.</Key>
+                </Description>
+                <PossibleValues />
+                <DefaultValue />
+            </Parameter>
+        </Parameters>
+    </TestStep>
+    <TestStep Id="REGEX" Domain="UTILITIES" SubDomain="STRING" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.String.Regex.Regex</ClassName>
+        <Description>Search a Regex on a string</Description>
+        <Environment name="ANY">
+        </Environment>
+        <Parameters>
+           <Parameter name="ACTION" type="STRING" isOptional="false">
+                <Description>Action to execute (SEARCH or MATCH)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+           <Parameter name="PATTERN" type="STRING" isOptional="false">
+                <Description>Pattern to search</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="STRING" type="STRING" isOptional="false">
+                <Description>String</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="PASS_IF" type="BOOLEAN" isOptional="true">
+                <Description>
+                    Defines whether the test must pass action succeeds, or fails.
+                </Description>
+                <PossibleValues/>
+                <DefaultValue>True</DefaultValue>
+            </Parameter>
+            <Parameter name="SAVE_AS" type="STRING" isOptional="true">
+                <Description>Name of the variable where to store result</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+        </Parameters>
+    </TestStep>
+    <TestStep Id="GLUE_COMMAND" Domain="EQUIPMENT" SubDomain="SERIAL_CMD" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.String.GlueCommand.GlueCommand</ClassName>
+        <Description>
+            This command is used to create a new string out of minimum 2 and max 3 pieces. This is useful right now for
+            the scenario in which we have to compose a command for the serial COM port that consists of multiple
+            other command outputs, passed on as context variables.
+        </Description>
+        <Environment name="ANY">
+        </Environment>
+        <Parameters>
+            <Parameter name="PIECE1" type="STRING" isOptional="false">
+                <Description>First possible piece</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="PIECE2" type="STRING" isOptional="false">
+                <Description>Second possible piece</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="PIECE3" type="STRING" isOptional="true">
+                <Description>Third piece, optional</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="SAVE_AS" type="CONTEXT" isOptional="false">
+                <Description>This is the context variable in which the output will be saved</Description>
+                <PossibleValues />
+                <DefaultValue />
+            </Parameter>
+        </Parameters>
+    </TestStep>
+    <TestStep Id="GET_STR_AFTER_KEYWORD" Domain="UTILITIES" SubDomain="STRING" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.String.GetStrAfterKeyword.GetStrAfterKeyword</ClassName>
+        <Description>Returns the string after another string that is found until the first whitespace</Description>
+        <Environment name="ANY">
+        </Environment>
+        <Parameters>
+           <Parameter name="KEYWORD" type="STRING" isOptional="false">
+                <Description>Keyword to match from the input string</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+           <Parameter name="INPUT_STRING" type="STRING" isOptional="false">
+                <Description>String from which to extract</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="SAVE_AS" type="CONTEXT" isOptional="false">
+                <Description>This is the context variable in which the output will be saved</Description>
+                <PossibleValues />
+                <DefaultValue />
+            </Parameter>
+        </Parameters>
+    </TestStep>
+</TestSteps>

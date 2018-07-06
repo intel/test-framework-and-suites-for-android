@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestSteps xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../acs/acs/_Catalogs/TestStep/teststep.xsd">
+    <TestStep Id="MATH_OPERATION" Domain="UTILITIES" SubDomain="MATH" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.Math.MathOperation.MathOperation</ClassName>
+        <Description>
+            Perform a simple operation between two values.
+        </Description>
+        <Environment name="ANY">
+        </Environment>
+        <Parameters>
+            <Parameter name="FIRST" type="STRING" isOptional="false">
+                <Description>First value for operation.</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="SECOND" type="STRING" isOptional="false">
+                <Description>Second value for operation.</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="OPERATOR" type="STRING" isOptional="false">
+                <Description>
+                Mathematical operator. Values are used as follow :
+                    ADD : FIRST + SECOND
+                    SUBTRACT : FIRST - SECOND
+                    MULTIPLY : FIRST * SECOND
+                    DIVIDE : FIRST / SECOND
+                </Description>
+                <PossibleValues>ADD;SUBTRACT;MULTIPLY;DIVIDE;</PossibleValues>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="SAVE_RESULT_AS" type="CONTEXT" isOptional="false">
+                <Description>
+                    <Key name="KEY_NAME_DEFINED_BY_USER" type="STRING">Result of the operation.</Key>
+                </Description>
+                <PossibleValues />
+                <DefaultValue />
+            </Parameter>
+        </Parameters>
+    </TestStep>
+</TestSteps>

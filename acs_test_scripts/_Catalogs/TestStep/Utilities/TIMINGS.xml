@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestSteps xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../acs/acs/_Catalogs/TestStep/teststep.xsd">
+    <TestStep Id="SUSPEND" Domain="UTILITIES" SubDomain="TIMINGS" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.Timings.Suspend.Suspend</ClassName>
+        <Description>Suspend execution for x (float) seconds</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="DURATION_IN_SEC" type="FLOAT" isOptional="false">
+                <Description>Time to wait in seconds</Description>
+                <PossibleValues>[0.0:86400.0]</PossibleValues>
+                <DefaultValue>1.0</DefaultValue>
+            </Parameter>
+            <Parameter name="REFRESH_STDOUT_IN_SEC" type="FLOAT" isOptional="true">
+                <Description>Update stdout every x seconds</Description>
+                <PossibleValues>[0.0:86400.0]</PossibleValues>
+                <DefaultValue>300.0</DefaultValue>
+            </Parameter>
+        </Parameters>
+    </TestStep>
+    <TestStep Id="SUSPEND_TO_TIME" Domain="UTILITIES" SubDomain="TIMINGS" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.Timings.SuspendToTime.SuspendToTime</ClassName>
+        <Description>Suspend execution until specified time is reached</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="TO_TIME" type="FLOAT" isOptional="false">
+                <Description>Timestamp to wait in seconds</Description>
+                <PossibleValues></PossibleValues>
+                <DefaultValue></DefaultValue>
+            </Parameter>
+        </Parameters>
+    </TestStep>
+</TestSteps>

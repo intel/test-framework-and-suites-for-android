@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestSteps xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../acs/acs/_Catalogs/TestStep/teststep.xsd">
+    <TestStep Id="COMPARE" Domain="UTILITIES" SubDomain="CHECKS" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.Checks.Compare.Compare</ClassName>
+        <Description>Compare two given arguments using the given comparison operator</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="FIRST" type="STRING" isOptional="false">
+                <Description>First value to compare</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="SECOND" type="STRING" isOptional="false">
+                <Description>Second value to compare. can be a blank string</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank>True</Blank>
+            </Parameter>
+            <Parameter name="OPERATOR" type="STRING" isOptional="false">
+                <Description>
+                Comparison operator.  WITHIN_BOUNDS:  SECOND must be of the form x,d where x is the target value and d is the acceptable delta from x.
+                In other words, it looks at whether FIRST is within the range [x-d, x+d].  Example:  FIRST="8", SECOND="10,3", OPERATOR="WITHIN_BOUNDS, PASS_IF="True".
+                Result is PASS since 8 is within the range [7,13].
+                </Description>
+                <PossibleValues>EQUAL;NOT_EQUAL;GREATER;LESS;GREATER_OR_EQUAL;LESS_OR_EQUAL;IN;WITHIN_BOUNDS</PossibleValues>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="PASS_IF" type="BOOLEAN" isOptional="false">
+                <Description>
+                    Defines whether the test must pass when the comparison succeeds, or fails. In this way it's possible
+                    to make flexible comparisons. so if FIRST=10 and SECOND=10 and operator is equal, by default the test
+                    will pass. If pass_if is false, then the test will fail.
+                </Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+        </Parameters>
+    </TestStep>
+    <TestStep Id="CHECK_CONTEXT_INFO" Domain="UTILITIES" SubDomain="CHECKS" Feature="" Status="DONE">
+            <ClassName>acs_test_scripts.TestStep.Utilities.Checks.CheckContextInfoExists.CheckContextInfoExists</ClassName>
+            <Description>Check if a key is in the context</Description>
+            <Environment name="ANY"/>
+            <Parameters>
+                <Parameter name="KEY" type="STRING" isOptional="false">
+                    <Description>Key to search in the context</Description>
+                    <PossibleValues/>
+                    <DefaultValue/>
+                </Parameter>
+            </Parameters>
+    </TestStep>
+    <TestStep Id="CHECK_CAMPAIGN_INFO" Domain="UTILITIES" SubDomain="CHECKS" Feature="" Status="DONE">
+            <ClassName>acs_test_scripts.TestStep.Utilities.Checks.CheckCampaignInfo.CheckCampaignInfo</ClassName>
+            <Description>Check if a KEY was in the campaign configuration file and store the value found into PARAM_VALUE as a string.
+                            Use DEFAULT_VALUE for PARAM_VALUE if KEY was not found in the configuration file.</Description>
+            <Environment name="ANY"/>
+            <Parameters>
+                <Parameter name="KEY" type="STRING" isOptional="false">
+                    <Description>Value to search for in the configuration file.</Description>
+                    <PossibleValues/>
+                    <DefaultValue/>
+                </Parameter>
+                <Parameter name="PARAM_VALUE" type="CONTEXT" isOptional="false">
+                    <Description>
+                        <Key name="PARAM_VALUE_KEY" type="STRING">Final parameter value, either from DEFAULT_VALUE or from Campaign config.</Key>
+                    </Description>
+                    <PossibleValues/>
+                    <DefaultValue/>
+                </Parameter>
+                <Parameter name="DEFAULT_VALUE" type="STRING" isOptional="false">
+                    <Description>Value to store in PARAM_VALUE if nothing was found for KEY in the configuration file.</Description>
+                    <PossibleValues/>
+                    <DefaultValue/>
+                </Parameter>
+            </Parameters>
+    </TestStep>
+    <TestStep Id="CHECK_PATH" Domain="UTILITIES" SubDomain="CHECKS" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.Checks.CheckPath.CheckPath</ClassName>
+        <Description>Check some properties for the given path on host machine (existence, representing a file, ...)</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="PATH_TO_CHECK" type="STRING" isOptional="false">
+                <Description>Path to check</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="OPERATOR" type="STRING" isOptional="false">
+                <Description>Operation to do on the path</Description>
+                <PossibleValues>EXIST;IS_FILE;IS_DIRECTORY</PossibleValues>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="PASS_IF" type="BOOLEAN" isOptional="false">
+                <Description>
+                    Defines whether the test must pass when the comparison succeeds, or fails. In this way it's possible
+                    to make flexible comparisons.
+                </Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+        </Parameters>
+    </TestStep>
+    <TestStep Id="CHECK_SNIFFER_LOG" Domain="UTILITIES" SubDomain="CHECKS" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Equipment.Sniffer.CheckSnifferLog.CheckSnifferLog</ClassName>
+        <Description>Check if expected requests exists in sniffer log.</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="SNIFFER_LOG_FILE" type="STRING" isOptional="false">
+                <Description>Path and name of the sniffer log to analyze.</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="FRAME_TO_CHECK" type="STRING" isOptional="false">
+                <Description>Frame to check. Can be a beacon frame or an association request frame.</Description>
+                <PossibleValues>CHECK_FRAME_BEACON;CHECK_FRAME_ASSOCIATION_REQUEST</PossibleValues>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="PARAM_TO_CHECK" type="STRING" isOptional="false">
+                <Description>Parameter in the frame to check.</Description>
+                <PossibleValues>CHECK_BANDWIDTH;CHECK_CAPABILITIES</PossibleValues>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="PARAM_VALUE" type="STRING" isOptional="false">
+                <Description>Value of the parameter to check. Can be a capability or a bandwidth</Description>
+                <PossibleValues>20MHZ;40MHZ;80MHZ;HT_CAPABILITIES;VHT_CAPABILITIES</PossibleValues>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="MAC_ADDR_SOURCE" type="STRING" isOptional="true">
+                <Description>WiFi MAC address of the device which sent the frame.</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="MAC_ADDR_RECEIVER" type="STRING" isOptional="true">
+                <Description>WiFi MAC address of the device which received the frame.</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+        </Parameters>
+    </TestStep>
+    <TestStep Id="PRINT_VALUE" Domain="UTILITIES" SubDomain="CHECKS" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.Checks.PrintValue.PrintValue</ClassName>
+        <Description>Prints a given variable value for debugging purposes.</Description>
+        <Environment name="ANY" />
+        <Parameters>
+            <Parameter name="VALUE_TO_PRINT" type="STRING" isOptional="false">
+                <Description>Variable you want to print the value of.</Description>
+                <PossibleValues />
+                <DefaultValue />
+            </Parameter>
+        </Parameters>
+    </TestStep>
+    <TestStep Id="PRINT_MSG" Domain="UTILITIES" SubDomain="CHECKS" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.Checks.PrintMsg.PrintMsg</ClassName>
+        <Description>Prints a message for debugging purposes.</Description>
+        <Environment name="ANY" />
+        <Parameters>
+            <Parameter name="MSG_TO_PRINT" type="STRING" isOptional="false">
+                <Description>Message to print.</Description>
+                <PossibleValues />
+                <DefaultValue />
+            </Parameter>
+        </Parameters>
+    </TestStep>
+</TestSteps>

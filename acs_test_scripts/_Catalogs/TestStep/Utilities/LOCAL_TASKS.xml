@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestSteps xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../acs/acs/_Catalogs/TestStep/teststep.xsd">
+    <TestStep Id="RUN_LOCAL_CMD" Domain="UTILITIES" SubDomain="LOCAL_TASKS" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.LocalTasks.RunLocalCommand.RunLocalCommand</ClassName>
+        <Description>Execute a command on the local computer</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="TIMEOUT" type="INTEGER" isOptional="false">
+                <Description>Timeout (in seconds) to apply to the command execution</Description>
+                <PossibleValues/>
+                <DefaultValue>5</DefaultValue>
+            </Parameter>
+            <Parameter name="COMMAND" type="STRING" isOptional="false">
+                <Description>Command to execute on the device</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="SILENT_MODE" type="BOOLEAN" isOptional="false">
+                <Description>Whether ACS log is to be hidden at execution</Description>
+                <PossibleValues/>
+                <DefaultValue>False</DefaultValue>
+            </Parameter>
+            <Parameter name="SAVE_AS" type="CONTEXT" isOptional="false">
+                <Description>
+                    <Key name="COMMAND_RESULT" type="STRING">Name of the context variable which will store the content
+                        of the standard output of the command.</Key>
+                </Description>
+                <PossibleValues />
+                <DefaultValue />
+            </Parameter>
+        </Parameters>
+    </TestStep>
+</TestSteps>
