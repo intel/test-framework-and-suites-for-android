@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase version="13.37">
+  <UseCase>DUMMY</UseCase>
+  <Description>Given Finalize TestStep which must PASS, UseCases usually returning PASS (successful)
+    When running this TestCase
+    Then  Global Verdict must remain PASS</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <TestSteps>
+    <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/validsecondaryteststeptatalog.xml"/>
+    <Finalize>
+      <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="Test step is pass" INPUT_1="1" INPUT_2="1.0" CTX_DATA_1="EXISTING_CTX_KEY" CTX_DATA_2="BUNDLE"/>
+    </Finalize>
+  </TestSteps>
+  <Parameters>
+    <Parameter>
+      <Name>STEP</Name>
+      <Value>RUNTEST</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RETURN_CODE</Name>
+      <Value>SUCCESS</Value>
+    </Parameter>
+    <Parameter>
+      <Name>COMMENT</Name>
+      <Value>Dummy success</Value>
+    </Parameter>
+    <Parameter>
+      <Name>DURATION</Name>
+      <Value>0</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

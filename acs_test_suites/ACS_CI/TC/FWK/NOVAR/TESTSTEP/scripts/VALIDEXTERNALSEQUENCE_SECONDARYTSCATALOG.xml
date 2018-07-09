@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase version="13.41">
+    <TestSteps>
+        <!-- Testing valid secondary test step catalog -->
+        <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/validsecondaryteststeptatalog.xml" />
+        <Setup/>
+        <RunTest>
+            <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="this is a generic comment" INPUT_1="1" INPUT_2="1.54" CTX_DATA_1="DELAY" CTX_DATA_2="BUNDLE"/>
+        </RunTest>
+        <TearDown>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+        </TearDown>
+    </TestSteps>
+</TestCase>
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>Launch EXEC use case, overriding 2 times b2bIteration in campaign.
+        Verdict PASS (with error indicating double, and that last value will be used)</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -c ACS_CI/TC/FWK/NOVAR/CAMPAIGN_CFG/scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_019_Campaign</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT</Name>
+      <Value>20</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT</Name>
+      <Value>Campaign file is corrupted</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

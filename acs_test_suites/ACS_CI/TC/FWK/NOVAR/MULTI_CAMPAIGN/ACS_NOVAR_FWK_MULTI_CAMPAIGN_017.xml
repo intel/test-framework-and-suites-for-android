@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>Check that targetB2bPassRate is not overridden by target defined in subcampaigns
+    </Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -c ACS_CI/TC/FWK/NOVAR/MULTI_CAMPAIGN/scripts/ACS_NOVAR_FWK_MULTI_CAMPAIGN_017_Campaign</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT</Name>
+      <Value>20</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT</Name>
+      <Value>Target PASS Rate 75%</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

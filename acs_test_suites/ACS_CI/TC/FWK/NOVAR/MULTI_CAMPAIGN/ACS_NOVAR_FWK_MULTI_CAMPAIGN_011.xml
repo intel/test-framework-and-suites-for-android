@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>Run ACS using a campaign which calling himself at level 2
+                 Campaign = SubCampaign1 + (MultiSubCampaign3 = Campaign1 + SubCampaign2 )
+                 ACS should not go in infinite loop</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -c ACS_CI/TC/FWK/NOVAR/MULTI_CAMPAIGN/scripts/ACS_NOVAR_FWK_MULTI_CAMPAIGN_011_Campaign</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT</Name>
+      <Value>20</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT</Name>
+      <Value>Infinite loop detected while calling SubCampaign</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

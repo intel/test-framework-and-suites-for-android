@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Test teststep sequence (including fork step with 10 steps) in TC file with external teststep alias file</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters/>
+  <TestSteps>
+    <Setup/>
+    <RunTest>
+      <Fork Id="Fork test">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.01"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.02"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.03"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.04"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.05"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.06"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.07"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.08"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.09"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </Fork>
+    </RunTest>
+    <TearDown/>
+  </TestSteps>
+</TestCase>

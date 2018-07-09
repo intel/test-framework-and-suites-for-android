@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Given Test Case based on test step
+    When test step generates a FAILURE
+    Then the exception details shall be added in the secondary report for that step and the matching test step id in the final TC verdict</Description>
+  <TcExpectedResult>FAIL</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters/>
+  <TestSteps>
+    <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/validsecondaryteststeptatalog.xml"/>
+    <Setup>
+      <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="this is a generic comment" INPUT_1="1" INPUT_2="1.0" CTX_DATA_1="EXISTING_CTX_KEY" CTX_DATA_2="BUNDLE"/>
+    </Setup>
+    <RunTest>
+      <TestStep Id="DUMMY" RETURN_CODE="FAILURE" COMMENT="this is a failure verdict" INPUT_1="1" INPUT_2="1.0" CTX_DATA_1="EXISTING_CTX_KEY" CTX_DATA_2="BUNDLE"/>
+    </RunTest>
+    <TearDown>
+      <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="this is a generic comment" INPUT_1="1" INPUT_2="1.0" CTX_DATA_1="EXISTING_CTX_KEY" CTX_DATA_2="BUNDLE"/>
+    </TearDown>
+  </TestSteps>
+</TestCase>

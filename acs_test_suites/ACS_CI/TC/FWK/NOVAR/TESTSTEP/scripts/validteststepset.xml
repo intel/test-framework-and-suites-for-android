@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Include>
+    <!-- Test Step Set -->
+    <TestStepSet Id="Multisuspend">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.2"/>
+    </TestStepSet>
+</Include>

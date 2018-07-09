@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestSteps>
+    <TestStep Id="DUMMY" Domain="UTILITIES" SubDomain="CHECKS" Feature="" Status="WIP">
+        <Description>Check Test Step mechanism</Description>
+        <Environment name="ANY"/>
+        <Parameters/>
+    </TestStep>
+</TestSteps>

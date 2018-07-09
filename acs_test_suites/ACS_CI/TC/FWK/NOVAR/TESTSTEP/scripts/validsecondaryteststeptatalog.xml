@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestSteps>
+    <TestStep Id="DUMMY" Domain="UTILITIES" SubDomain="CHECKS" Feature="" Status="DONE">
+        <ClassName>TestStep.Utilities.Test.Dummy.Dummy</ClassName>
+        <Description>Check Test Step mechanism</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="RETURN_CODE" type="STRING" isOptional="false">
+                <Description>Code returned by the test step</Description>
+                <PossibleValues>SUCCESS;FAILURE;BLOCKED;ACS_EXCEPTION;DEVICE_EXCEPTION;UNKNOWN_EXCEPTION</PossibleValues>
+                <DefaultValue>SUCCESS</DefaultValue>
+            </Parameter>
+            <Parameter name="COMMENT" type="STRING" isOptional="false">
+                <Description>Comment returned by the test step</Description>
+                <PossibleValues/>
+                <DefaultValue>This test has been executed</DefaultValue>
+            </Parameter>
+            <Parameter name="INPUT_1" type="INTEGER" isOptional="false">
+                <Description>Customized integer chosen by the user to be saved in the context</Description>
+                <PossibleValues/>
+                <DefaultValue>2</DefaultValue>
+            </Parameter>
+            <Parameter name="INPUT_2" type="FLOAT" isOptional="false">
+                <Description>Customized float chosen by the user to be saved in the context</Description>
+                <PossibleValues/>
+                <DefaultValue>2.0</DefaultValue>
+            </Parameter>
+            <Parameter name="CTX_DATA_1" type="CONTEXT" isOptional="false">
+                <Description>
+                    <Key name="MY_KEY" type="INTEGER">Key under which the "INPUT_1" parameter value is saved in the context (FROM_CTX:MY_KEY)</Key>
+                </Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+            <Parameter name="CTX_DATA_2" type="CONTEXT" isOptional="false">
+                <Description>
+                    <Key name="MY_KEY:INPUT_1" type="INTEGER">Key under which the "INPUT_1" parameter value is saved in the context (FROM_CTX:MY_KEY:INPUT_1)</Key>
+                    <Key name="MY_KEY:INPUT_2" type="FLOAT">Key under which the "INPUT_2" parameter value is saved in the context (FROM_CTX:MY_KEY:INPUT_2)</Key>
+                </Description>
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+        </Parameters>
+    </TestStep>
+</TestSteps>

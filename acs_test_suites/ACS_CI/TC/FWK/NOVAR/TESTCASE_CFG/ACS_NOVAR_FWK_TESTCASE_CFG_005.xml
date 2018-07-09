@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase version="13.37">
+  <UseCase>DUMMY</UseCase>
+  <Description>Given Empty Test Steps node (TestSteps), in a UseCase which has Verdict PASS
+    When running this TestCase
+    Then  Verdict must remain PASS</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <TestSteps>
+    </TestSteps>
+  <Parameters>
+    <Parameter>
+      <Name>STEP</Name>
+      <Value>RUNTEST</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RETURN_CODE</Name>
+      <Value>SUCCESS</Value>
+    </Parameter>
+    <Parameter>
+      <Name>COMMENT</Name>
+      <Value>Dummy failure occured</Value>
+    </Parameter>
+    <Parameter>
+      <Name>DURATION</Name>
+      <Value>0</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

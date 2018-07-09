@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>
+        Launch a campaign which contains multiple test cases.
+        The first test case ends with a CRITICAL failure but a pass verdict.
+        Other test case will be not executed and campaign must end with INCONCLUSIVE result.
+    </Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -c ACS_CI/TC/FWK/NOVAR/SEQ_ISCRITICAL/scripts/ACS_NOVAR_FWK_SEQ_ISCRITICAL_008_Campaign</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT</Name>
+      <Value>20</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT</Name>
+      <Value>ACS OUTCOME: FAILURE</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

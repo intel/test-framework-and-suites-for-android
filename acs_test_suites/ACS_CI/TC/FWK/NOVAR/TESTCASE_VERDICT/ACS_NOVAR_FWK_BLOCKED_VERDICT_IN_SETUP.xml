@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase version="13.37">
+  <UseCase>DUMMY</UseCase>
+  <Description>The verdict shall be BLOCKED if not PASS in SETUP step</Description>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>5</TcMaxAttempt>
+  <TcAcceptanceCriteria>5</TcAcceptanceCriteria>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>STEP</Name>
+      <Value>SETUP</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RETURN_CODE</Name>
+      <Value>FAIL; BLOCKED; VALID; INVALID; INCONCLUSIVE</Value>
+    </Parameter>
+    <Parameter>
+      <Name>COMMENT</Name>
+      <Value>Dummy failure occurred in setup</Value>
+    </Parameter>
+    <Parameter>
+      <Name>DURATION</Name>
+      <Value>0</Value>
+    </Parameter>
+    <Parameter>
+      <Name>SEMI_AUTO</Name>
+      <Value>0</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

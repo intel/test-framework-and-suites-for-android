@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Test wrong attribute key in sequence file, test step SUSPEND with an unknown parameter (attribute)</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters>
+    <Parameter>
+      <Name>TEST_STEP_ENGINE_ENTRY</Name>
+      <Value>ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/wrongattributekeysequence.xml</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

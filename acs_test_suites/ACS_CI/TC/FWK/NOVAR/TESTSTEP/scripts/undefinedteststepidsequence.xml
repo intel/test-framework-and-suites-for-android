@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+    <TestSteps>
+        <TestStepSet Id="Multisuspend">
+            <TestStep Id="UNDEFINED" DURATION_IN_SEC="4"/>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="2"/>
+        </TestStepSet>
+        <Setup/>
+        <RunTest>
+            <TestStep SetId="Multisuspend"/>
+        </RunTest>
+        <TearDown/>
+    </TestSteps>
+</TestCase>

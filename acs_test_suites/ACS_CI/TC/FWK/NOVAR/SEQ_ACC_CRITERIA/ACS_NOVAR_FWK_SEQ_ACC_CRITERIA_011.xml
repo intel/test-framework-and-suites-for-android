@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>DUMMY</UseCase>
+  <Description>Run ACS campaign with DUMMY UC set for 3 PASS 2 FAIL verdict:
+               Verdict FAIL expected after 3 tries of 5 iterations (60% PASS Rate)
+               b2bIteration = 5
+               b2bContinuousMode = True
+               TcMaxAttempt = 3
+               TcAcceptanceCriteria = 2</Description>
+  <TcExpectedResult>FAIL</TcExpectedResult>
+  <b2bIteration>5</b2bIteration>
+  <b2bContinuousMode>True</b2bContinuousMode>
+  <TcMaxAttempt>3</TcMaxAttempt>
+  <TcAcceptanceCriteria>2</TcAcceptanceCriteria>
+  <Parameters>
+    <Parameter>
+      <Name>STEP</Name>
+      <Value>RUNTEST;RUNTEST;RUNTEST;RUNTEST;RUNTEST</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RETURN_CODE</Name>
+      <Value>SUCCESS;SUCCESS;SUCCESS;FAILURE;FAILURE</Value>
+    </Parameter>
+    <Parameter>
+      <Name>COMMENT</Name>
+      <Value>Two Dummy failures occured</Value>
+    </Parameter>
+    <Parameter>
+      <Name>DURATION</Name>
+      <Value>0</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

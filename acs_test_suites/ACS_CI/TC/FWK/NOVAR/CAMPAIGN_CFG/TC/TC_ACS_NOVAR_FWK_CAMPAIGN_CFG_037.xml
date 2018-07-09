@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC_SCRIPT</UseCase>
+  <Description>Generate FAIL verdict + CTRL-C TEARDOWN</Description>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcExpectedResult>FAIL</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>SETUP_SCRIPT_PATH</Name>
+      <Value>../scripts/dummy_script.py</Value>
+    </Parameter>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>../scripts/dummy_script_failure.py</Value>
+    </Parameter>
+    <Parameter>
+      <Name>TEAR_DOWN_SCRIPT_PATH</Name>
+      <Value>../scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_generate_keyboard_interruption.py</Value>
+    </Parameter>
+    <Parameter>
+      <Name>FINALIZE_SCRIPT_PATH</Name>
+      <Value>../scripts/dummy_script.py</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

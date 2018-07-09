@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC_SCRIPT</UseCase>
+  <Description>Call EXEC_SCRIPT to check if Windows Device's Catalogs respect its XSD contract</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <Parameters>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>scripts/device_model_schema_checks.py</Value>
+    </Parameter>
+    <Parameter>
+      <Name>OS_FAMILY</Name>
+      <Value>Windows</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

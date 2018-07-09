@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Test incomplete teststep sequence, missing /TestCase/TestSteps/Run section</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters>
+    <Parameter>
+      <Name>SUSPEND_FOR</Name>
+      <Value>0.1</Value>
+    </Parameter>
+    <Parameter>
+      <Name>TEST_STEP_ENGINE_ENTRY</Name>
+      <Value>ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/incompletesequence.xml</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

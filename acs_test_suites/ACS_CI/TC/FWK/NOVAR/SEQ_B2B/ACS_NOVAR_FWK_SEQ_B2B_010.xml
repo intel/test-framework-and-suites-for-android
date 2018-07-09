@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>"Run ACS campaign with DUMMY UC set for PASS verdict:
+                  b2bIteration = ""wrong_value""
+                  b2bContinuousMode = False"  TC skipped expected</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -c ACS_CI/TC/FWK/NOVAR/SEQ_B2B/scripts/ACS_NOVAR_FWK_SEQ_B2B_010_Campaign</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT</Name>
+      <Value>20</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT</Name>
+      <Value>Test case has back to back iteration parameter is invalid</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+    <TestSteps>
+        <Setup>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="wrong_value"/>
+        </Setup>
+        <RunTest/>
+        <TearDown/>
+    </TestSteps>
+</TestCase>

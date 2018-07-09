@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Test teststep sequence with test step parameter value set to FROM_TC:existing_tc_parameter_wrong_value</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters>
+    <Parameter>
+      <Name>EXISTING_PARAMETER</Name>
+      <Value>-1.0</Value>
+    </Parameter>
+  </Parameters>
+  <TestSteps>
+    <Setup/>
+    <RunTest>
+      <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_TC:EXISTING_PARAMETER"/>
+    </RunTest>
+    <TearDown/>
+  </TestSteps>
+</TestCase>

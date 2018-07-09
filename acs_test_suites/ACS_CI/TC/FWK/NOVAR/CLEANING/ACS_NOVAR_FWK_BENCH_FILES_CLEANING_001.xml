@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC_SCRIPT</UseCase>
+  <Description>
+        Launch EXEC_SCRIPT use case,
+        parse all TEST SUITES repo seeking for Bench configuration file(s),
+        in order to analyse and correct D.U.T Parameter node(s).
+
+        Typically, a Parameter node looking like this :
+
+        <![CDATA[
+            <Parameter name="bootTimeout" value="30" />
+        ]]>
+
+        Becomes :
+
+        <![CDATA[
+            <Parameter bootTimeout="30" />
+        ]]>
+
+    </Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>True</b2bContinuousMode>
+  <Parameters>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>./scripts/ACS_NOVAR_FWK_BENCH_FILES_CLEANING_001.py</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

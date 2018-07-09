@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestSteps>
+    <TestStep Id="SUSPEND" Domain="UTILITIES" SubDomain="TIMINGS" Feature="" Status="DONE">
+        <ClassName>acs_test_scripts.TestStep.Utilities.Suspend.Suspend</ClassName>
+        <Description>Suspend execution for x (int) seconds</Description>
+        <Environment name="ANY">
+        </Environment>
+        <Parameters>
+            <Parameter name="DURATION_IN_SEC" type="DURATION_IN_SEC" isOptional="false">
+                <PossibleValues/>
+                <DefaultValue/>
+            </Parameter>
+        </Parameters>
+    </TestStep>
+</TestSteps>

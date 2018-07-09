@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<BadNode>
+    <!-- Test Step Set -->
+    <TestStepSet Id="Multisuspend">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="1"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="2"/>
+    </TestStepSet>
+</Include>

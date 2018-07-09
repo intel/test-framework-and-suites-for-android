@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+    <TestSteps>
+        <Setup>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+        </Setup>
+<!--       <RunTest>
+            <Fork Id="fork test">
+                <TestStep Id="SUSPEND" DURATION_IN_SEC="2"/>
+                <TestStep Id="SUSPEND" DURATION_IN_SEC="1"/>
+            </Fork>
+           </RunTest>
+-->
+        <TearDown/>
+    </TestSteps>
+</TestCase>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>DUMMY</UseCase>
+  <Description>Launch DUMMY use case and check if UseCase Class override has worked.</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <ClassName>acs.UseCase.Misc.EXEC_SCRIPT.ExecScript</ClassName>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>True</b2bContinuousMode>
+  <Parameters>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>./scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_029.py</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

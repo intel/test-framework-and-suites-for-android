@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC_SCRIPT</UseCase>
+  <Description>Launch EXEC_SCRIPT UC, adding an unknown attribute in campaign.
+                 Attribute is read, and stored, but not used.</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>True</b2bContinuousMode>
+  <IsCritical>False</IsCritical>
+  <Parameters>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>./scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_018.py</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

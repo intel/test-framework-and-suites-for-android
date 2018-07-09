@@ -1,0 +1,9 @@
+<?="1.0" encoding="iso-8859-1"?>
+<!-- malform: missing version attribute key -->
+<TestCase>
+    <TestSteps>
+        <Setup/>
+        <RunTest/>
+        <TearDown/>
+    </TestSteps>
+</TestCase>

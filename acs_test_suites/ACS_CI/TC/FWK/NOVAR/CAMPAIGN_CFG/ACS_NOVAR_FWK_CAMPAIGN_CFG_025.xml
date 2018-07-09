@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC_SCRIPT</UseCase>
+  <Description>Launch EXEC_SCRIPT Generate Block from unknown exception.
+                 TC raises exception inside run_test from script</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <Parameters>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>./scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_exception_checking.py</Value>
+    </Parameter>
+    <Parameter>
+      <Name>EXCEPTION_NAME</Name>
+      <Value>exceptions.AssertionError</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

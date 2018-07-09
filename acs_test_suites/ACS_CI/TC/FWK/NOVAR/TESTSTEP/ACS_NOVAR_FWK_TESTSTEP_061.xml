@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Testing the functionality to have conditional Test Steps and Test Step Sets.
+    Error case : Test the error handling of a failure inside a If.</Description>
+  <TcExpectedResult>FAIL</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <Parameters>
+    <Parameter>
+      <Name>COND_VALUE</Name>
+      <Value>False</Value>
+    </Parameter>
+  </Parameters>
+  <TestSteps>
+    <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/validsecondaryteststeptatalog.xml"/>
+    <Setup/>
+    <RunTest>
+      <If Id="IfFailure" Condition="True">
+        <TestStep Id="DUMMY" RETURN_CODE="FAILURE" COMMENT="Dummy Error" INPUT_1="1" INPUT_2="2.63" CTX_DATA_1="DUMMY" CTX_DATA_2="BUNDLE"/>
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="1"/>
+      </If>
+    </RunTest>
+    <TearDown/>
+  </TestSteps>
+</TestCase>

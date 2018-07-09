@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>DUMMY</UseCase>
+  <Description>Launch DUMMY UC that will raise an exception during its __init__.
+        TC uses INIT_EXCEPTION param to generate exception during its __init__</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>True</b2bContinuousMode>
+  <Parameters>
+    <Parameter>
+      <Name>INIT_EXCEPTION</Name>
+      <Value>True</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase version="13.37">
+  <UseCase>DUMMY</UseCase>
+  <Description>Dummy Usecase used for testing ACS framework</Description>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <TestSteps>
+    <Initialize>
+      <TestStep Id="COMPARE" FIRST="test concatenation [+]FROM_TC:RETURN_CODE[+] ok" SECOND="test concatenation SUCCESS ok" OPERATOR="EQUAL" PASS_IF="True"/>
+      <TestStep Id="COMPARE" FIRST="test concatenation FROM_TC:RETURN_CODE" SECOND="test concatenation FROM_TC:RETURN_CODE" OPERATOR="EQUAL" PASS_IF="True"/>
+      <TestStep Id="COMPARE" FIRST="class is Dummy" SECOND="class is [+]FROM_DEVICE:PHONE1:Name" OPERATOR="EQUAL" PASS_IF="True"/>
+    </Initialize>
+  </TestSteps>
+  <Parameters>
+    <Parameter>
+      <Name>STEP</Name>
+      <Value>RUNTEST</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RETURN_CODE</Name>
+      <Value>SUCCESS</Value>
+    </Parameter>
+    <Parameter>
+      <Name>COMMENT</Name>
+      <Value>TestStep value concatenation is OK</Value>
+    </Parameter>
+    <Parameter>
+      <Name>DURATION</Name>
+      <Value>0</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

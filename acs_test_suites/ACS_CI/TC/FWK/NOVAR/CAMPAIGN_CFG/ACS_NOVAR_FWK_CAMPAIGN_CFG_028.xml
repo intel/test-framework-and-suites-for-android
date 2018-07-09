@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>MY_CUSTOM_UC_NAME</UseCase>
+  <Description>Launch MY_CUSTOM_UC_NAME use case and check if UseCase Class override has worked!</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <ClassName>acs.UseCase.Misc.EXEC_SCRIPT.ExecScript</ClassName>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>True</b2bContinuousMode>
+  <Parameters>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>./scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_028.py</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

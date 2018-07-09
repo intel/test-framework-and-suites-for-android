@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>DUMMY</UseCase>
+  <Description>"Run ACS campaign with DUMMY UC set for PASS verdict:
+      b2bIteration and b2bContinuousMode not set"
+      Default value for b2bIteration is 1 and b2bIteration is False</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters>
+    <Parameter>
+      <Name>STEP</Name>
+      <Value>RUNTEST</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RETURN_CODE</Name>
+      <Value>SUCCESS</Value>
+    </Parameter>
+    <Parameter>
+      <Name>COMMENT</Name>
+      <Value>Dummy success occured</Value>
+    </Parameter>
+    <Parameter>
+      <Name>DURATION</Name>
+      <Value>0</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Testing the functionality to loop over Test Steps and Test Step Sets.
+    Error case : Test wrong type as iteration number.</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <Parameters>
+    <Parameter>
+      <Name>NB_ITER</Name>
+      <Value>5</Value>
+    </Parameter>
+  </Parameters>
+  <TestSteps>
+    <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/validsecondaryteststeptatalog.xml"/>
+    <Setup/>
+    <RunTest>
+      <Loop Id="LoopWrongType" Nb="wrong_type">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </Loop>
+    </RunTest>
+    <TearDown/>
+  </TestSteps>
+</TestCase>

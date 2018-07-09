@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC_SCRIPT</UseCase>
+  <Description>Launch EXEC_SCRIPT use case, overriding b2bIteration, b2bContinuousMode,
+        TcMaxAttempt, TcAcceptanceCriteria, TcExpectedResult, and IsCritical in campaign;
+        all with empty/corrupted values. Empty attribute value is a certain type of value
+        corruption.Verdict FAIL (with warning occurred in init and runtest)</Description>
+  <TcExpectedResult>FAIL</TcExpectedResult>
+  <b2bIteration>2</b2bIteration>
+  <b2bContinuousMode>True</b2bContinuousMode>
+  <TcMaxAttempt>2</TcMaxAttempt>
+  <TcAcceptanceCriteria>2</TcAcceptanceCriteria>
+  <IsCritical>True</IsCritical>
+  <Parameters>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>./scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_017.py</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

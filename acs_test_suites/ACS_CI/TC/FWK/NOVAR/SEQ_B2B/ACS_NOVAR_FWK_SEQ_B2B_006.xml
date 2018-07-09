@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>DUMMY</UseCase>
+  <Description>"Run ACS campaign with DUMMY UC set for 1 BLOCK verdict:
+                b2bIteration = 2
+                b2bContinuousMode = True" Verdict BLOCK expected after 1 try</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>2</b2bIteration>
+  <b2bContinuousMode>True</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters>
+    <Parameter>
+      <Name>STEP</Name>
+      <Value>SETUP</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RETURN_CODE</Name>
+      <Value>FAILURE</Value>
+    </Parameter>
+    <Parameter>
+      <Name>COMMENT</Name>
+      <Value>Dummy block occured</Value>
+    </Parameter>
+    <Parameter>
+      <Name>DURATION</Name>
+      <Value>0</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Testing bad node in secondary test step catalog</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters/>
+  <TestSteps>
+    <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/badnodesecondaryteststeptatalog.xml"/>
+    <Setup/>
+    <RunTest>
+      <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="this is a generic comment" INPUT_1="1" INPUT_2="2.63" CTX_DATA_1="DELAY" CTX_DATA_2="BUNDLE"/>
+    </RunTest>
+    <TearDown/>
+  </TestSteps>
+</TestCase>

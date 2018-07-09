@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+    <TestSteps>
+        <Setup>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_TC:SUSPEND_FOR"/>
+        </Setup>
+        <RunTest>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="1"/>
+        </RunTest>
+        <TearDown>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="1"/>
+        </TearDown>
+    </TestSteps>
+</TestCase>

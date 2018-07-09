@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Test incomplete teststep set file (Include Src=" node content)</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters>
+    </Parameters>
+  <TestSteps>
+    <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/incompleteteststepset.xml"/>
+    <Setup/>
+    <RunTest>
+      <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+    </RunTest>
+    <TearDown/>
+  </TestSteps>
+</TestCase>

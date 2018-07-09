@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Testing the functionality to have conditional Test Steps and Test Step Sets.
+    Every possibilities of input value are tested (literal, from Test Case, from context, from bench config).
+    </Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <Parameters>
+    <Parameter>
+      <Name>COND_VALUE</Name>
+      <Value>False</Value>
+    </Parameter>
+  </Parameters>
+  <TestSteps>
+    <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/validsecondaryteststeptatalog.xml"/>
+    <TestStepSet Id="SuspendDummy">
+      <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="Comment in a if" INPUT_1="1" INPUT_2="2.63" CTX_DATA_1="DUMMY" CTX_DATA_2="BUNDLE"/>
+    </TestStepSet>
+    <TestStepSet Id="SuspendIf">
+      <If Id="NestedIfLevel2" Condition="True">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+    </TestStepSet>
+    <Setup>
+      <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="Comment" INPUT_1="0" INPUT_2="2.63" CTX_DATA_1="IF" CTX_DATA_2="BUNDLE"/>
+    </Setup>
+    <RunTest>
+      <If Id="IfTrueValue" Condition="True">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="IfTrueMinusValue" Condition="true">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="IfFalseValue" Condition="False">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="IfFalseMinusValue" Condition="false">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="IfLiteralValue" Condition="1">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="IfStringValue" Condition="test">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="IfNullStringValue" Condition="">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="IfFloatValue" Condition="0.1">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="IfNullFloatValue" Condition="0.0">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="IfFromContextValue" Condition="FROM_CTX:IF">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="CondFromTcValue" Condition="FROM_TC:COND_VALUE">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="CondFromDeviceValue" Condition="FROM_DEVICE:PHONE1:waitBetweenCmd">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </If>
+      <If Id="IfTestStepSets" Condition="True">
+        <TestStep SetId="SuspendDummy"/>
+      </If>
+      <If Id="NestedIfLevel1" Condition="True">
+        <TestStep SetId="SuspendIf"/>
+      </If>
+    </RunTest>
+    <TearDown/>
+  </TestSteps>
+</TestCase>

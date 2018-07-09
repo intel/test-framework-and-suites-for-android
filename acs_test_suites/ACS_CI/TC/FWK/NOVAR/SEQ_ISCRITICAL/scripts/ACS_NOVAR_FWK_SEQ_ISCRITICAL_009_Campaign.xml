@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Campaign>
+  <Parameters>
+    <Parameter isControlledPSUsed="False"/>
+    <Parameter isIoCardUsed="False"/>
+    <Parameter skipBootOnPowerCycle="False"/>
+    <Parameter bootRetryNumber="0"/>
+    <Parameter runHookScripts="False"/>
+    <Parameter powerCycleBetweenTC="False"/>
+    <Parameter powerCycleOnFailure="False"/>
+    <Parameter finalDutState="NoChange"/>
+    <Parameter stopCampaignOnCriticalFailure="True"/>
+    <Parameter stopCampaignOnFirstFailure="False"/>
+    <Parameter loggingLevel="info"/>
+    <Parameter CampaignType="ACS_CI"/>
+  </Parameters>
+  <Targets>
+    <Target targetB2bPassRate="100"/>
+  </Targets>
+  <TestCases>
+    <TestCase Id="./ACS_NOVAR_FWK_SEQ_ISCRITICAL_008"/>
+  </TestCases>
+</Campaign>

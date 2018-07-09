@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Test teststep sequence with test step parameter value set to FROM_CTX:existing_ctx_key</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters/>
+  <TestSteps>
+    <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/validsecondaryteststeptatalog.xml"/>
+    <Setup>
+      <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="this is a generic comment" INPUT_1="1" INPUT_2="0.15" CTX_DATA_1="DELAY" CTX_DATA_2="BUNDLE"/>
+    </Setup>
+    <RunTest>
+      <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_CTX:DELAY"/>
+      <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_CTX:BUNDLE:INPUT_1"/>
+      <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_CTX:BUNDLE:INPUT_2"/>
+    </RunTest>
+    <TearDown/>
+  </TestSteps>
+</TestCase>

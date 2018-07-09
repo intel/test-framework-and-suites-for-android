@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+    <TestSteps>
+        <Setup/>
+        <RunTest>
+           <TestStep Id="SUSPEND" WRONG="4"/>
+        </RunTest>
+        <TearDown/>
+    </TestSteps>
+</TestCase>

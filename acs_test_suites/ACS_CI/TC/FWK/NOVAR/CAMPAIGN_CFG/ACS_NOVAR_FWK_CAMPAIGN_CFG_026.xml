@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC_SCRIPT</UseCase>
+  <Description>Launch EXEC_SCRIPT Check Block is generated if DeviceException is raised in setup.
+                 TC raises exception inside setup_test from script</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <Parameters>
+    <Parameter>
+      <Name>SETUP_SCRIPT_PATH</Name>
+      <Value>./scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_exception_checking.py</Value>
+    </Parameter>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>./scripts/dummy_script.py</Value>
+    </Parameter>
+    <Parameter>
+      <Name>EXCEPTION_NAME</Name>
+      <Value>ErrorHandling.DeviceException.DeviceException</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

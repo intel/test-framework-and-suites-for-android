@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC_SCRIPT</UseCase>
+  <Description>Call EXEC_SCRIPT to count number test case executed before its execution in the current campaign</Description>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>ACS_CI/TC/FWK/NOVAR/MULTI_CAMPAIGN/scripts/ACS_LOG_CAMPAIGN_COUNT_TC_EXEC.py</Value>
+    </Parameter>
+    <Parameter>
+      <Name>PREVIOUS_TC_EXECUTED_COUNT_EXPECTED</Name>
+      <Value>11</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

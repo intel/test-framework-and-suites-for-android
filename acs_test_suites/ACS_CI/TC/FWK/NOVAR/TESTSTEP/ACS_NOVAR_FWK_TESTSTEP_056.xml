@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Testing the functionality to loop over Test Steps and Test Step Sets.
+    Every possibilities of input value are tested (literal, from Test Case, from context, from bench config).
+    The possibility to use nested loop is also tested.</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <Parameters>
+    <Parameter>
+      <Name>NB_ITER</Name>
+      <Value>5</Value>
+    </Parameter>
+  </Parameters>
+  <TestSteps>
+    <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/validsecondaryteststeptatalog.xml"/>
+    <TestStepSet Id="SuspendDummy">
+      <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="Comment in a loop" INPUT_1="1" INPUT_2="2.63" CTX_DATA_1="DUMMY" CTX_DATA_2="BUNDLE"/>
+    </TestStepSet>
+    <TestStepSet Id="SuspendLoop">
+      <Loop Id="NestedLoopLevel2" Nb="3">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </Loop>
+    </TestStepSet>
+    <Setup>
+      <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="Comment" INPUT_1="4" INPUT_2="2.63" CTX_DATA_1="LOOP" CTX_DATA_2="BUNDLE"/>
+    </Setup>
+    <RunTest>
+      <Loop Id="LoopLiteralValue" Nb="3">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </Loop>
+      <Loop Id="LoopFromContextValue" Nb="FROM_CTX:LOOP">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </Loop>
+      <Loop Id="LoopFromTcValue" Nb="FROM_TC:NB_ITER">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </Loop>
+      <Loop Id="LoopFromDeviceValue" Nb="FROM_DEVICE:PHONE1:waitBetweenCmd">
+        <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+      </Loop>
+      <Loop Id="LoopTestStepSets" Nb="4">
+        <TestStep SetId="SuspendDummy"/>
+      </Loop>
+      <Loop Id="NestedLoopLevel1" Nb="2">
+        <TestStep SetId="SuspendLoop"/>
+      </Loop>
+    </RunTest>
+    <TearDown/>
+  </TestSteps>
+</TestCase>

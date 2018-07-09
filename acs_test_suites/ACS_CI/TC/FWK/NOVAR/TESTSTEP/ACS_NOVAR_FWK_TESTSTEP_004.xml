@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Test not xml file instead of xml sequence file  (TEST_STEP_ENTRY parameter content)</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters>
+    <Parameter>
+      <Name>TEST_STEP_ENGINE_ENTRY</Name>
+      <Value>ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/notxmlfile.xlsx</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

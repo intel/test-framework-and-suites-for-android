@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase version="13.41">
+    <TestSteps>
+        <TestStepSet Id="Multisuspend">
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="0.6"/>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="0.4"/>
+        </TestStepSet>
+        <Setup>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_TC:SUSPEND_FOR"/>
+            <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_TC:WAIT_FOR"/>
+        </Setup>
+        <RunTest>
+            <Fork Id="fork test">
+                <TestStep Id="SUSPEND" DURATION_IN_SEC="0.2"/>
+                <TestStep Id="SUSPEND" DURATION_IN_SEC="0.1"/>
+            </Fork>
+        </RunTest>
+        <TearDown>
+            <TestStep SetId="Multisuspend"/>
+        </TearDown>
+    </TestSteps>
+</TestCase>

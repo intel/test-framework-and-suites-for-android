@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>Run ACS using a multi campaign containing a multi campaign with element in TestCases section:
+                 Campaign = MultiSubCampaign1 with wrong section  Campaigns TestCase ? /TestCase /Campaigns
+                 ACS outcome failure notifying that the campaign is empty</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -c ACS_CI/TC/FWK/NOVAR/MULTI_CAMPAIGN/scripts/ACS_NOVAR_FWK_MULTI_CAMPAIGN_019_Campaign</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT</Name>
+      <Value>20</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT</Name>
+      <Value>NO TEST TO RUN</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

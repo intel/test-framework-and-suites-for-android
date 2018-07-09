@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Campaign version="13.49">
+  <Parameters>
+    <Parameter isControlledPSUsed="False"/>
+    <Parameter isIoCardUsed="False"/>
+    <Parameter skipBootOnPowerCycle="False"/>
+    <Parameter bootRetryNumber="0"/>
+    <Parameter runHookScripts="False"/>
+    <Parameter powerCycleBetweenTC="False"/>
+    <Parameter powerCycleOnFailure="False"/>
+    <Parameter finalDutState="NoChange"/>
+    <Parameter stopCampaignOnCriticalFailure="False"/>
+    <Parameter stopCampaignOnFirstFailure="False"/>
+    <Parameter loggingLevel="info"/>
+    <Parameter CampaignType="ACS_CI"/>
+  </Parameters>
+  <Targets>
+    <Target targetB2bPassRate="80"/>
+  </Targets>
+  <TestCases>
+    <SubCampaign Id="./SINGLE_SUBCAMPAIGN1" runNumber="wrong_value"/>
+  </TestCases>
+</Campaign>

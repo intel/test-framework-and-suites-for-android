@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Test teststep sequence with test step parameter value set to FROM_BENCH:unknown_equipment:existing_key</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters/>
+  <TestSteps>
+    <Setup/>
+    <RunTest>
+      <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_BENCH:unknown_equipment:SwitchOnOff"/>
+    </RunTest>
+    <TearDown/>
+  </TestSteps>
+</TestCase>

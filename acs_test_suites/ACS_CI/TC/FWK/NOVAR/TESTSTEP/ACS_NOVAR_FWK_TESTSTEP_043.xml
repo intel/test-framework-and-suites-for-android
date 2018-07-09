@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Test teststep sequence with test step parameter value set to FROM_CTX:existing_ctx_key_wrong_value</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters/>
+  <TestSteps>
+    <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/validsecondaryteststeptatalog.xml"/>
+    <Setup>
+      <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="this is a generic comment" INPUT_1="-0.15" INPUT_2="2.63" CTX_DATA_1="EXISTING_CTX_KEY_WRONG_VALUE" CTX_DATA_2="BUNDLE"/>
+    </Setup>
+    <RunTest>
+      <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_CTX:BUNDLE:INPUT_2"/>
+      <TestStep Id="SUSPEND" DURATION_IN_SEC="FROM_CTX:EXISTING_CTX_KEY_WRONG_VALUE"/>
+    </RunTest>
+    <TearDown/>
+  </TestSteps>
+</TestCase>

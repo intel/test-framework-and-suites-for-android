@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>Launch several EXEC_SCRIPT and check test case verdicts according to success / failure occuring in all test case steps
+    (setup, run, teardown, finalize)   / continuous_mode = False and True
+    TC expected result - SETUP verdict - RUN verdict - TEARDOWN verdict - FINALIZE verdict - contituous mode
+    FAIL - Success - Fail - Fail - Fail - False
+    PASS - Success - Success - Fail - Fail - False
+    PASS - Success - Success - Fail - Success - False
+    PASS - Success - Success - Success - Fail - False
+    PASS - Success - Success - Success - Success - False
+    PASS - Success - Success - Fail - Fail - True
+    PASS - Success - Success - Fail - Success - True
+    PASS - Success - Success - Success - Fail - True
+    PASS - Success - Success - Success - Success - True
+    Test all combination in TC setup, run, teardown, finalize with verdict = PASS / FAIL in all steps</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -c ACS_CI/TC/FWK/NOVAR/CAMPAIGN_CFG/scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_038</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT</Name>
+      <Value>40</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT</Name>
+      <Value>ACS OUTCOME: SUCCESS</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

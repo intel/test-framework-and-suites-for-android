@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>Test ACS cmd options -n NUMBER, --run_nb=NUMBER, --nb=NUMBER</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD1</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -n 2 -c ACS_CI/TC/FWK/NOVAR/CMD_OPTIONS/scripts/Campaign_DUMMY</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT1</Name>
+      <Value>10</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT1</Name>
+      <Value>execution_request_nb = 2</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_CMD2</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config --run_nb 3 -c ACS_CI/TC/FWK/NOVAR/CMD_OPTIONS/scripts/Campaign_DUMMY</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT2</Name>
+      <Value>10</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT2</Name>
+      <Value>execution_request_nb = 3</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_CMD3</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config --nb 4 -c ACS_CI/TC/FWK/NOVAR/CMD_OPTIONS/scripts/Campaign_DUMMY</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT3</Name>
+      <Value>10</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT3</Name>
+      <Value>execution_request_nb = 4</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

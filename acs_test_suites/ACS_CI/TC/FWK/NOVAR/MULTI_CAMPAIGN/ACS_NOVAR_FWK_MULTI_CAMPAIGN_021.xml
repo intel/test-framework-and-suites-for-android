@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>Run ACS using a Sub campaign containing wrong Id attribute (nothing for example) in TestCases section:
+                 Campaign wrong section Campaigns TestCase? SubCampaign Id= runNumber=1 ? /TestCase /Campaigns
+                 ACS outcome failure notifying that the campaign is empty</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -c ACS_CI/TC/FWK/NOVAR/MULTI_CAMPAIGN/scripts/ACS_NOVAR_FWK_MULTI_CAMPAIGN_021_Campaign</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT</Name>
+      <Value>20</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT</Name>
+      <Value>parsing-reading issue</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>DUM</UseCase>
+  <Description>Dummy Usecase used for testing ACS framework</Description>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters>
+    <Parameter>
+      <!-- Test step where failures will be generated
+         - SETUP
+         - RUNTEST
+         - TEARDOWN
+         - RANDOM (between above choices)
+         Can be a list of value (separate by ';'), in that case corresponding
+         b2b or retry iteration must be set-->
+      <Name>STEP</Name>
+      <Value>RUNTEST</Value>
+    </Parameter>
+    <!-- Possible return code
+         - SUCCESS
+         - FAILURE
+         - RANDOM (between above choices)
+         Can be a list of value (separate by ';'), in that case corresponding
+         b2b or retry iteration must be set-->
+    <Parameter>
+      <Name>RETURN_CODE</Name>
+      <Value>RANDOM</Value>
+    </Parameter>
+    <!-- Comment associated with verdict -->
+    <Parameter>
+      <Name>COMMENT</Name>
+      <Value>Dummy failure occured</Value>
+    </Parameter>
+    <Parameter>
+      <Name>DURATION</Name>
+      <Value>0</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

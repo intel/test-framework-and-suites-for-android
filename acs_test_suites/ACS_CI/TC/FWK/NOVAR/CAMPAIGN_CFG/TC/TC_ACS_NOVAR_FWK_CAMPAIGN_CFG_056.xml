@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC_SCRIPT</UseCase>
+  <Description>Generates not executed tests + sends keyboard interruption</Description>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>../scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_generate_keyboard_interruption.py</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

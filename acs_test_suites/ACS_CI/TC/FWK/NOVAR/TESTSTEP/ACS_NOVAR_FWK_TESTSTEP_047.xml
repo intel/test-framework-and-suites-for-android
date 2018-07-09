@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>TEST_STEP_ENGINE</UseCase>
+  <Description>Given Test Case based on test step
+    When exceptions occur during test step running in setup and teardown
+    Then the exceptions details shall be added in the secondary report for those steps and the matching test step ids
+    in the final TC verdict (2 test step ids in this case)</Description>
+  <TcExpectedResult>BLOCKED</TcExpectedResult>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcMaxAttempt>1</TcMaxAttempt>
+  <TcAcceptanceCriteria>1</TcAcceptanceCriteria>
+  <Parameters/>
+  <TestSteps>
+    <Include Src="ACS_CI/TC/FWK/NOVAR/TESTSTEP/scripts/validsecondaryteststeptatalog.xml"/>
+    <Setup>
+      <TestStep Id="DUMMY" RETURN_CODE="ACS_EXCEPTION" COMMENT="this is an acs exception" INPUT_1="1" INPUT_2="1.0" CTX_DATA_1="EXISTING_CTX_KEY" CTX_DATA_2="BUNDLE"/>
+    </Setup>
+    <RunTest>
+      <TestStep Id="DUMMY" RETURN_CODE="SUCCESS" COMMENT="this is a generic comment" INPUT_1="1" INPUT_2="1.0" CTX_DATA_1="EXISTING_CTX_KEY" CTX_DATA_2="BUNDLE"/>
+    </RunTest>
+    <TearDown>
+      <TestStep Id="DUMMY" RETURN_CODE="UNKNOWN_EXCEPTION" COMMENT="this is an unknown exception" INPUT_1="1" INPUT_2="1.0" CTX_DATA_1="EXISTING_CTX_KEY" CTX_DATA_2="BUNDLE"/>
+    </TearDown>
+  </TestSteps>
+</TestCase>

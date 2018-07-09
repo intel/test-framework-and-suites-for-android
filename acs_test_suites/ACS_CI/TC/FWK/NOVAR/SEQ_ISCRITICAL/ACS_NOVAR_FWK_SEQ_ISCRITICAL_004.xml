@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>Run ACS campaign with DUMMY UC set for FAIL verdict:
+                 IsCritical = False, in the Test Case file
+                 stopCampaignOnCriticalFailure = True in the Campaign file
+                 Expected ACS results Verdict FAIL and ACS campaign is not stopped</Description>
+  <TcExpectedResult>FAIL</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -c ACS_CI/TC/FWK/NOVAR/SEQ_ISCRITICAL/scripts/ACS_NOVAR_FWK_SEQ_ISCRITICAL_004_Campaign</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT</Name>
+      <Value>20</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT</Name>
+      <Value>CAMPAIGN STOPPED ON CRITICAL FAILURE</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

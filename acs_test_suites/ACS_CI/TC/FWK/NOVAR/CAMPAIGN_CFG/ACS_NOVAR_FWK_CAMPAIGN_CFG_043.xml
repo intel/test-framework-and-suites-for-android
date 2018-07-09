@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>Launch EXEC_SCRIPT and check if campaign is stopped after CTRL+C exception occured
+    / continuous_mode = True / Expected result of EXEC_SCRIPT PASS
+    TC raises Keyboard interrupt exception (CTRL+C) inside teardown_test from script</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -c ACS_CI/TC/FWK/NOVAR/CAMPAIGN_CFG/scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_043</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT</Name>
+      <Value>40</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT</Name>
+      <Value>User interruption</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC</UseCase>
+  <Description>Run ACS using a campaign composed of Sub campaign using runNumber attribute &gt; 1 at first level
+                 + call of Sub campaign using runNumber attribute at second level
+                 Campaign = MultiCampaign5 ( with runNumber &gt; 1 =&gt; runNumber = 3 )
+                 MultiCampaign5= SubCampaign1  ( with runNumber &gt; 1 =&gt; runNumber = 2 )</Description>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>RUN_CMD</Name>
+      <Value>python ACS.py -d Dummy -b ACS_CI/BENCHCFG/Bench_Config -c ACS_CI/TC/FWK/NOVAR/MULTI_CAMPAIGN/scripts/ACS_NOVAR_FWK_MULTI_CAMPAIGN_020_Campaign</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_TIMEOUT</Name>
+      <Value>30</Value>
+    </Parameter>
+    <Parameter>
+      <Name>RUN_EXPECT_RESULT</Name>
+      <Value>ACS OUTCOME: SUCCESS</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

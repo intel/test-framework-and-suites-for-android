@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestCase>
+  <UseCase>EXEC_SCRIPT</UseCase>
+  <Description>Call EXEC_SCRIPT to prepare test cases for ACS_NOVAR_FWK_CAMPAIGN_CFG TCs</Description>
+  <b2bIteration>1</b2bIteration>
+  <b2bContinuousMode>False</b2bContinuousMode>
+  <TcExpectedResult>PASS</TcExpectedResult>
+  <Parameters>
+    <Parameter>
+      <Name>SCRIPT_PATH</Name>
+      <Value>scripts/ACS_NOVAR_FWK_CAMPAIGN_CFG_SETUP.py</Value>
+    </Parameter>
+  </Parameters>
+</TestCase>

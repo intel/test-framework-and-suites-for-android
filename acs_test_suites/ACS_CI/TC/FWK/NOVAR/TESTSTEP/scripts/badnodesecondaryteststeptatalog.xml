@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<TestSteps>
+    <BadNode Id="DUMMY" Domain="UTILITIES" SubDomain="CHECKS" Feature="" Status="DONE">
+        <ClassName>TestStep.Utilities.Test.Dummy.Dummy</ClassName>
+        <Description>Check Test Step mechanism</Description>
+        <Environment name="ANY"/>
+        <Parameters/>
+    </TestStep>
+</TestSteps>
