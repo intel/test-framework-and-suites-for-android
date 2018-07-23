@@ -1,0 +1,8 @@
+requests
+psutil
+lxml
+pyyaml
+tzlocal
+uiautomator
+arrow
+unittest2
