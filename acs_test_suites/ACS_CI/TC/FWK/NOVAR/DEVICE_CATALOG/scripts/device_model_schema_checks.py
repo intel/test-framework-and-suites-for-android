@@ -131,10 +131,10 @@ def check():
                             xml_schema = etree.XMLSchema(etree.parse(current_schema_abspath))
                             previous_schema_abspath = current_schema_abspath
 
-                        if not xml_schema.validate(catalog_tree):
-                            invalid.append((full_name[len(DEVICE_MODELS_CATALOG) + 1:], xml_schema.error_log))
-                        else:
-                            valid.append(full_name[len(DEVICE_MODELS_CATALOG) + 1:])
+                            if not xml_schema.validate(catalog_tree):
+                                invalid.append((full_name[len(DEVICE_MODELS_CATALOG) + 1:], xml_schema.error_log))
+                            else:
+                                valid.append(full_name[len(DEVICE_MODELS_CATALOG) + 1:])
 
                 except etree.XMLSchemaParseError as etree_error:
                     OUTPUT += SCHEMA_ERROR_MSG.format(current_schema_abspath, full_name)

@@ -43,7 +43,7 @@ from acs.Device.Model.DeviceBase import DeviceBase
 from acs.UtilitiesFWK.ADBUtilities import ADBSocket
 from acs.UtilitiesFWK.Utilities import AcsConstants, Global, run_local_command, internal_shell_exec
 from acs.UtilitiesFWK.CommandLine import CommandLine
-import acs.UtilitiesFWK.DateUtilities as DateUtil
+# import acs.UtilitiesFWK.DateUtilities as DateUtil
 from acs.Device.Model.AndroidDevice.Agent.Factory import get_acs_agent_instance
 from acs.ErrorHandling.AcsBaseException import AcsBaseException
 from acs.ErrorHandling.AcsConfigException import AcsConfigException
@@ -490,7 +490,7 @@ class AndroidDeviceBase(DeviceBase):
                     self.__watchdog_thread.join(5)
                 except (KeyboardInterrupt, SystemExit):
                     raise
-                except:
+                except Exception:
                     pass
                 finally:
                     del self.__watchdog_thread
@@ -1310,11 +1310,10 @@ class AndroidDeviceBase(DeviceBase):
         while (attempt < max_retry) and not success:
             try:
                 tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                tcp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                tcp_socket.settimeout(timeout)
-                tcp_socket.connect((hostname, port))
-
                 if tcp_socket is not None:
+                    tcp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                    tcp_socket.settimeout(timeout)
+                    tcp_socket.connect((hostname, port))
                     success = True
 
             except socket.error as socket_ex:
@@ -1677,18 +1676,18 @@ class AndroidDeviceBase(DeviceBase):
         # FIXME: UECMD will result in errors
         return Global.SUCCESS, ""
 
-        system_api = self.get_uecmd("System")
+        # system_api = self.get_uecmd("System")
 
-        return_code, return_msg = system_api.set_timezone(DateUtil.timezone())
-        if return_code == Global.SUCCESS:
-            # Set UTC time in case default timezone is not correct
-            return_code, return_msg = system_api.set_date_and_time(DateUtil.utctime())
-            if return_code == Global.SUCCESS:
-                # Log device time for MPTA sync features
-                # Please do not erase/change this log message
-                # w/o informing MPTA dev guys
-                self.get_logger().info("DeviceTime: %s" % return_msg)
-        return return_code, return_msg
+        # return_code, return_msg = system_api.set_timezone(DateUtil.timezone())
+        # if return_code == Global.SUCCESS:
+        #     # Set UTC time in case default timezone is not correct
+        #     return_code, return_msg = system_api.set_date_and_time(DateUtil.utctime())
+        #     if return_code == Global.SUCCESS:
+        #         # Log device time for MPTA sync features
+        #         # Please do not erase/change this log message
+        #         # w/o informing MPTA dev guys
+        #         self.get_logger().info("DeviceTime: %s" % return_msg)
+        # return return_code, return_msg
 
     def format_cmd(self, cmd, silent_mode=False):
         """
@@ -2761,13 +2760,19 @@ class AndroidDeviceBase(DeviceBase):
 
     def retrieve_device_id(self):
         """
-        Retrieve the unique id of the device, returning the serial number read in phone catalog or bench_config files
-        (depending of single or multi phones campaign), or in last resort with "adb shell getprop ro.serialno".
+        Retrieve the unique id of the device, returning the serial number
+        read in phone catalog or bench_config files
+        (depending of single or multi phones campaign),
+        or in last resort with "adb shell getprop ro.serialno".
 
-        .. attention:: If the device is connected over ethernet, value in phone catalog and bench_config will be ignored.
-        .. attention:: If the parameter is empty, we retrieve it from 'adb shell getprop ro.serialno' command,
-        assuming that only one device is connected.
-        If more than one device or emulator is present, this method returns the first device id.
+        .. attention:: If the device is connected over ethernet,
+            value in phone catalog and bench_config will be ignored.
+        .. attention:: If the parameter is empty,
+            we retrieve it from 'adb shell getprop ro.serialno' command,
+            assuming that only one device is connected.
+
+        If more than one device or emulator is present,
+        this method returns the first device id.
 
         :rtype: str
         :return: unique id of the device, or None if unknown
@@ -3346,8 +3351,8 @@ class AndroidDeviceBase(DeviceBase):
 
     def start_device_log(self, log_path):
         self._device_log_file = LogCatLogger(self, True)
-        self._device_log_file.set_output_file(log_path)
         if self._device_log_file is not None:
+            self._device_log_file.set_output_file(log_path)
             self._device_log_file.start()
 
     def stop_device_log(self):

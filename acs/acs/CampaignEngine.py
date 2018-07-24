@@ -815,33 +815,32 @@ class CampaignEngine:
         tcase_conf = None
         # Run all Test Cases
         while tc_index < len(self.__test_case_conf_list):
-            # Logging test name and number to log info level
-            self.__logger.log(ACSLogging.MINIMAL_LEVEL, "")
-            self.__logger.log(ACSLogging.MINIMAL_LEVEL, "Starting test: {0}: test number {1} of {2}".format(
-                self.__test_case_conf_list[tc_index].get_name(),
-                tc_order, self.__campaign_metrics.total_tc_count))
-            # Get test case object using its configuration file & use case catalog
             tcase_conf = self.__test_case_conf_list[tc_index]
-            self.__update_report_info(tcase_conf, "FAILURE")
-            # get test case class name
-            tcase_class = tcase_conf.get_ucase_class()
-            verdict = None
-            if tcase_class is not None and tc_index > 0:
-                # Check if power cycle is required only if the test case class is instantiate
-                # Power cycle is not needed at first test case execution,
-                # as the device is already ready for the execution
-                # power cycle should not be done on few cases
-                if tcase_conf.do_device_connection:
-                    status_power_cycle, status_power_cycle_msg = self.__test_case_manager.power_cycle_device()
-                    if not status_power_cycle:
-                        self.__logger.debug(status_power_cycle_msg)
-                        self.__log_stop_campaign(DeviceException.DUT_BOOT_ERROR, tc_order)
-                        stop_execution = True
-                        break
-            tc_msgs = tcase_conf.get_messages()
-            if tc_msgs:
-                self.__test_report.add_comment(tc_order, "\n".join(tc_msgs))
             if tcase_conf is not None:
+                # Logging test name and number to log info level
+                self.__logger.log(ACSLogging.MINIMAL_LEVEL, "")
+                self.__logger.log(ACSLogging.MINIMAL_LEVEL, "Starting test: {0}: test number {1} of {2}".format(
+                    tcase_conf.get_name(), tc_order, self.__campaign_metrics.total_tc_count))
+                # Get test case object using its configuration file & use case catalog
+                self.__update_report_info(tcase_conf, "FAILURE")
+                # get test case class name
+                tcase_class = tcase_conf.get_ucase_class()
+                verdict = None
+                if tcase_class is not None and tc_index > 0:
+                    # Check if power cycle is required only if the test case class is instantiate
+                    # Power cycle is not needed at first test case execution,
+                    # as the device is already ready for the execution
+                    # power cycle should not be done on few cases
+                    if tcase_conf.do_device_connection:
+                        status_power_cycle, status_power_cycle_msg = self.__test_case_manager.power_cycle_device()
+                        if not status_power_cycle:
+                            self.__logger.debug(status_power_cycle_msg)
+                            self.__log_stop_campaign(DeviceException.DUT_BOOT_ERROR, tc_order)
+                            stop_execution = True
+                            break
+                tc_msgs = tcase_conf.get_messages()
+                if tc_msgs:
+                    self.__test_report.add_comment(tc_order, "\n".join(tc_msgs))
                 if tcase_conf.get_params().get_b2b_iteration() > 0:
                     if tcase_conf.get_valid():
                         # Execute test case
@@ -892,8 +891,7 @@ class CampaignEngine:
                         self.__logger.warning("Test case is invalid, it will not be executed")
                 else:
                     warning_msg = "Test case has back to back iteration parameter is invalid (%s) , it will not be " \
-                                  "executed!" % \
-                                  (tcase_conf.get_name())
+                        "executed!" % (tcase_conf.get_name())
                     self.__test_report.add_comment(tc_order, warning_msg)
                     self.__logger.warning(warning_msg)
                     # send back test case result
