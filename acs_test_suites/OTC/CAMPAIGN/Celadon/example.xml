@@ -2,6 +2,7 @@
 <Campaign version="13.49">
     <TestCases>
         <TestCase Id="../../TC/PY_UNIT/example/test_fwk"></TestCase>
+        <TestCase Id="../../TC/TESTLIB/example/test_testlib"></TestCase>
     </TestCases>
 </Campaign>
 
