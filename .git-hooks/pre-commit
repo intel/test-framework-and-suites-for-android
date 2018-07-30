@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import os
-import re
 import sys
 import subprocess
 import platform
@@ -108,7 +107,7 @@ def flake8(python_files):
         try:
             # Add "--max-complexity=12" when we are ready
             result = subprocess.call([flake8_path,
-                                      "--ignore=E125,E501,W503,E722",
+                                      "--ignore=E125,W503,E722",
                                       "--max-line-length=120", filename])
         except OSError:
             print "\nAn error occurred. Is flake8 installed?"

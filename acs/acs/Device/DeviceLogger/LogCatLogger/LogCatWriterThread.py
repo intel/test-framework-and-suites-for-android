@@ -76,7 +76,7 @@ class LogCatWriterThread():
                     self.__writer_thread.join(5)
                 except (KeyboardInterrupt, SystemExit):
                     raise
-                except:
+                except BaseException:
                     pass
                 finally:
                     del self.__writer_thread

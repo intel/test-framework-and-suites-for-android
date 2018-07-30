@@ -804,7 +804,7 @@ class Report:
                 return hostname
             else:
                 return Util.AcsConstants.NOT_AVAILABLE
-        except:  # pylint: disable=W0702
+        except BaseException:  # pylint: disable=W0702
             return Util.AcsConstants.NOT_AVAILABLE
 
     def __get_bench_ip(self):
@@ -820,7 +820,7 @@ class Report:
                 return host_ip
             else:
                 return Util.AcsConstants.NOT_AVAILABLE
-        except:  # pylint: disable=W0702
+        except BaseException:  # pylint: disable=W0702
             return Util.AcsConstants.NOT_AVAILABLE
 
     def __get_bench_user(self):
@@ -836,7 +836,7 @@ class Report:
                 return user
             else:
                 return Util.AcsConstants.NOT_AVAILABLE
-        except:  # pylint: disable=W0702
+        except BaseException:  # pylint: disable=W0702
             return Util.AcsConstants.NOT_AVAILABLE
 
     def __get_bench_os(self):
@@ -866,5 +866,5 @@ class Report:
                 return full_os_name
             else:
                 return Util.AcsConstants.NOT_AVAILABLE
-        except:  # pylint: disable=W0702
+        except BaseException:  # pylint: disable=W0702
             return Util.AcsConstants.NOT_AVAILABLE

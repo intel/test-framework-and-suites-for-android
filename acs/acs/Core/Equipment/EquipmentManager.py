@@ -58,8 +58,8 @@ KEYBOARD_EMULATOR_INSTANCE_NAME_DEVICE_PARAM = "KeyboardEmulator"
 
 class EquipmentManager(object):
     """
-    EquipmentManager class: this class is a singleton and manages all instantiated
-    equipments
+    EquipmentManager class:
+        this class is a singleton and manages all instantiated equipments
     """
 
     # The singleton instance
@@ -100,7 +100,8 @@ class EquipmentManager(object):
         cls.__global_cfg = global_config
         cls.__power_supply_required_by_user = str_to_bool(
             global_config.campaignConfig.get("isControlledPSUsed", "false"))
-        cls.__io_card_required_by_user = str_to_bool(global_config.campaignConfig.get("isIoCardUsed", "false"))
+        cls.__io_card_required_by_user = str_to_bool(
+            global_config.campaignConfig.get("isIoCardUsed", "false"))
 
     @classmethod
     def get_global_config(cls):
@@ -114,7 +115,8 @@ class EquipmentManager(object):
             msg = "Global configuration should be set before using " \
                   "EquipmentManager"
             cls.get_logger().error(msg)
-            raise AcsConfigException(AcsConfigException.PROHIBITIVE_BEHAVIOR, msg)
+            raise AcsConfigException(AcsConfigException.PROHIBITIVE_BEHAVIOR,
+                                     msg)
         else:
             return cls.__global_cfg
 
@@ -168,7 +170,7 @@ class EquipmentManager(object):
         # Get equipment instance if it exists
         eqt_ref = self.__equipment_instances.pop(bench_name, None)
         if eqt_ref is not None:
-            # Remove all references to the equipment in the equipment dictionary
+            # Remove all refs to the equipment in the equipment dictionary
             # For example, the same power supply can be referenced by his name
             # and by its outputs
             for key in self.__equipment_instances.keys():
@@ -210,7 +212,8 @@ class EquipmentManager(object):
         :type bench_name: str
         :param bench_name: the bench name of the equipment
         :rtype: IBTNetSim
-        :return: the instance of the requested bench bluetooth network simulator
+        :return: the instance of the requested
+            bench bluetooth network simulator
         """
 
         self.get_logger().debug(
@@ -220,14 +223,17 @@ class EquipmentManager(object):
         bench_dic = \
             self.get_global_config().benchConfig.get_parameters(bench_name)
 
-        # Look for equipment in equipment catalog and get equipment type catalog
+        # Look for equipment in equipment catalog
+        # and get equipment type catalog
         eqt_model = bench_dic.get_param_value("Model")
         if not eqt_model:
-            msg = "BT network simulator is not configured in your bench config."
+            msg = "BT network simulator is not configured in your bench config"
             self.get_logger().error(msg)
-            raise AcsConfigException(AcsConfigException.INVALID_BENCH_CONFIG, msg)
+            raise AcsConfigException(AcsConfigException.INVALID_BENCH_CONFIG,
+                                     msg)
 
-        eqt_dic = self.__get_equipment_type_dic(eqt_model, "BTNetworkSimulator")
+        eqt_dic = self.__get_equipment_type_dic(eqt_model,
+                                                "BTNetworkSimulator")
 
         # Check if equipment already exists or not
         # and return the existing one if any
@@ -238,7 +244,7 @@ class EquipmentManager(object):
         else:  # Try to create the bluetooth network simulator
             if eqt_model == "AGILENT_N4010A":
                 self.get_logger().debug("Create Agilent N4010A")
-                from acs_test_scripts.Equipment.NetworkSimulators.BT.AgilentN4010A.AgilentN4010A import AgilentN4010A
+                from acs_test_scripts.Equipment.NetworkSimulators.BT.AgilentN4010A.AgilentN4010A import AgilentN4010A  # NOQA
 
                 eqt = AgilentN4010A(bench_name, eqt_model, eqt_dic, bench_dic)
             else:
@@ -248,8 +254,9 @@ class EquipmentManager(object):
             # Register new equipment in equipments dictionary
             self.__equipment_instances[bench_name] = eqt
 
-        LOGGER_EQT_STATS.info("Create equipment={0};type=bluetooth_network_simulator".format(
-            inspect.getmodule(eqt).__name__.split(".")[-1]))
+        LOGGER_EQT_STATS.info(
+            "Create equipment={0};type=bluetooth_network_simulator".format(
+                inspect.getmodule(eqt).__name__.split(".")[-1]))
         return weakref.proxy(eqt)
 
     #
@@ -264,35 +271,47 @@ class EquipmentManager(object):
         :param rat: extra parameter used for 8960 equipment to specify RAT used
         note it can be overridden by another value for other equipment
         :type visa: boolean
-        :param visa: extra parameter used in case we want to use the visa version of
-        an equipment (in test step for instance)
+        :param visa: extra parameter used in case we want to use
+        the visa version of an equipment (in test step for instance)
         :rtype: ICellNetSim
         :return: the instance of the requested bench cellular network simulator
         """
-        self.get_logger().debug("Get cellular network simulator %s", bench_name)
+        self.get_logger().debug("Get cellular network simulator %s",
+                                bench_name)
         # Check that eqt_bench_name is in bench configuration and get
         # bench dictionary
         bench_dic = \
             self.get_global_config().benchConfig.get_parameters(bench_name)
 
-        # Look for equipment in equipment catalog and get equipment type catalog
+        # Look for equipment in equipment catalog
+        # and get equipment type catalog
         eqt_model = bench_dic.get_param_value("Model")
         if not eqt_model:
-            msg = "Cellular network simulator is not configured in your bench config."
+            msg = "Cellular network simulator is not configured" + \
+                "in your bench config."
             self.get_logger().error(msg)
-            raise AcsConfigException(AcsConfigException.INVALID_BENCH_CONFIG, msg)
+            raise AcsConfigException(AcsConfigException.INVALID_BENCH_CONFIG,
+                                     msg)
 
-        eqt_dic = self.__get_equipment_type_dic(eqt_model.replace("_VISA", ""), "CellularNetworkSimulator")
+        eqt_dic = self.__get_equipment_type_dic(eqt_model.replace("_VISA", ""),
+                                                "CellularNetworkSimulator")
 
         # Check if equipment already exists or not
         # and return the existing one if any
         # Prepare argument dictionary
         eqt = self.get_equipment(bench_name)
-        arg_dict = {"name": bench_name, "model": eqt_model, "eqt_params": eqt_dic, "bench_params": bench_dic}
+        arg_dict = {
+            "name": bench_name,
+            "model": eqt_model,
+            "eqt_params":
+            eqt_dic, "bench_params": bench_dic
+        }
         if rat is not None:
             arg_dict["rat"] = rat
-        # as visa equipment and non visa equipment can have the same equipment name,
-        # we want to be sure to have the good interface for the equipment (visa or not visa)
+        # as visa equipment and non visa equipment
+        # can have the same equipment name,
+        # we want to be sure to have the good interface
+        # for the equipment (visa or not visa)
         from acs_test_scripts.TestStep.Utilities.Visa import VisaEquipmentBase
         # CMW500 is visa compliant in all cases so do not delete it
         if eqt_model not in ["RS_CMW500", "RS_CMW500_VISA"]:
@@ -307,26 +326,26 @@ class EquipmentManager(object):
             if eqt_model in ["AGILENT_8960", "AGILENT_8960_VISA"]:
                 self.get_logger().debug("Create %s" % eqt_model)
                 if visa:
-                    from acs_test_scripts.Equipment.NetworkSimulators.Cellular.Agilent8960.Agilent8960Visa import Agilent8960
+                    from acs_test_scripts.Equipment.NetworkSimulators.Cellular.Agilent8960.Agilent8960Visa import Agilent8960  # NOQA
                 else:
-                    from acs_test_scripts.Equipment.NetworkSimulators.Cellular.Agilent8960.Agilent8960 import Agilent8960
+                    from acs_test_scripts.Equipment.NetworkSimulators.Cellular.Agilent8960.Agilent8960 import Agilent8960  # NOQA
                 eqt = Agilent8960(**arg_dict)
             elif eqt_model == "RS_CMU200":
                 self.get_logger().debug("Create RS CMU200")
-                from acs_test_scripts.Equipment.NetworkSimulators.Cellular.RsCmu200.RsCmu200 import RsCmu200
+                from acs_test_scripts.Equipment.NetworkSimulators.Cellular.RsCmu200.RsCmu200 import RsCmu200  # NOQA
                 eqt = RsCmu200(bench_name, eqt_model, eqt_dic, bench_dic)
             elif eqt_model == "AGILENT_E6621A":
                 self.get_logger().debug("Create Agilent E6621A")
-                from acs_test_scripts.Equipment.NetworkSimulators.Cellular.AgilentE6621A.AgilentE6621A import AgilentE6621A
+                from acs_test_scripts.Equipment.NetworkSimulators.Cellular.AgilentE6621A.AgilentE6621A import AgilentE6621A  # NOQA
                 # Import the equipment class to instantiate the equipment
                 eqt = AgilentE6621A(bench_name, eqt_model, eqt_dic, bench_dic)
             elif eqt_model in ["RS_CMW500", "RS_CMW500_VISA"]:
-                from acs_test_scripts.Equipment.NetworkSimulators.Cellular.RsCmw500.RsCmw500 import RsCmw500
+                from acs_test_scripts.Equipment.NetworkSimulators.Cellular.RsCmw500.RsCmw500 import RsCmw500  # NOQA
                 self.get_logger().debug("Create %s" % eqt_model)
                 # Import the equipment class to instantiate the equipment
                 eqt = RsCmw500(bench_name, eqt_model, eqt_dic, bench_dic)
             elif eqt_model == "ANRITSU_M8475A":
-                from acs_test_scripts.Equipment.NetworkSimulators.Cellular.AnritsuM8475A.AnritsuM8475A import AnritsuM8475A
+                from acs_test_scripts.Equipment.NetworkSimulators.Cellular.AnritsuM8475A.AnritsuM8475A import AnritsuM8475A  # NOQA
                 self.get_logger().debug("Create %s" % eqt_model)
                 # Import the equipment class to instantiate the equipment
                 eqt = AnritsuM8475A(bench_name, eqt_model, eqt_dic, bench_dic)
@@ -338,8 +357,9 @@ class EquipmentManager(object):
             # Register new equipment in equipments dictionary
             self.__equipment_instances[bench_name] = eqt
 
-        LOGGER_EQT_STATS.info("Create equipment={0};type=cellular_network_simulator".format(
-            inspect.getmodule(eqt).__name__.split(".")[-1]))
+        LOGGER_EQT_STATS.info(
+            "Create equipment={0};type=cellular_network_simulator".format(
+                inspect.getmodule(eqt).__name__.split(".")[-1]))
         return weakref.proxy(eqt)
 
     #
@@ -359,14 +379,18 @@ class EquipmentManager(object):
         bench_dic = \
             self.get_global_config().benchConfig.get_parameters(bench_name)
 
-        # Look for equipment in equipment catalog and get equipment type catalog
+        # Look for equipment in equipment catalog
+        # and get equipment type catalog
         eqt_model = bench_dic.get_param_value("Model")
         if not eqt_model:
-            msg = "WLan network simulator is not configured in your bench config."
+            msg = "WLan network simulator is not configured " + \
+                "in your bench config."
             self.get_logger().error(msg)
-            raise AcsConfigException(AcsConfigException.INVALID_BENCH_CONFIG, msg)
+            raise AcsConfigException(AcsConfigException.INVALID_BENCH_CONFIG,
+                                     msg)
 
-        eqt_dic = self.__get_equipment_type_dic(eqt_model, "WLanNetworkSimulator")
+        eqt_dic = self.__get_equipment_type_dic(eqt_model,
+                                                "WLanNetworkSimulator")
 
         # Check if equipment already exists or not
         # and return the existing one if any
@@ -428,7 +452,7 @@ class EquipmentManager(object):
         else:  # Try to create the WLAN network simulator
             if eqt_model == "SPIRENT_GSS6700":
                 self.get_logger().debug("Create Spirent GSS6700")
-                from acs_test_scripts.Equipment.NetworkSimulators.GPS.SpirentGSS6700.SpirentGSS6700 import SpirentGSS6700
+                from acs_test_scripts.Equipment.NetworkSimulators.GPS.SpirentGSS6700.SpirentGSS6700 import SpirentGSS6700  # NOQA
 
                 eqt = SpirentGSS6700(bench_name, eqt_model, eqt_dic, bench_dic)
             else:
@@ -967,7 +991,7 @@ class EquipmentManager(object):
                 eqt = AgilentE364xA(bench_name, eqt_model, eqt_dic, bench_dic)
             elif eqt_model == "Keithley2200_20_5":
                 self.get_logger().debug("Create Keithley 2200_20_5")
-                from acs_test_scripts.Equipment.PowerSupplies.Keithley2200_20_5.Keithley2200_20_5 import Keithley2200_20_5
+                from acs_test_scripts.Equipment.PowerSupplies.Keithley2200_20_5.Keithley2200_20_5 import Keithley2200_20_5  # NOQA
 
                 eqt = Keithley2200_20_5(bench_name, eqt_model, eqt_dic, bench_dic)
             elif eqt_model == "NPC108":
@@ -977,7 +1001,7 @@ class EquipmentManager(object):
                 eqt = NPC108(bench_name, eqt_model, eqt_dic, bench_dic)
             elif eqt_model == "DLI_WPS5":
                 self.get_logger().debug("Create WEB_POWER_SWITCH")
-                from acs_test_scripts.Equipment.PowerSupplies.Dli_WebPowerSwitch5.Dli_WebPowerSwitch5 import Dli_WebPowerSwitch5
+                from acs_test_scripts.Equipment.PowerSupplies.Dli_WebPowerSwitch5.Dli_WebPowerSwitch5 import Dli_WebPowerSwitch5  # NOQA
 
                 eqt = Dli_WebPowerSwitch5(bench_name, eqt_model, eqt_dic, bench_dic)
             else:
@@ -1185,7 +1209,7 @@ class EquipmentManager(object):
         else:  # Try to create the equipment
             self.get_logger().debug("Create Ethernet Commutator Equipment")
 
-            from acs_test_scripts.Equipment.EthernetCommutator.EthernetCommutator.EthernetCommutator import EthernetCommutator
+            from acs_test_scripts.Equipment.EthernetCommutator.EthernetCommutator.EthernetCommutator import EthernetCommutator  # NOQA
 
             eqt_dic = self.__get_equipment_type_dic(eqt_model, "EthernetCommutator")
             eqt = EthernetCommutator(bench_name, eqt_model, eqt_dic, bench_dic)
@@ -1612,7 +1636,7 @@ class EquipmentManager(object):
         else:  # Try to create the Logic Analyzer
             if eqt_model == "SALEAE_LOGIC16":
                 self.get_logger().debug("Create SALEAE_LOGIC16 Logic Analyzer")
-                from acs_test_scripts.Equipment.LogicAnalyzer.SaleaeLogic16.SaleaeLogic16 import SaleaeLogic16  # @UnresolvedImport
+                from acs_test_scripts.Equipment.LogicAnalyzer.SaleaeLogic16.SaleaeLogic16 import SaleaeLogic16  # NOQA
                 eqt = SaleaeLogic16(bench_name, eqt_model, eqt_dic, bench_dic)
             else:
                 msg = "Unknown Logic Analyzer model: " + eqt_model

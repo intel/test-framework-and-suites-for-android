@@ -437,7 +437,7 @@ def get_exception_info(exception=None):
         ex_error_tb = str(traceback.format_tb(exc_tb))
     except (KeyboardInterrupt, SystemExit):
         raise
-    except:
+    except BaseException:
         ex_error_code = Global.FAILURE
         ex_error_msg = str(exc_value)
         ex_error_tb = str(traceback.format_tb(exc_tb))
@@ -465,7 +465,7 @@ def get_class(kls):
         module = ".".join(parts[:-1])
         try:
             mod = __import__(module)
-        except ImportError, AttributeError:
+        except ImportError as AttributeError:
             mod = __import__('acs.' + module)
             parts.insert(0, 'acs')
         for comp in parts[1:]:
@@ -661,14 +661,21 @@ def str_to_list(text):
                 # If there is any issue in the formatted string containing a list of
                 # values (format not recognized), user shall be informed.
                 _, error_msg, _ = get_exception_info()
-                msg = "Fail to read the string list: %s - Exception = %s. List shall have following format: value1|value2|...|valuen" % (
-                    text, error_msg)
-                raise AcsConfigException(AcsConfigException.READ_PARAMETER_ERROR, msg)
+                msg = "Fail to read the string list: %s - Exception = %s." % \
+                    (text, error_msg) + \
+                    "List shall have following format: value1|value2|...|valuen"
+                raise AcsConfigException(
+                    AcsConfigException.READ_PARAMETER_ERROR, msg)
 
             except ValueError:
-                # If this section is a string without spaces, and user didn't delimit it with quotes, then it will throw an exception.
-                # Let's be nice and add the quotes automatically so we don't make users clutter the XML files with quotes inside of quotes.
-                # We're not doing anything to tolerate unquoted strings with spaces --
+                # If this section is a string without spaces,
+                # and user didn't delimit it with quotes,
+                # then it will throw an exception.
+                # Let's be nice and add the quotes automatically
+                # so we don't make users clutter the XML files
+                # with quotes inside of quotes.
+                # We're not doing anything to tolerate
+                # unquoted strings with spaces --
                 # those will throw an unhandled exception.
                 params_list.append(ast.literal_eval("'%s'" % params_section))
 
@@ -1073,7 +1080,7 @@ def is_test_case_file(file_name):
 
             if str(file_doc.getroot().tag) == 'TestCase':
                 status = True
-    except:
+    except BaseException:
         status = False
 
     return status
@@ -1099,7 +1106,7 @@ def is_bench_config_file(file_name):
 
             if str(file_doc.getroot().tag) == 'BenchConfig':
                 status = True
-    except:
+    except BaseException:
         status = False
 
     return status
@@ -1125,7 +1132,7 @@ def is_campaign_config_file(file_name):
 
             if str(file_doc.getroot().tag) == 'Campaign':
                 status = True
-    except:
+    except BaseException:
         status = False
 
     return status

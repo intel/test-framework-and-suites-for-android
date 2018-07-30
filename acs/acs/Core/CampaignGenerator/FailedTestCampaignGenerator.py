@@ -70,19 +70,24 @@ class FailedTestCampaignGenerator(object):
         """
         tree = etree.parse(self.report_file)
         camp_name = tree.find("CampaignInfo/CampaignName")
-        campaign_name = os.path.join(Paths.EXECUTION_CONFIG, camp_name.get("relative_path"), camp_name.text)
+        campaign_name = os.path.join(Paths.EXECUTION_CONFIG,
+                                     camp_name.get("relative_path"),
+                                     camp_name.text)
         # compute output Campaign Name
-        self.output_campaign_name = os.path.join(Paths.EXECUTION_CONFIG, camp_name.text) + "_FAILED_TESTS.xml"
+        self.output_campaign_name = os.path.join(
+            Paths.EXECUTION_CONFIG, camp_name.text) + "_FAILED_TESTS.xml"
         return campaign_name + ".xml"
 
     def get_failed_tc(self):
         """
-        This function will create a list from the failed tests inside the ACS test report
+        This function will create a list
+        from the failed tests inside the ACS test report
         """
         tree = etree.parse(self.report_file)
         root = tree.getroot()
         for test_case in root.findall('TestCase'):
-            tc_name = os.path.join(test_case.get('relative_path'), test_case.get('id'))
+            tc_name = os.path.join(test_case.get('relative_path'),
+                                   test_case.get('id'))
             if test_case.find('Verdict').text not in Util.Verdict.PASS:
                 self.failed_tc_names.append(tc_name)
             self.all_tc_name.append(tc_name)
@@ -95,8 +100,9 @@ class FailedTestCampaignGenerator(object):
         # extract campaign header: Parameters and Targets
         tree = etree.parse(self.input_campaign_name)
         root = tree.getroot()
-        comment = etree.Comment(
-            "This Test Campaign was AUTOMATICALLY generated from input ACS report file: %s" % self.failed_folder_path)
+        comment = etree.Comment("This Test Campaign was AUTOMATICALLY" +
+                                "generated from input ACS report file: %s" %
+                                self.failed_folder_path)
         root.insert(0, comment)
         # remove all test cases
         test_cases = root.findall('TestCases')[0]
@@ -105,13 +111,16 @@ class FailedTestCampaignGenerator(object):
         children = []
         for element in self.all_tc_name:
             if element not in self.failed_tc_names:
-                children.append(etree.Comment(etree.tostring(etree.Element('TestCase', Id=element))))
+                children.append(
+                    etree.Comment(
+                        etree.tostring(etree.Element('TestCase', Id=element))))
             else:
                 children.append(etree.Element('TestCase', Id=element))
         test_cases.extend(children)
         tree.write(self.output_campaign_name)
         XMLUtil.pretty_print_xml(self.output_campaign_name)
-        print "Output Failed Tests Campaign can be found here: ", self.output_campaign_name
+        print "Output Failed Tests Campaign can be found here: ", \
+            self.output_campaign_name
 
     def create_test_campaign(self):
         """
@@ -120,19 +129,24 @@ class FailedTestCampaignGenerator(object):
         # extract Test Report File
         self.report_file = self.find_report_file()
         if not self.report_file:
-            return (Util.Global.FAILURE, "No valid Test Report found in: %s" % self.failed_folder_path)
+            return (Util.Global.FAILURE,
+                    "No valid Test Report found in: %s" %
+                    self.failed_folder_path)
         print "Input Test Report File Found: %s" % self.report_file
 
         # extract input Campaign name from ACS Test Report
         self.input_campaign_name = self.get_campaign_name()
         if not os.path.isfile(self.input_campaign_name):
-            return (Util.Global.FAILURE, "Targeted Test Campaign is not a valid file path: %s" % self.input_campaign_name)
+            return (Util.Global.FAILURE,
+                    "Targeted Test Campaign is not a valid file path: %s" %
+                    self.input_campaign_name)
         print "Input Test Campaign Found: %s" % self.input_campaign_name
 
         # extract tests from ACS Test Report
         self.get_failed_tc()
         if len(self.failed_tc_names) == 0:
-            return (Util.Global.FAILURE, "This Test Report folder contains no failed tests")
+            return (Util.Global.FAILURE,
+                    "This Test Report folder contains no failed tests")
 
         # generate ACS test campaign for the failed tests
         self.create_new_campaign()

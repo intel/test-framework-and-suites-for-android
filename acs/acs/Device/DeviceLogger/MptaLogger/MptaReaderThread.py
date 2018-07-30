@@ -206,7 +206,7 @@ class MptaReaderThread():
 
         except (KeyboardInterrupt, SystemExit):
             raise
-        except:
+        except BaseException:
             pass
 
     def stop_record(self):

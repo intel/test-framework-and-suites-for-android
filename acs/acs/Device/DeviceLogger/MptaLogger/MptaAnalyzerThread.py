@@ -65,7 +65,7 @@ class MptaAnalyzerThread(object):
                 self.__analyzer_thread.join(5)
             except (KeyboardInterrupt, SystemExit):
                 raise
-            except:
+            except BaseException:
                 pass
             finally:
                 del self.__analyzer_thread

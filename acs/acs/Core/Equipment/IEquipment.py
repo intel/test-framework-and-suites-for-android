@@ -367,7 +367,7 @@ class DaemonLoader(EquipmentBase, IDrivedEquipment):
             self.__binary = Popen(self.__binary_path)
         except (KeyboardInterrupt, SystemExit):
             raise
-        except:
+        except BaseException:
             self.get_logger().error(
                 "Failed to start daemon driver from %s",
                 str(self.__binary_path))
@@ -388,7 +388,7 @@ class DaemonLoader(EquipmentBase, IDrivedEquipment):
                 self.__binary = None
         except (KeyboardInterrupt, SystemExit):
             raise
-        except:
+        except BaseException:
             self.get_logger().error(
                 "Failed to stop daemon driver started from %s",
                 str(self.__binary_path))

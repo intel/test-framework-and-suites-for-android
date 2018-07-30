@@ -27,6 +27,7 @@ and approved by Intel in writing.
 @author: kturban
 """
 from acs.ErrorHandling.AcsToolException import AcsToolException
+from functools import reduce
 
 UNSUPPORTED_XPATH_REQUEST = ['@', '[', ']', '=']
 

@@ -100,11 +100,12 @@ class EmbeddedLog(object):
         if self._application_log_enable:
             self._clean_application_logs = self._dut_instance.get_config(
                 "cleanApplicationLog", "True", "str_to_bool") or retrieve_device_log_on_critical
-            self._application_log_options = self._dut_instance.get_config("applicationLogOptions",
-                                                                          "pull_timer:60,aplog_pull_timeout:60,log_location:/logs",
-                                                                          "str_to_dict")
-            self._application_log_folder = report_tree.get_subfolder_path(subfolder_name=LOG_SUBFOLDERS[0],
-                                                                          device_name=device_name)
+            self._application_log_options = self._dut_instance.get_config(
+                "applicationLogOptions",
+                "pull_timer:60,aplog_pull_timeout:60,log_location:/logs",
+                "str_to_dict")
+            self._application_log_folder = report_tree.get_subfolder_path(
+                subfolder_name=LOG_SUBFOLDERS[0], device_name=device_name)
             self._aplog_reg_device = re.compile(APLOG_PATTERN_DEVICE)
             self._aplog_reg_host = re.compile(APLOG_PATTERN_HOST)
             self._aplog_group_id = 1
@@ -117,9 +118,10 @@ class EmbeddedLog(object):
         # Create everything modem logging requires only if required
         if self._modem_log_enable:
             self._clean_modem_logs = self._dut_instance.get_config("cleanModemTrace", "False", "str_to_bool")
-            self._modem_trace_options = self._dut_instance.get_config("modemTraceOptions",
-                                                                      "hsi_speed:h,trace_level:2,trace_location:emmc,file_size_option:1,pull_timeout:60",
-                                                                      "str_to_dict")
+            self._modem_trace_options = self._dut_instance.get_config(
+                "modemTraceOptions",
+                "hsi_speed:h,trace_level:2,trace_location:emmc,file_size_option:1,pull_timeout:60",
+                "str_to_dict")
             self._modem_log_folder = report_tree.get_subfolder_path(subfolder_name=LOG_SUBFOLDERS[1],
                                                                     device_name=device_name)
             self._modem_api = self._dut_instance.get_uecmd("Modem")
@@ -164,7 +166,9 @@ class EmbeddedLog(object):
         num_of_serial_hw_control_confs = len(self._serial_hw_flow_control_list)
 
         # Check that confs are complete, no element are missing
-        if not all(x == self._num_of_serial_confs for x in (num_of_serial_port_confs, num_of_serial_baud_rate_confs, num_of_serial_hw_control_confs)):
+        if not all(x == self._num_of_serial_confs for x in (num_of_serial_port_confs,
+                                                            num_of_serial_baud_rate_confs,
+                                                            num_of_serial_hw_control_confs)):
             raise AcsConfigException(AcsConfigException.INVALID_BENCH_CONFIG, "Missing serial log information")
 
         # Create everything serial (UART) logging requires only if required, for all ports
@@ -249,9 +253,10 @@ class EmbeddedLog(object):
 
                 serial_logger.set_output_file(self._serial_confs[SERIAL_LOG_FILE + str(conf_id)])
 
-                if serial_logger.configure(com_port=self._serial_confs[PORT + str(conf_id)],
-                                           baudrate=self._serial_confs[BAUDRATE + str(conf_id)],
-                                           hdw_flow_control=self._serial_confs[HWCTRLFLOW + str(conf_id)]) != Global.SUCCESS:
+                if serial_logger.configure(
+                    com_port=self._serial_confs[PORT + str(conf_id)],
+                    baudrate=self._serial_confs[BAUDRATE + str(conf_id)],
+                    hdw_flow_control=self._serial_confs[HWCTRLFLOW + str(conf_id)]) != Global.SUCCESS:
                     serial_logger = None
                 else:
                     self._serial_confs[SERIAL_LOGGER + str(conf_id)] = serial_logger

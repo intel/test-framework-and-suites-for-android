@@ -56,7 +56,8 @@ class CampaignConf(BaseConf):
 
         if (not value.isdigit()) or value == "0":
             # Inform user in ACS log that runNumber has a bad value
-            error_msg = "Campaign config file issue: Wrong format or value for runNumber attribute (value used: '" + str(value) + \
+            error_msg = "Campaign config file issue: " + \
+                "Wrong format or value for runNumber attribute (value used: '" + str(value) + \
                 " for SubCampaign " + str(self._raw_name) + "), runNumber parameter should be a positive integer"
             # Raise an exception to stop the campaign as campaign config file
             raise AcsConfigException(AcsConfigException.INVALID_PARAMETER, error_msg)

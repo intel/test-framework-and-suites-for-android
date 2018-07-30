@@ -122,7 +122,7 @@ class UseCaseCatalogParser(CatalogParser):
                                      % (self._yaml_config_file, str(item_domain)))
         elif item_subdomain not in possible_subdomains:
             raise AcsConfigException(AcsConfigException.XML_PARSING_ERROR,
-                                     "'%s' catalog is invalid ! (SubDomain %s is not valid for item %s; Expected values are %s)"
+                                     "'%s' catalog is invalid ! (SubDomain %s is not valid for item %s; Expected values are %s)"  # NOQA
                                      % (catalog_file, str(item_subdomain), str(item_id), str(possible_subdomains)))
 
     def _check_xml_logic(self, catalog_file):

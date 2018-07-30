@@ -52,7 +52,8 @@ class DeviceModuleFactory(object):
 
         :type module_path: str
         :param module_path: Namespace + class name to instantiate
-                           (for instance: 'Device.Module.Common.Flash.DummyFlashModule.DummyFlashModule')
+                           (for instance:
+                               'Device.Module.Common.Flash.DummyFlashModule.DummyFlashModule')
         """
         module = None
         if os.path.isdir(PathManager.Paths.EXTRA_LIB_FOLDER) and module_path:
@@ -113,17 +114,19 @@ class DeviceModuleFactory(object):
         Method that will load device module and its configuration
 
         :type module_name: str
-        :param module_name: Name of the module to instantiate (e.g.: "FlashModule")
+        :param module_name: Name of the module to instantiate
+            (e.g.: "FlashModule")
 
         :type module_conf: dict
-        :param module_conf: Configuration of the module as defined in the device catalog or bench config
+        :param module_conf: Configuration of the module
+            as defined in the device catalog or bench config
         """
         try:
             module = DeviceModuleFactory._load_module(module_conf.class_name)
         except ImportError as exception:
-            raise AcsConfigException("Cannot instantiate \"{0}\" module from \"{1}\": {2}".format(module_name,
-                                                                                                  module_conf.class_name,
-                                                                                                  exception))
+            raise AcsConfigException(
+                "Cannot instantiate \"{0}\" module from \"{1}\": {2}".format(
+                    module_name, module_conf.class_name, exception))
         conf_path = DeviceModuleFactory._load_conf(module, module_conf.config)
         if conf_path:
             module.configuration_file = conf_path
@@ -191,8 +194,7 @@ class DeviceModuleFactory(object):
                 for key, value in module.configuration.items():
                     LOGGER_FWK.debug("\t {0}  : {1}".format(key, value))
                 LOGGER_DEVICE_STATS.info(
-                    "Create device_module={0}; device_module_class={1}; device_module_conf={2}".format(module_name,
-                                                                                                       module_configuration.class_name,
-                                                                                                       module_configuration.config))
+                    "Create device_module={0}; device_module_class={1}; device_module_conf={2}".format(
+                        module_name, module_configuration.class_name, module_configuration.config))
                 modules.append(module)
         return modules

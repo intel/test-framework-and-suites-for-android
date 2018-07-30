@@ -96,7 +96,8 @@ class TCParameters():
     @property
     def do_device_connection(self):
         """
-        This property tells whether a TC activate or not ACS FWK device connection
+        This property tells whether a TC activate
+        or not ACS FWK device connection
 
         :return: Whether True or False
         """
@@ -294,7 +295,8 @@ class TCParameters():
         """
 
         # check if param is overridden in campaign
-        return self.get_testcase_property(prop_name=B2B_CONTINUOUS_MODE, default_value=False, default_cast_type="str_to_bool")
+        return self.get_testcase_property(prop_name=B2B_CONTINUOUS_MODE,
+                                          default_value=False, default_cast_type="str_to_bool")
 
     def get_ucase_name(self):
         """
@@ -324,7 +326,9 @@ class TCParameters():
         """
         # If the node does not exists, return default value (False)
         # This is for backward compatibility
-        return self.get_testcase_property(prop_name='SavePatRawData', default_value=False, default_cast_type="str_to_bool")
+        return self.get_testcase_property(prop_name='SavePatRawData',
+                                          default_value=False,
+                                          default_cast_type="str_to_bool")
 
     def get_pat_power_calculation_mode(self):
         """ get_pat_power_calculation_mode
@@ -345,7 +349,9 @@ class TCParameters():
         This function returns if the UC was tagged as critical.
         """
         # check if param is overridden in campaign
-        return self.get_testcase_property(prop_name=CRITICAL, default_value=False, default_cast_type="str_to_bool")
+        return self.get_testcase_property(prop_name=CRITICAL,
+                                          default_value=False,
+                                          default_cast_type="str_to_bool")
 
     def get_acceptance_criteria(self):
         """
@@ -390,7 +396,9 @@ class TCParameters():
         This function returns if the TC was tagged as warning.
         """
         # check if param is overridden in campaign
-        return self.get_testcase_property(prop_name=WARNING, default_value=False, default_cast_type="str_to_bool")
+        return self.get_testcase_property(prop_name=WARNING,
+                                          default_value=False,
+                                          default_cast_type="str_to_bool")
 
     def get_phase_node(self):
         """

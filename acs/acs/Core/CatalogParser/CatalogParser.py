@@ -37,10 +37,11 @@ class CatalogParser(object):
     This class implements the Catalog Parser interface
     It is an entry point to parse xml files and return it as a dictionary
 
-    It is a folder (i.e.: _Catalogs/UseCase) composed of a list of .xml files validated by a .xsd schema
+    It is a folder (i.e.: _Catalogs/UseCase) composed of
+    a list of .xml files validated by a .xsd schema
     i.e.: _Catalogs/UseCase/usecase.xsd (MANDATORY to check the xml file)
-                          /telephony.xml (MUST respect defined rules in usecase.xsd)
-                          /cws/cws.xml (MUST respect defined rules in usecase.xsd)
+                    /telephony.xml (MUST respect defined rules in usecase.xsd)
+                    /cws/cws.xml (MUST respect defined rules in usecase.xsd)
     """
 
     ID_ATTRIB = "Id"
@@ -60,10 +61,12 @@ class CatalogParser(object):
 
     def __init__(self, catalog_paths):
         """
-        Validate optional XML schema (xsd) & YAML logic files & load their contents
+        Validate optional XML schema (xsd) & YAML logic files
+        & load their contents
 
         :type catalog_paths: list
-        :param catalog_paths: catalog paths list. Catalogs can come from different locations (acs, acs_test_scripts)
+        :param catalog_paths: catalog paths list.
+            Catalogs can come from different locations (acs, acs_test_scripts)
         """
 
         self._xml_schema = None
@@ -91,11 +94,13 @@ class CatalogParser(object):
             return etree.XMLSchema(etree.parse(xml_schema))
         except etree.XMLSchemaParseError as xml_schema_error:
             raise AcsConfigException(AcsConfigException.XML_PARSING_ERROR,
-                                     "'%s' schema is invalid ! (%s)" % (xml_schema, str(xml_schema_error)))
+                                     "'%s' schema is invalid ! (%s)"
+                                     % (xml_schema, str(xml_schema_error)))
 
     def __load_yaml_config(self, yaml_config):
         """
-        Load YAML configuration to validate the xml catalog domain, subdomain & feature
+        Load YAML configuration to validate
+        the xml catalog domain, subdomain & feature
 
         :type yaml_config: string
         :param yaml_config: YAML config to load
@@ -109,7 +114,8 @@ class CatalogParser(object):
                 return yaml.load(f)
         except yaml.scanner.ScannerError as yaml_config_error:
             raise AcsConfigException(AcsConfigException.YAML_PARSING_ERROR,
-                                     "'%s' is invalid ! (%s)" % (yaml_config, str(yaml_config_error)))
+                                     "'%s' is invalid ! (%s)"
+                                     % (yaml_config, str(yaml_config_error)))
 
     def __check_xml_schema(self, catalog_file):
         """
@@ -133,7 +139,8 @@ class CatalogParser(object):
 
         except etree.Error as xml_parsing_error:
             raise AcsConfigException(AcsConfigException.XML_PARSING_ERROR,
-                                     "'%s' catalog is invalid ! (%s)" % (catalog_file, str(xml_parsing_error)))
+                                     "'%s' catalog is invalid ! (%s)"
+                                     % (catalog_file, str(xml_parsing_error)))
 
         return catalog_etree
 
@@ -157,9 +164,10 @@ class CatalogParser(object):
 
             domains = self._yaml_config.get("DOMAINS")
             if not domains:
-                raise AcsConfigException(AcsConfigException.YAML_PARSING_ERROR,
-                                         "'%s' file is invalid ! (DOMAINS section does not exists!)"
-                                         % self._yaml_config_file)
+                raise AcsConfigException(
+                    AcsConfigException.YAML_PARSING_ERROR,
+                    "'%s' file is invalid ! (DOMAINS section does not exists!)"
+                    % self._yaml_config_file)
 
             for node in catalog_etree.getroot():
                 item_id = node.attrib[CatalogParser.ID_ATTRIB]
@@ -216,25 +224,32 @@ class CatalogParser(object):
         subdomains = self._yaml_config.get("SUB_DOMAINS")
 
         if not subdomains:
-            raise AcsConfigException(AcsConfigException.YAML_PARSING_ERROR,
-                                     "'%s' file is invalid ! (SUB_DOMAINS section does not exists!)"
-                                     % self._yaml_config_file)
+            raise AcsConfigException(
+                AcsConfigException.YAML_PARSING_ERROR,
+                "'%s' file is invalid ! (SUB_DOMAINS section does not exists!)"
+                % self._yaml_config_file)
         elif possible_subdomains is None:
-            raise AcsConfigException(AcsConfigException.XML_PARSING_ERROR,
-                                     "'%s' is invalid ! (Domain %s is not valid for item %s; Expected values are %s)"
-                                     % (catalog_file, str(item_domain), str(item_id), str(possible_domains)))
+            raise AcsConfigException(
+                AcsConfigException.XML_PARSING_ERROR,
+                "'%s' is invalid ! (Domain %s is not valid for item %s; Expected values are %s)"
+                % (catalog_file, str(item_domain),
+                   str(item_id), str(possible_domains)))
         elif len(possible_subdomains) == 0:
-            raise AcsConfigException(AcsConfigException.YAML_PARSING_ERROR,
-                                     "'%s' file is invalid ! (no SubDomains exist for Domain %s)"
-                                     % (self._yaml_config_file, str(item_domain)))
+            raise AcsConfigException(
+                AcsConfigException.YAML_PARSING_ERROR,
+                "'%s' file is invalid ! (no SubDomains exist for Domain %s)"
+                % (self._yaml_config_file, str(item_domain)))
         elif item_subdomain not in possible_subdomains:
-            raise AcsConfigException(AcsConfigException.XML_PARSING_ERROR,
-                                     "'%s' catalog is invalid ! (SubDomain %s is not valid for item %s; Expected values are %s)"
-                                     % (catalog_file, str(item_subdomain), str(item_id), str(possible_subdomains)))
+            raise AcsConfigException(
+                AcsConfigException.XML_PARSING_ERROR,
+                "'%s' catalog is invalid ! (SubDomain %s is not valid for item %s; Expected values are %s)"
+                % (catalog_file, str(item_subdomain),
+                   str(item_id), str(possible_subdomains)))
         else:
             return subdomains.get(item_subdomain)
 
-    def _check_feature(self, catalog_file, item_id, item_subdomain, item_feature, possible_features):
+    def _check_feature(self, catalog_file, item_id, item_subdomain,
+                       item_feature, possible_features):
         """
         Validate Feature attributes using YAML config
 
@@ -258,17 +273,21 @@ class CatalogParser(object):
         """
 
         if possible_features is None:
-            raise AcsConfigException(AcsConfigException.YAML_PARSING_ERROR,
-                                     "'%s' is invalid ! (SubDomain %s does not exist)"
-                                     % (self._yaml_config_file, str(item_subdomain)))
+            raise AcsConfigException(
+                AcsConfigException.YAML_PARSING_ERROR,
+                "'%s' is invalid ! (SubDomain %s does not exist)"
+                % (self._yaml_config_file, str(item_subdomain)))
         elif len(possible_features) > 0 and item_feature not in possible_features:
-            raise AcsConfigException(AcsConfigException.XML_PARSING_ERROR,
-                                     "'%s' catalog is invalid ! (Feature %s is not valid for item %s; Expected values are %s)"
-                                     % (catalog_file, str(item_feature), str(item_id), str(possible_features)))
+            raise AcsConfigException(
+                AcsConfigException.XML_PARSING_ERROR,
+                "'%s' catalog is invalid ! (Feature %s is not valid for item %s; Expected values are %s)"
+                % (catalog_file, str(item_feature),
+                   str(item_id), str(possible_features)))
         elif len(possible_features) == 0 and len(item_feature) > 0:
-            raise AcsConfigException(AcsConfigException.XML_PARSING_ERROR,
-                                     "'%s' catalog is invalid ! (Feature %s is not valid for item %s; No features expected)"
-                                     % (catalog_file, str(item_feature), str(item_id)))
+            raise AcsConfigException(
+                AcsConfigException.XML_PARSING_ERROR,
+                "'%s' catalog is invalid ! (Feature %s is not valid for item %s; No features expected)"
+                % (catalog_file, str(item_feature), str(item_id)))
 
     def validate_catalog_file(self, catalog_file):
         """

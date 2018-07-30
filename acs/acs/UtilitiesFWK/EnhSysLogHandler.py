@@ -54,5 +54,5 @@ class EnhSysLogHandler(handlers.SysLogHandler):
             # Server available, send it the log
             try:
                 handlers.SysLogHandler.emit(self, record)
-            except:
+            except BaseException:
                 EnhSysLogHandler.CONNECTION_AVAILABLE = False

@@ -49,7 +49,7 @@ class MptaLogger(ILogger):
             self.__reader_thread.disconnect()
         except (KeyboardInterrupt, SystemExit):
             raise
-        except:
+        except BaseException:
             pass
 
     def set_output_file(self, path):

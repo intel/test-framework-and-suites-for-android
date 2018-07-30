@@ -140,7 +140,8 @@ class LiveReporting(object):
         if self._instance:
             self._instance.stop_campaign(status, verdict, self._get_campaign_infos())
 
-    def send_create_tc_info(self, tc_name, uc_name, tc_phase, tc_type, tc_domain, tc_order, is_warning, tc_parameters=None):
+    def send_create_tc_info(self, tc_name, uc_name, tc_phase, tc_type,
+                            tc_domain, tc_order, is_warning, tc_parameters=None):
 
         tc_id = None
         # Update TCR Reporting tool via REST API interface

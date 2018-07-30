@@ -1,6 +1,4 @@
 """
-
-
 :copyright: (c)Copyright 2013, Intel Corporation All Rights Reserved.
 The source code contained or described here in and all documents related
 to the source code ("Material") are owned by Intel Corporation or its
@@ -96,7 +94,9 @@ class DefaultCampaignGenerator(object):
     def _find_campaign_path(self, campaign_name):
         campaign_file_path = (os.path.normpath(campaign_name)
                               if os.path.isfile(os.path.normpath(campaign_name))
-                              else os.path.normpath(os.path.join(Paths.EXECUTION_CONFIG, campaign_name + self._file_extension)))
+                              else os.path.normpath(
+                                  os.path.join(Paths.EXECUTION_CONFIG,
+                                               campaign_name + self._file_extension)))
 
         if not os.path.isfile(campaign_file_path):
             error_msg = "Campaign file not found : %s !" % (campaign_file_path,)
@@ -105,11 +105,12 @@ class DefaultCampaignGenerator(object):
 
     def load(self, **kwargs):
         """
-        This function parses the campaign config XML file into two lists : full test case l
-ist to execute + subcampaign file list.
+        This function parses the campaign config XML file into two lists:
+            full test case list to execute + subcampaign file list.
         It also read TestCases XML files and store them.
 
-        :return name of a list containing all TestCaseConf + a list containing all CampaignConf ordered as in the campaign XML
+        :return name of a list containing all TestCaseConf +
+            a list containing all CampaignConf ordered as in the campaign XML
         :rtype Tuple of TestCaseConf list, CampaignConf list
         """
         campaign_name = os.path.normpath(kwargs["campaign_name"])
@@ -262,7 +263,8 @@ ist to execute + subcampaign file list.
                         continue
                     # Compose relative file path for sub campaign config file
                     sub_campaign_file_path = sub_campaign_config.get_name()
-                    campaign_path = os.path.join(Paths.EXECUTION_CONFIG, sub_campaign_file_path + self._file_extension)
+                    campaign_path = os.path.join(Paths.EXECUTION_CONFIG,
+                                                 sub_campaign_file_path + self._file_extension)
 
                     if not os.path.isfile(campaign_path):
                         error_msg = "Campaign file not found %s !" % (campaign_path,)
@@ -272,8 +274,10 @@ ist to execute + subcampaign file list.
                     except et.XMLSyntaxError:
                         _, error_msg, _ = Utils.get_exception_info()
                         raise AcsConfigException(AcsConfigException.XML_PARSING_ERROR, error_msg)
-                    # Parse of the Sub Campaign node is OK in parent campaign file + Parse of the file sub Campaign is OK
-                    # add sub campaign item to sub campaign list (for debug purpose - configuration file copy in AWR)
+                    # Parse of the Sub Campaign node is OK
+                    # in parent campaign file + Parse of the file sub Campaign is OK
+                    # add sub campaign item to sub campaign list
+                    # (for debug purpose - configuration file copy in AWR)
                     sub_campaign_list.append(sub_campaign_config)
 
                     # After parsing sub Campaign node, we shall update the sub campaign parent campaign list
@@ -348,8 +352,9 @@ ist to execute + subcampaign file list.
 
     def __clean_tc_path(self, path):
         """
-        As in campaign, TC relative path is written either for linux or windows system.
-        The method will insure a proper path and avoid a mix of "\" and "/" in the same path.
+        As in campaign, TC relative path is written either for
+        linux or windows system. The method will insure a proper path and
+        avoid a mix of "\" and "/" in the same path.
 
 
         :param path: TC path to be cleaned
@@ -403,7 +408,8 @@ ist to execute + subcampaign file list.
             error_msg = "Use case {0} not found in UC catalog!".format(ucase)
             raise AcsConfigException(AcsConfigException.XML_PARSING_ERROR, error_msg)
 
-        # Presence of ClassName element is already checked by CatalogParser using xsd
+        # Presence of ClassName element
+        # is already checked by CatalogParser using xsd
         ucase_class_name = ucase_dic.get(CatalogParser.CLASSNAME_ELEM)
         ucase_class = Utils.get_class(ucase_class_name)
         return ucase_class

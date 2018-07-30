@@ -595,7 +595,7 @@ class ADBSocket():
                 self._adb_disconnect()
             except (KeyboardInterrupt, SystemExit):
                 raise
-            except:
+            except BaseException:
                 pass
             finally:
                 self.__lock.release()

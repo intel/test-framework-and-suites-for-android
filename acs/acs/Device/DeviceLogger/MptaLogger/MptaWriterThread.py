@@ -66,7 +66,7 @@ class MptaWriterThread(object):
 
             except (KeyboardInterrupt, SystemExit):
                 raise
-            except:  # pylint: disable=W0703
+            except BaseException:  # pylint: disable=W0703
                 pass
             finally:
                 del self.__writer_thread
@@ -85,7 +85,7 @@ class MptaWriterThread(object):
             self.__file = open(self.__bin_filename, 'wb')
         except (KeyboardInterrupt, SystemExit):
             raise
-        except:
+        except BaseException:
             # raise MptaLoggerThreadError(-1, "MptaLoggerThread file creation failed")
             pass
 
