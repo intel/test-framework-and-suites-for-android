@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<BenchConfig>
+  <Phones>
+      <Phone name="PHONE1" description="Phone to use during test campaign. Please refer to Device_Catalog.xml to fill DeviceModel parameter" deviceModel="ECS-Android-LLP">
+            <Parameter disableTcReboot="false" description="Disable TC reboot options"/>
+            <Parameter multipleDevices="true"/>
+            <!-- serial number for device under test -->
+            <Parameter serialNumber="xxxxxxxxxxxx"/>
+        </Phone>
+        <Phone name="PHONE2" description="Phone to use during test campaign. Please refer to Device_Catalog.xml to fill DeviceModel parameter" deviceModel="ECS-Android-LLP">
+            <Parameter disableTcReboot="true" description="Disable TC reboot options"/>
+            <!-- serial number for reference device -->
+            <Parameter serialNumber="xxxxxxxxxxxx"/>
+        </Phone>
+    </Phones>
+    <Equipments>
+        <Equipment version="14.09" name="ARTIFACT_MANAGER" description="ArtifactManager configuration to get all test case necessary artifacts">
+            <Parameter name="URI" value="https://mcg-depot.intel.com/artifactory/acs_test_artifacts/" description="Local path/URL to the artifact source"/>
+        </Equipment>
+    </Equipments>
+</BenchConfig>
+

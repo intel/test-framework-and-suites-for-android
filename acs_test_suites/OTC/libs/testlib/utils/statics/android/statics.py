@@ -93,6 +93,39 @@ class SoC(object):
                                     }
 
 
+class CHT(SoC):
+    def __init__(self, **kwargs):
+        SoC.__init__(self, **kwargs)
+        self.p2p_wpa_cli_connect = "wpa_cli p2p_connect [mac_addr] pbc persistent go_intent=15 freq=[p2p_freq]"
+        self.battery_path = 'max170xx_battery'
+        self.go_timeout_status = "DISCONNECTED/"
+        self.flash_configuration_id = "blank"
+        self.resource_folder = "img_cht"
+        self.partition_bounds_check_string = "FAILED (remote: Flash failure: Invalid Parameter)"
+        self.partition_for_bounds_test = "misc"
+        self.fastboot_menu_entry = {"normal_boot": 0,
+                                    "bootloader": 1,
+                                    "recovery": 2,
+                                    "reboot": 3,
+                                    "power_off": 4,
+                                    "crashmode": 5,
+                                    }
+        self.crashmode_menu_entry = {"normal_boot": 0,
+                                     "bootloader": 1,
+                                     "recovery": 2,
+                                     "reboot": 3,
+                                     "power_off": 4,
+                                     }
+        self.repackage_userdata_on_flash = False
+
+
+class cht_ffd(CHT):
+    def __init__(self, **kwargs):
+        CHT.__init__(self, **kwargs)
+        self.has_multiple_flashfiles = True
+        self.wifi_driver = "bcmdhd_pcie"
+
+
 class BXT(SoC):
     def __init__(self, **kwargs):
         SoC.__init__(self, **kwargs)
@@ -172,6 +205,57 @@ class Desert(object):
         self.all_apps_icon = [{"description": "Apps"}, {"resourceid": "com.android.launcher3:id/all_apps_handle"}]
 
 
+class N(Desert):
+    def __init__(self, **kwargs):
+        Desert.__init__(self, **kwargs)
+        self.name = "N"
+        self.get_interfaces_tool = "ifconfig"
+        self.confirm_pin_go_back = {"description": "Navigate up"}
+        self.download_path = "/storage/emulated/0/Download/"
+        self.confirm_view_pin_oem_unlock = "Confirm your PIN"
+        ##################################################
+
+        self.remove_pin_confirm_desc = "Remove device protection"
+        self.remove_pin_confirm_button = "YES, REMOVE"
+        self.oem_unlock_btn_id = {"text": "ENABLE"}
+        self.wifi_more_options_id = {"description": "Configure"}
+        self.wifi_saved_networks_list_id = {"className": "android.support.v7.widget.RecyclerView"}
+        self.wifi_saved_networks_list_element_id = {"className": "android.widget.TextView"}
+        self.wifi_saved_network_forget_btn_id = {"text": "FORGET"}
+        self.wifi_saved_network_cancel_btn_id = {"text": "CANCEL"}
+        self.wifi_saved_network_done_btn_id = {"text": "DONE"}
+        self.wifi_add_network_save_btn_id = {"textContains": "SAVE"}
+        self.wifi_add_network_cancel_btn_id = {"textContains": "CANCEL"}
+        self.wifi_add_network_connect_btn_id = {"textContains": "CONNECT"}
+        self.quick_settings_wifi_id = {"className": "android.widget.Button",
+                                       "descriptionStartsWith": "Wi-Fi "}
+        self.quick_settings_wifi_disconnected_id = {"className": "android.widget.Button",
+                                                    "descriptionStartsWith": "Wi-Fi On,,"}
+        self.quick_settings_wifi_off_id = {"className": "android.widget.Button",
+                                           "descriptionStartsWith": "Wi-Fi Off"}
+
+        self.chrome_accept_welcome_btn_id = {"text": "ACCEPT & CONTINUE"}
+        self.chrome_welcome_sign_in_no_thanks_btn_id = {"text": "NO THANKS"}
+        self.airplane_mode_switch_id = {"resourceId": "android:id/switch_widget"}
+        self.wifi_p2p_rename_device_id = {"text": "RENAME DEVICE", "description": "Rename device"}
+        self.wifi_p2p_device_searching_id = {"text": u"SEARCHING\u2026"}
+        self.wifi_p2p_search_for_devices_id = {"text": "SEARCH FOR DEVICES"}
+        self.wifi_p2p_connect_response_accept_btn_id = {"text": "ACCEPT"}
+        self.wifi_p2p_connect_response_decline_btn_id = {"text": "DECLINE"}
+        self.wifi_ca_certificate_none_id = "Do not validate"
+        self.wifi_network_connect_id = {"text": "CONNECT"}
+        self.password_done_btn_id = {"textContains": "DONE"}
+        self.predefined_language_text_id = "UNITED STATES"
+        self.skip_wifi_btn_id = {"resourceId": "com.google.android.setupwizard:id/network_dont_connect"}
+        self.wifi_skip_anyway_btn_id = {"text": "CONTINUE"}
+        self.skip_wifi_text_to_find_id = "CONTINUE"
+        self.next_btn_id = "NEXT"
+        self.skip_pin_btn_id = {"text": "Not now"}
+        self.skip_anyway_btn_id = {"text": "SKIP ANYWAY"}
+        self.finish_startup_btn_id = {"text": "Set up later"}
+        self.cts_runner_type = "module_based"
+
+
 class Oreo(Desert):
     def __init__(self, **kwargs):
         Desert.__init__(self, **kwargs)
@@ -226,6 +310,7 @@ class Device(object):
     __metaclass__ = base_utils.SingletonType
 
     __DESSERTS = {
+        "N": "N",
         "O": "Oreo"
     }
 
@@ -236,11 +321,13 @@ class Device(object):
     }
 
     __PLATFORMS = {
+        "cht_ffd": "cht_ffd",
         "gordon_peak": "gordon_peak",
         "cel_apl": "cel_apl"
     }
 
     __SW_PLATFORMS = {
+        "cht_ffd": "cht_ffd",
         "gordon_peak": "gordon_peak",
         "cel_apl": "cel_apl"
     }

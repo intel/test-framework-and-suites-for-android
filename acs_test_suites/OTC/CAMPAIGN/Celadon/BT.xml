@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='ASCII'?>
+<Campaign version="13.49">
+    <Parameters>
+        <Parameter skipBootOnPowerCycle="False"/>
+        <Parameter bootRetryNumber="0"/>
+        <Parameter runHookScripts="False"/>
+        <Parameter powerCycleBetweenTC="False"/>
+        <Parameter powerCycleOnFailure="False"/>
+        <Parameter finalDutState="NoChange"/>
+        <Parameter stopCampaignOnCriticalFailure="False"/>
+        <Parameter stopCampaignOnFirstFailure="False"/>
+        <!-- LoggingLevel possible values: info | warning | debug | error -->
+        <Parameter loggingLevel="debug"/>
+        <Parameter CampaignType="Others"/>
+        <Parameter TCRReportViaRESTAPI="True"/>
+    </Parameters>
+    <Targets>
+        <!-- Target Values -->
+        <Target targetB2bPassRate="100"/>
+    </Targets>
+        <TestCases>
+            <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_Modify_DUT_Bluetooth_Name_No_Character_UI"/>
+            <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_Refresh_Scan_Process"/>
+            <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_Pair_DUT_With_Remote_Device_DUT_Pair_Remote_Timeout"/>
+            <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_Pair_DUT_With_Remote_Device_Remote_Pair_DUT_Timeout"/>
+            <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_Unpair_with_a_device"/>
+            <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_BT_on_off_iteratively"/>
+            <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_Pair_DUT_With_Remote_Device_DUT_Pair_Remote_Cancel"/>
+        </TestCases>
+</Campaign>
