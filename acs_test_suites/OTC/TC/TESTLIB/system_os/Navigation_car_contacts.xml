@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='ASCII'?>
+<TestCase>
+    <UseCase>Testlib</UseCase>
+    <Description>Example</Description>
+    <b2bIteration>1</b2bIteration>
+    <b2bContinuousMode>True</b2bContinuousMode>
+    <TcMaxAttempt>3</TcMaxAttempt>
+    <Parameters>
+        <Parameter>
+            <Name>test</Name>
+            <Value>scripts/android/system_os/tests/O_navigation_car.py</Value>
+        </Parameter>
+        <Parameter>
+            <Name>script-args</Name>
+            <Value>option=contacts</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>
