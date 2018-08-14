@@ -477,7 +477,7 @@ class wait_for_ui(adb_step):
         else:
             menu_to_unlock(serial=self.serial)()
         command(serial=self.serial, command="svc power stayon true")()
-        if self.device_info.platform != "gordon_peak":
+        if self.device_info.platform not in ["gordon_peak", "cel_apl"]:
             print "[ {0} ]: perform startup wizard if necessary".format(self.serial)
             if ui_utils.is_view_displayed(serial=self.serial,
                                           view_to_find={"resourceId": "com.google.android.setupwizard:id/start"}):

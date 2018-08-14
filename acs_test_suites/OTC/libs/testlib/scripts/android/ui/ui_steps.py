@@ -759,7 +759,7 @@ class press_home(ui_step):
         # self.serial))
         time_elapsed = 0
         while time_elapsed < self.wait_time:
-            if self.device_info.platform != "gordon_peak":
+            if self.device_info.platform not in ["gordon_peak", "cel_apl"]:
                 # self.uidevice.press.recent()
                 self.uidevice.press.home()
             else:
@@ -3155,7 +3155,7 @@ class press_map(ui_step):
         self.step_data = False
 
     def do(self):
-        if self.device_info.platform not in ["gordon_peak"]:
+        if self.device_info.platform not in ["gordon_peak", "cel_apl"]:
             self.logger.error("Unsupported API, as it only support in "
                               "greater than or equal to Android O IVI "
                               "platform")
@@ -3209,7 +3209,7 @@ class press_dialer(ui_step):
         self.step_data = False
 
     def do(self):
-        if self.device_info.platform not in ["gordon_peak"]:
+        if self.device_info.platform not in ["gordon_peak", "cel_apl"]:
             self.logger.error("Unsupported API, as it only support in greater than or equal to Android O IVI "
                               "platform")
         else:
@@ -3268,7 +3268,7 @@ class press_media(ui_step):
         self.step_data = False
 
     def do(self):
-        if self.device_info.platform not in ["gordon_peak"]:
+        if self.device_info.platform not in ["gordon_peak", "cel_apl"]:
             self.logger.error("Unsupported API, as it only support in "
                               "greater than or equal to Android O IVI "
                               "platform")
@@ -3327,7 +3327,7 @@ class press_car(ui_step):
         self.step_data = False
 
     def do(self):
-        if self.device_info.platform not in ["gordon_peak"]:
+        if self.device_info.platform not in ["gordon_peak", "cel_apl"]:
             self.logger.error("Unsupported API, as it only support in "
                               "greater than or equal to Android O IVI "
                               "platform")
