@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TestCase>
+    <UseCase>PY_UNIT</UseCase>
+    <Discription>Test Display Metrics Report</Discription>
+    <Parameters>
+        <Parameter>
+            <Name>TEST_DATA_ROOT</Name>
+            <Value>test_data/</Value>
+        </Parameter>
+        <Parameter>
+            <Name>TEST_CASE</Name>
+            <Value>tests.Graphics_Display.Display.test_Display_MetricsReport.DisplayMetricsReport.test_Display_MetricsReport</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>

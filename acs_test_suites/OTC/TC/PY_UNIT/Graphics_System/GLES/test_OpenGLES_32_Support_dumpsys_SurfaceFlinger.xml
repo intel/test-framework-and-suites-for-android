@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TestCase>
+    <UseCase>PY_UNIT</UseCase>
+    <Discription>test_OpenGLES_32_Support_dumpsys_SurfaceFlinger</Discription>
+    <Parameters>
+        <Parameter>
+            <Name>TEST_DATA_ROOT</Name>
+            <Value>test_data/Graphics_System/</Value>
+        </Parameter>
+        <Parameter>
+            <Name>TEST_CASE</Name>
+            <Value>tests.Graphics_System.GLES.dEQP_GLES.RundEQP.test_OpenGLES_32_Support_dumpsys_SurfaceFlinger</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>

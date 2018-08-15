@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TestCase>
+    <UseCase>PY_UNIT</UseCase>
+    <Discription>test Rotate 180 Degree</Discription>
+    <Parameters>
+        <Parameter>
+            <Name>TEST_DATA_ROOT</Name>
+            <Value>test_data/</Value>
+        </Parameter>
+        <Parameter>
+            <Name>TEST_CASE</Name>
+            <Value>tests.Graphics_Display.ComposeUI.test_Rotate_180Degree.RotateScreen.test_Rotate_180Degree</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>

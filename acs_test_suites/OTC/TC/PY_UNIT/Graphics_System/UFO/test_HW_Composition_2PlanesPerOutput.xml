@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TestCase>
+    <UseCase>PY_UNIT</UseCase>
+    <Discription>Test HW Composition 2 Planes Per Output</Discription>
+    <Parameters>
+        <Parameter>
+            <Name>TEST_DATA_ROOT</Name>
+            <Value>test_data/</Value>
+        </Parameter>
+        <Parameter>
+            <Name>TEST_CASE</Name>
+            <Value>tests.Graphics_System.UFO.test_HW_Composition_2PlanesPerOutput.NotificationAndQuickSettings.test_HW_Composition_2PlanesPerOutput</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>

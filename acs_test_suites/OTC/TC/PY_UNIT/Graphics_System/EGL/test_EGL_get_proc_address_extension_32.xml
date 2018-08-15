@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TestCase>
+    <UseCase>PY_UNIT</UseCase>
+    <Discription>test_EGL_get_proc_address_extension_32</Discription>
+    <Parameters>
+        <Parameter>
+            <Name>TEST_DATA_ROOT</Name>
+            <Value>test_data/Graphics_System/</Value>
+        </Parameter>
+        <Parameter>
+            <Name>TEST_CASE</Name>
+            <Value>tests.Graphics_System.EGL.dEQP_EGL.RundEQP.test_EGL_get_proc_address_extension_32</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>
