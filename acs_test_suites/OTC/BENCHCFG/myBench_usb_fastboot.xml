@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<BenchConfig>
+    <Phones>
+        <Phone name="PHONE1" deviceModel="Android" description="Test DUI, please refer to Device_Catalog.xml to add device parameters">
+                <Parameter disableTcReboot="true" description="Disable TC reboot options"/>
+        </Phone>
+    </Phones>
+    <Equipments>
+        <Equipment name="IO_CARD" description="Input output card used for power management, energy management on I/O ports of the DUT.">
+            <Parameter name="Model" value="USB_RLY08"/>
+            <Parameter name="ComPort" value="/dev/ttyACM0" description="COM port used for communication"/>
+            <Parameter name="SwitchOnOff" value="1" description="Number of the relay used to boot or stop the board"/>
+            <Parameter name="VolumeUp" value="2" description="Number of the relay used to press DUT volume UP"/>
+            <Parameter name="VolumeDown" value="3" description="Number of the relay used to press DUT volume Down"/>
+            <Parameter name="DefaultStates" value="00000000" description="Default relay states"/>
+            <Parameter name="WiringTable" value="000000000" description="Wiring Table"/>
+        </Equipment>
+        <Equipment version="14.09" name="ARTIFACT_MANAGER" description="ArtifactManager configuration to get all test case necessary artifacts">
+            <Parameter name="URI" value="https://mcg-depot.intel.com/artifactory/acs_test_artifacts/" description="Local path/URL to the artifact source"/>
+        </Equipment>
+    </Equipments>
+</BenchConfig>

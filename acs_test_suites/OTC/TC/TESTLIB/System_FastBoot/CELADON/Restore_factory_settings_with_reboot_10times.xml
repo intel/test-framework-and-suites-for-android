@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ASCII"?>
+<TestCase>
+    <UseCase>Testlib</UseCase>
+    <Description>fastboot</Description>
+    <b2bIteration>1</b2bIteration>
+    <b2bContinuousMode>True</b2bContinuousMode>
+    <TcMaxAttempt>1</TcMaxAttempt>
+    <Parameters/>
+    <Domain>System_FastBoot</Domain>
+    <Parameters/>
+    <Phase>CORE</Phase>
+    <Parameters/>
+    <Type>FUNCTIONAL</Type>
+    <Parameters>
+        <Parameter>
+            <Name>test</Name>
+            <Value>scripts/android/fastboot/tests_celadon/restore_factory_settings_with_reboot_10times.py</Value>
+        </Parameter>
+        <Parameter>
+            <Name>timeout</Name>
+            <Value>7200</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>
