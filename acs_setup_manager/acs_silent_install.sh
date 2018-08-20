@@ -64,3 +64,37 @@ if [ $? -ne 0 ]; then
   echo Error during install
   exit 1
 fi
+
+echo installing tools for build ffmpeg
+apt-get install -y automake autoconf libtool gcc g++ build-essential checkinstall \
+libopencore-amrwb-dev libtheora-dev libvdpau-dev libvorbis-dev libxvidcore-dev lame \
+libva-dev libvpx-dev yasm zlib1g-dev libx264-dev librtmp-dev libfdk-aac-dev fdkaac git
+if [ $? -ne 0 ]; then
+  echo Error during install
+  exit 1
+fi
+
+#basepath=$(cd `dirname $0`; pwd)
+#toolsdir=$basepath/
+echo download ffmpeg and x264 packages
+mkdir -p tools && cd tools
+git clone https://git.ffmpeg.org/ffmpeg.git
+git clone https://git.videolan.org/git/x264.git
+
+echo build x264
+cd x264
+./configure --enable-shared --enable-static --disable-asm --prefix=/usr/local
+make
+make install
+ldconfig
+
+echo build ffmpeg
+cd ../ffmpeg
+./configure --prefix=/usr/local --enable-libx264 --enable-libfdk-aac --enable-libvpx --enable-libvorbis --enable-shared --enable-gpl --enable-version3 --enable-nonfree
+make
+make install
+ldconfig
+
+echo remove tools
+cd ../../
+rm -rf tools
