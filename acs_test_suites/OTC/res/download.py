@@ -23,6 +23,7 @@ import time
 import shutil
 import hashlib
 import requests
+import argparse
 
 
 TARGET_ROOT = os.path.expanduser('~/.acs-resources')
@@ -112,6 +113,18 @@ def load_table():
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Script to download resource')
+    parser.add_argument('-d', dest='domain', metavar='DOMAIN',
+                        help='only download specified domain')
+    args = parser.parse_args()
+
+    # change to script root folder
+    script_root = os.path.dirname(__file__)
+    os.chdir(script_root)
+    # process file list
     items = load_table()
     for item in items:
+        # domain filter
+        if args.domain and item.domain != args.domain:
+            continue
         item.process()
