@@ -1,1 +1,7 @@
 Domain,Relative Path,Type,Original Source,License,Convert Commands
+Graphics,resources/Graphics/dEQP/APK/L/com.drawelements.deqp.apk,apk,https://dl.google.com/dl/android/cts/android-cts-5.1_r28-linux_x86-x86.zip,Apache 2.0 license,scripts/zip_extract.py $src android-cts/repository/testcases/com.drawelements.deqp.apk $dst
+Graphics,resources/Graphics/dEQP/APK/M/com.drawelements.deqp.apk,apk,https://dl.google.com/dl/android/cts/android-cts-6.0_r31-linux_x86-x86.zip,Apache 2.0 license,scripts/zip_extract.py $src android-cts/repository/testcases/com.drawelements.deqp.apk $dst
+Graphics,resources/Graphics/dEQP/APK/N/com.drawelements.deqp.apk,apk,https://dl.google.com/dl/android/cts/android-cts-7.1_r20-linux_x86-x86.zip,Apache 2.0 license,scripts/zip_extract.py $src android-cts/testcases/com.drawelements.deqp.apk $dst
+Graphics,resources/Graphics/dEQP/APK/O/com.drawelements.deqp.apk,apk,https://dl.google.com/dl/android/cts/android-cts-8.1_r8-linux_x86-x86.zip,Apache 2.0 license,scripts/zip_extract.py $src android-cts/testcases/com.drawelements.deqp.apk $dst
+Graphics,resources/Graphics/dEQP/APK/P/com.drawelements.deqp.apk,apk,https://dl.google.com/dl/android/cts/android-cts-9.0_r1-linux_x86-x86.zip,Apache 2.0 license,scripts/zip_extract.py $src android-cts/testcases/com.drawelements.deqp.apk $dst
+Graphics,resources/Graphics/dEQP/must_pass/master.tar.gz,others,https://android.googlesource.com/platform/external/deqp/+archive/master/android/cts/master.tar.gz,Apache 2.0 license,scripts/get_deqp_mustpass.py $src $dst

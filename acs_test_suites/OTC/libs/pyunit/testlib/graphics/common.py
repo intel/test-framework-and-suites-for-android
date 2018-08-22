@@ -16,43 +16,23 @@ and limitations under the License.
 
 SPDX-License-Identifier: Apache-2.0
 '''
-# import os
-# import sys
+import os
 import time
-# import tempfile
-# import random
-# import math
 import re
-# import string
-# import functools
-# from PIL import Image
 from testlib.util.log import Logger
-# from testlib.util.process import shell_command, shell_command_ext
 from testlib.util.common import g_common_obj
 from testlib.util.config import TestConfig
-from testlib.util.repo import Artifactory
-# from testlib.graphics.tools import ConfigHandle
-# from testlib.androidframework.common import EnvironmentUtils
-# from testlib.graphics.compare_pic_impl import compare_pic
-try:
-    import pyqrcode
-    import qrtools
-except ImportError:
-    pyqrcode = None
-    qrtools = None
 
 
 LOG = Logger.getlogger(__name__)
-# EnvironmentUtils
-ARTIFACTORY_ROOT = '/etc/oat/sys.conf'
 VERSION_HISTORY = {
     '21': 'L',
     '22': 'L',
     '23': 'M',
     '24': 'N',
     '25': 'N',
-    '26': 'O',  # O-MR0
-    '27': 'O',  # O-MR1
+    '26': 'O',
+    '27': 'O',
     '28': 'P'
 }
 # WindowDisplayInfo
@@ -74,12 +54,11 @@ class EnvironmentUtils(object):
         LOG.info("Android version is: %s" % VERSION_HISTORY[sdk_string])
         return VERSION_HISTORY[sdk_string]
 
-    def get_resource_from_artifactory(self, conf_name, section, resource_name):
-        # usage: get_resource_from_atifactory("tests.tablet.artifactory.conf", "content_picture", "wbmp")
+    def get_resource_file(self, conf_name, section, resource_name):
+        # usage: get_resource_file("tests.common.dEQP.conf", "dEQP", "apk_o")
         tc = TestConfig()
-        arti_location = tc.getConfValue(ARTIFACTORY_ROOT, 'artifactory', 'location')
-        resource_location = tc.getConfValue(conf_name, section, resource_name)
-        return Artifactory(arti_location).get(resource_location)
+        res_root = os.path.expanduser('~/.acs-resources')
+        return os.path.join(res_root, tc.getConfValue(conf_name, section, resource_name))
 
 
 environment_utils = EnvironmentUtils()

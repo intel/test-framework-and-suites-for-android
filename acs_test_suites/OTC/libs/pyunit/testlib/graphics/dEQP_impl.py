@@ -130,11 +130,11 @@ class dEQPImpl(object):
         selection = {'L': 'apk_l',
                      'M': 'apk_m',
                      'N': 'apk_n',
-                     'O': 'apk_omr1',
+                     'O': 'apk_o',
                      'P': 'apk_p'}
         if not pkgmgr.query_package_name(self.package_name):
             try:
-                file_path = environment_utils.get_resource_from_artifactory(
+                file_path = environment_utils.get_resource_file(
                     'tests.common.dEQP.conf', 'dEQP', selection[self.os_ver])
                 pkgmgr.apk_install(file_path)
             except KeyError as e:
@@ -142,10 +142,11 @@ class dEQPImpl(object):
             # Need to update above when new version is released.
         for i in self._mustpass_list:
             op = g_common_obj.adb_cmd_capture_msg('ls %s%s' % (self._mustpass_path, i))
-            if 'No such file' in op:
-                file_path = environment_utils.get_resource_from_artifactory(
+            if 'No such file' in op or op == '':
+                file_path = environment_utils.get_resource_file(
                     'tests.common.dEQP.conf', 'dEQP', i.split('-')[0] + '_mustpass')
-                g_common_obj.push_file(file_path, self._mustpass_path)
+                if not g_common_obj.push_file(file_path, self._mustpass_path):
+                    raise Exception("Fail to push must pass list, please use script to get resource before test.")
 
 
 deqp_impl = dEQPImpl()
