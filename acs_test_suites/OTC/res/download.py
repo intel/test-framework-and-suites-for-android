@@ -87,15 +87,17 @@ class Item(object):
         fp = open(tempfile, 'wb')
         start_time = time.time()
         r = requests.get(self.src, stream=True)
-        total_size = int(r.headers.get('content-length'))
+        content_length = r.headers.get('content-length')
+        total_size = int(content_length) if content_length else None
         current_size = 0
         for data in r.iter_content(chunk_size=4096):
             fp.write(data)
             current_size += len(data)
             duration = time.time() - start_time
             speed_KB = (current_size / 1024.0) / duration
-            pecentage = 100.0 * current_size / total_size
-            sys.stdout.write('\r ... %.2f%%, %.2f MB, %.2f KB/s, time: %ds' %
+            pecentage = ('%.2f%%' % (100.0 * current_size / total_size)) \
+                if total_size else 'unknown'
+            sys.stdout.write('\r ... %s, %.2f MB, %.2f KB/s, time: %ds' %
                              (pecentage, current_size / (1024 * 1024.0),
                               speed_KB, duration))
             sys.stdout.flush()
@@ -119,7 +121,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # change to script root folder
-    script_root = os.path.dirname(__file__)
+    script_root = os.path.abspath(os.path.dirname(__file__))
     os.chdir(script_root)
     # process file list
     items = load_table()
