@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TestCase>
+    <UseCase>PY_UNIT</UseCase>
+    <Discription>Verify video playback with media file:MPEG4_352_288_24fps_144kbps_AAC_LC_22.05kHz_38kbps_Mono.3GP</Discription>
+    <Parameters>
+        <Parameter>
+            <Name>TEST_DATA_ROOT</Name>
+            <Value>test_data/Multimedia_Video/</Value>
+        </Parameter>
+        <Parameter>
+            <Name>TEST_CASE</Name>
+            <Value>tests.Multimedia_Video.video_playback.VideoPlayBack.testMPEG4_352_288_24fps_144kbps_aaclc_22_05kHz_38kbps_Mono_3GP</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>

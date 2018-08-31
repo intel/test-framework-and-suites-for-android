@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TestCase>
+    <UseCase>PY_UNIT</UseCase>
+    <Discription>testVideoPlayback_MKV_VP8_640x360_25fps_Vorbis_44KHz_128Kbps</Discription>
+    <Parameters>
+        <Parameter>
+            <Name>TEST_DATA_ROOT</Name>
+            <Value>test_data/Multimedia_Video/</Value>
+        </Parameter>
+        <Parameter>
+            <Name>TEST_CASE</Name>
+            <Value>tests.Multimedia_Video.video_playback.VideoPlayBack.testVideoPlayback_MKV_VP8_640x360_25fps_Vorbis_44KHz_128Kbps</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>
