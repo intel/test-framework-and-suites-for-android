@@ -2,7 +2,7 @@ ACS open source BKM document – Wi-Fi
 
 Setup instructions:
 1. Connect the NUC to the Linux host over USB.
-2. Configure the AP manually to the desired configuration as per the test necessity.
+2. Configure the AP manually to the desired configuration (Band, Channel, Security, Channel width, SSID broadcast) as per the test necessity.
 3. Enter the NUC serial number in benchconfig xml file.
 4. Run ACS command by mentioning campaign path and benchconfig path as below:
 $ python ACS.py  -c OTC/CAMPAIGN/Celadon/WiFi -b OTC/BENCHCONFIG/bench_config_HW_campaigns
@@ -18,6 +18,9 @@ Dependencies:
 1. Python 2.7
 2. Ubuntu 14.04
 3. NUC with ADB over USB enabled.
+4. Access point with dual band support with manually configurable 802.11a/b/g/n/ac bands;
+channels width configuration (20MHz and 40 MHz);
+channel select configuration and Show/hide SSID configuration.
 
 ----------------------------------------------------------------------------------------------------------------------
 ACS open source BKM document – Bluetooth
