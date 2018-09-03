@@ -4,7 +4,7 @@
     <Description>Pair request initiated by DUT, DUT will click Pair, remote device will wait for Timeout</Description>
     <b2bIteration>1</b2bIteration>
     <b2bContinuousMode>True</b2bContinuousMode>
-    <TcMaxAttempt>1</TcMaxAttempt>
+    <TcMaxAttempt>2</TcMaxAttempt>
     <Parameters>
         <Parameter>
             <Name>test</Name>

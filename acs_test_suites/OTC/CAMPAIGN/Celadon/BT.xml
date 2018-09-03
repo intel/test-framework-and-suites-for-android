@@ -25,6 +25,6 @@
             <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_Pair_DUT_With_Remote_Device_Remote_Pair_DUT_Timeout"/>
             <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_Unpair_with_a_device"/>
             <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_BT_on_off_iteratively"/>
-            <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_Pair_DUT_With_Remote_Device_DUT_Pair_Remote_Cancel"/>
+            <TestCase Id="../../TC/TESTLIB/Bluetooth/Bluetooth_GeneralTest_Pair_DUT_With_Remote_Device_Cancel_on_Remote_Device"/>
         </TestCases>
 </Campaign>

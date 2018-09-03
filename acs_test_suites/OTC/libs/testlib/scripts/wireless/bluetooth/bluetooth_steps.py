@@ -894,8 +894,9 @@ class InitiatePairRequest(BtStep):
                                    critical=False)():
                 raise Exception("Search for device failed")
             #  click on the device name (already scrolled in the view)
-            self.uidevice(text=self.dev_to_pair_name).click()
-
+            # self.uidevice(text=self.dev_to_pair_name).click()
+            ui_steps.click_button_common(serial=self.serial, view_to_find={"textContains": self.dev_to_pair_name},
+                                         view_to_check={"resourceId": "android:id/alertTitle"})()
             if self.version.startswith("5."):
                 #  LLP version
                 #  if pair request window not appear on the device, open notification and check
