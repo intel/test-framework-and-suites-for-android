@@ -123,14 +123,7 @@ Options:
 ```
 
 ### Execution Results
-ACS returns the campaign execution’s result as a pair containing verdict and device’s status.
-
-Verdict of the Campaign | Status of DUT
--------|-------
-SUCCESS | ON (Main OS)
-FAILURE | OFF
-| NC (No Charge)
-| UNKNOWN
+ACS returns the campaign execution’s result as verdict.
 
 Verdict will be **SUCCESS**, if all campaign’s test cases are executed and passed.
 
@@ -155,14 +148,14 @@ ACS OUTCOME: SUCCESS
 
 ##### Reports Folder
 ACS campaign execution provides test results, execution logs and device logs in `_Reports`
-```
+```bash
 acs/acs$ ls _Reports/ 
 2018-09-03_16h28.26.9_Dummy_ACS_NOVAR_LIN_Campaign
 2018-09-03_16h28.26.9_Dummy_ACS_NOVAR_LIN_Campaign.zip
 ```
 
 Report files:
-```
+```bash
 acs/acs/_Reports/2018-09-03_16h28.26.9_Dummy_ACS_NOVAR_LIN_Campaign$ls -1
 2018-09-03_16h28.26.9_Dummy_debug.xml  # debug report, contains FAILED/BLOCKED test cases
 2018-09-03_16h28.26.9_Dummy.log  # ACS log of this execution
@@ -175,7 +168,9 @@ teststepTestResult.xml
 A xml report will created in Report folder, with `.xml` extensiton.
 
 This file contains Execution Statistics
+
 ![ACS Report Stat](img/acs_report_stat.png)
 
-and detail Test Case result 
+and detail Test Case result:
+
 ![ACS Report detail](img/acs_report_detail.png)

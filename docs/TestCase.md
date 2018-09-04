@@ -25,7 +25,6 @@ A TC runs in 5 phases:
 ```xml
 <?xml version="1.0" encoding="iso-8859-1"?>
 <TestCase>
-
     <!-- header -->
     <UseCase>LIVE_BT_SCAN</UseCase>
     <Description>BlueTooth Scan of list of devices in range</Description>
@@ -55,6 +54,7 @@ A TC runs in 5 phases:
 ```
 
 As you can see, Test Case is composed of two sections:
+
 * a **header** that contains Test Case configuration
 * a **Parameters** section, that will contain specific parameters to the test case
 
@@ -73,10 +73,11 @@ Parameter|Description|Example
 **TcExpectedResult** | the expected verdict to declare the test as pass. available values are **PASS**, **FAIL** and **BLOCKED**. | `<TcExpectedResult>PASS</TcExpectedResult>`
 **isCritical**       | If this parameter is set to true, this test case is mandatory and a failure should stop the campaign execution. | `<isCritical>False</isCritical>`
 
-#### Examples
+##### Examples
 
 
 B2B not continuous mode:
+
 ![B2B not continues](img/tc_header_B2Bnotcontinuous.png)
 
 ```xml
@@ -90,9 +91,10 @@ B2B not continuous mode:
 </TestCase>
 ```
 
-
 B2B continuous mode:
+
 ![B2B continuous mode](img/tc_header_B2Bcontinuous.png)
+
 ```xml
  <TestCase>
      <b2bIteration>2</b2bIteration>
@@ -105,6 +107,7 @@ B2B continuous mode:
 ```
 
 Case retry mode:
+
 ![Case retry mode](img/tc_header_max_attempts.png)
 
 ```xml
@@ -116,4 +119,70 @@ Case retry mode:
      <TcExpectedResult>PASS</TcExpectedResult>
      ...
  </TestCase>
+```
+
+#### Parameters
+Parameters is determined by *UseCase*, it's declared in UseCase Catalogs:
+
+* `acs/acs/_Catalogs/UseCase/` -- Basic and core UseCase provide by framework.
+* `acs_test_scripts/_Catalogs/UseCase/` -- more UseCase
+
+Take `EXEC_SCRIPT` UseCase for example, it's defined in `acs/acs_Catalogs/UseCase/MISC/EXEC.xml`
+
+```xml
+    <UseCase Id="EXEC_SCRIPT" Domain="MISC" SubDomain="EXEC" OS="ANDROID" Status="DONE">
+        <ClassName>acs.UseCase.Misc.EXEC_SCRIPT.ExecScript</ClassName>
+        <Description>Open implementation script taking python scripts as inputs.</Description>
+        <Environment name="ANY"/>
+        <Parameters>
+            <Parameter name="SETUP_SCRIPT_PATH" type="SCRIPT" isOptional="true">
+                <Description>Script to set up the test - python script, (e.g. exec_script_setup.py)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="SCRIPT_PATH" type="SCRIPT" isOptional="false">
+                <Description>Script to run the test - python script, (e.g. scripts/check_screen_on.py)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="TEAR_DOWN_SCRIPT_PATH" type="SCRIPT" isOptional="true">
+                <Description>Script to clean the test - python script, (e.g. exec_script_tear_down.py)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="FINALIZE_SCRIPT_PATH" type="FINALIZE_SCRIPT" isOptional="true">
+                <Description>Script to finalize the test - python script, (e.g. exec_script_finalize.py)</Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+            <Parameter name="ANY_VALUE" type="STRING" isOptional="true">
+                <Description>User customized parameter for script execution. Can have any name with any value (e.g. PKP
+                    DURATION, DATA_CODING_SCHEME, SCREEN_SHOT_REF, DISABLE_NFC)
+                </Description>
+                <PossibleValues/>
+                <DefaultValue/>
+                <Blank/>
+            </Parameter>
+        </Parameters>
+    </UseCase>
+```
+This UseCase is to execution python scripts in the TestCase.
+
+Note the attribute `isOptional`, the only mandatory parameter is `SCRIPT_PATH`, here is a *TeseCase* example:
+
+```xml
+<TestCase>
+    <UseCase>EXEC_SCRIPT</UseCase>
+    ...
+    <Parameters>
+        <Parameter>
+            <Name>SCRIPT_PATH</Name>
+            <Value>scripts/check_screen_on.py</Value>
+        </Parameter>
+    </Parameters>
+</TestCase>
 ```
