@@ -4,7 +4,7 @@
     <Description>Example</Description>
     <b2bIteration>1</b2bIteration>
     <b2bContinuousMode>True</b2bContinuousMode>
-    <TcMaxAttempt>3</TcMaxAttempt>
+    <TcMaxAttempt>4</TcMaxAttempt>
     <Parameters>
         <Parameter>
             <Name>test</Name>

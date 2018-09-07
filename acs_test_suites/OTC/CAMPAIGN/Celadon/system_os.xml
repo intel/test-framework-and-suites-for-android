@@ -6,7 +6,7 @@
         <TestCase Id="../../TC/TESTLIB/system_os/Navigation_car_settings"/>
         <TestCase Id="../../TC/TESTLIB/system_os/Navigation_car_contacts"/>
         <TestCase Id="../../TC/TESTLIB/system_os/Navigation_map"/>
-        <TestCase Id="../../TC/TESTLIB/system_os/Navigation_car_SystemUpdater"/>
+        <TestCase Id="../../TC/TESTLIB/system_os/Navigation_car_systemupdater"/>
     </TestCases>
 </Campaign>
 
