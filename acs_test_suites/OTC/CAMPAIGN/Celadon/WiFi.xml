@@ -15,15 +15,15 @@
             <Parameter CampaignType="Other"/>
       </Parameters>
       <TestCases>
-            <TestCase Id="../../TC/TESTLIB/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_5Ghz_ac_channel-20Mhz-showSSID"/>
-            <TestCase Id="../../TC/TESTLIB/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_2dot4Ghz_n_channel-6-20Mhz-showSSID"/>
-            <TestCase Id="../../TC/TESTLIB/Comms_WIFI_IEE80211abgn_FeatureRequired_Connect_2dot4Ghz_b_channel-20Mhz-showSSID"/>
-            <TestCase Id="../../TC/TESTLIB/Comms_WIFI_IEE80211abgn_FeatureRequired_Connect_2dot4Ghz_g_channel-20Mhz-showSSID"/>
-            <TestCase Id="../../TC/TESTLIB/Comms_WIFI_IEE80211abgn_FeatureRequired_Connect_2dot4Ghz_n_channel-20Mhz-showSSID"/>
-            <TestCase Id="../../TC/TESTLIB/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_5Ghz_ac_channel-20Mhz-hideSSID"/>
-            <TestCase Id="../../TC/TESTLIB/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_2dot4Ghz_bg_channel-20Mhz-hideSSID"/>
-            <TestCase Id="../../TC/TESTLIB/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_2dot4Ghz_bgn_channel-20MHz-40Mhz-showSSID"/>
-            <TestCase Id="../../TC/TESTLIB/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_2dot4Ghz_ng_channel-20Mhz-hideSSID"/>
-            <TestCase Id="../../TC/TESTLIB/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_5Ghz_a_channel-20Mhz-hideSSID"/>
+            <TestCase Id="../../TC/TESTLIB/wifi/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_5Ghz_ac_channel-20Mhz-showSSID"/>
+            <TestCase Id="../../TC/TESTLIB/wifi/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_2dot4Ghz_n_channel-6-20Mhz-showSSID"/>
+            <TestCase Id="../../TC/TESTLIB/wifi/Comms_WIFI_IEE80211abgn_FeatureRequired_Connect_2dot4Ghz_b_channel-20Mhz-showSSID"/>
+            <TestCase Id="../../TC/TESTLIB/wifi/Comms_WIFI_IEE80211abgn_FeatureRequired_Connect_2dot4Ghz_g_channel-20Mhz-showSSID"/>
+            <TestCase Id="../../TC/TESTLIB/wifi/Comms_WIFI_IEE80211abgn_FeatureRequired_Connect_2dot4Ghz_n_channel-20Mhz-showSSID"/>
+            <TestCase Id="../../TC/TESTLIB/wifi/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_5Ghz_ac_channel-20Mhz-hideSSID"/>
+            <TestCase Id="../../TC/TESTLIB/wifi/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_2dot4Ghz_bg_channel-20Mhz-hideSSID"/>
+            <TestCase Id="../../TC/TESTLIB/wifi/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_2dot4Ghz_bgn_channel-20MHz-40Mhz-showSSID"/>
+            <TestCase Id="../../TC/TESTLIB/wifi/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_2dot4Ghz_ng_channel-20Mhz-hideSSID"/>
+            <TestCase Id="../../TC/TESTLIB/wifi/Comms_WIFI_IEE80211abgn_FeatureRelated_Connect_5Ghz_a_channel-20Mhz-hideSSID"/>
       </TestCases>
 </Campaign>
