@@ -98,3 +98,18 @@ ldconfig
 echo remove tools
 cd ../../
 rm -rf tools
+
+echo installing adb tool
+if [ -x /usr/bin/adb ]; then
+  echo adb already exists
+else
+  apt-get install -y android-tools-adb
+  if [ $? -ne 0 ]; then
+    echo Error during install
+    exit 1
+  fi
+  echo -e "# Intel vendor ID for ADB\nSUBSYSTEM==\"usb\", ATTRS{idVendor}==\"8087\", MODE=\"0666\"" > 51-android.rules
+  mv 51-android.rules /etc/udev/rules.d/
+  echo restart udev rules
+  service udev restart
+fi
