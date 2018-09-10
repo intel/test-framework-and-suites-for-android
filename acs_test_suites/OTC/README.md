@@ -1,74 +1,97 @@
-ACS open source BKM document – Wi-Fi
+# Test Suite for Android
+Test sutie for Android, verified on [Intel Celadon](https://01.org/projectceladon/).
 
-Setup instructions:
-1. Connect the NUC to the Linux host over USB.
-2. Configure the AP manually to the desired configuration (Band, Channel, Security, Channel width, SSID broadcast) as per the test necessity.
-3. Enter the NUC serial number in benchconfig xml file.
-4. Run ACS command by mentioning campaign path and benchconfig path as below:
-$ python ACS.py  -c OTC/CAMPAIGN/Celadon/WiFi -b OTC/BENCHCONFIG/bench_config_HW_campaigns
-5. Run the campaign on the Linux host which will configure the NUC according to the parameter passed and connect to
-the AP and test for ping for a desired time.
 
-6. The parameters can be edited in the TC xml files in the below path
-<otcqa-acs-opensource>/acs_test_suites/OTC/TC/TESTLIB/**.xml
+## Setup
+Prepare a Ubuntu host
 
-Ex: ap_name=test_ap passphrase=qwerasdf dut_security=WPA mode=n channel_bw=20 hidden_ssid=0 channel_no=6 trycount=10
+1. Install ACS [depedencies](../../acs_setup_manager/README.txt).
+2. Download test resources by `python acs_test_suites/OTC/res/download.py`
+3. Create *pyunit* global [config](libs/pyunit/README.md#pre-setup).
 
-Dependencies:
-1. Python 2.7
-2. Ubuntu 14.04
-3. NUC with ADB over USB enabled.
-4. Access point with dual band support with manually configurable 802.11a/b/g/n/ac bands;
-channels width configuration (20MHz and 40 MHz);
-channel select configuration and Show/hide SSID configuration.
 
-----------------------------------------------------------------------------------------------------------------------
-ACS open source BKM document – Bluetooth
+## Execution
+### General Execution Guide
+##### Folder Structure & Test Campaign
+```
+acs_test_suites/OTC$tree -L 2
+├── BENCHCFG   # Bench Config Folder
+│   ├── benchConfig.xml
+├── CAMPAIGN
+│   └── Celadon  # Campaign folder for Celadon
+├── libs  # Python library & test scripts
+│   ├── pyunit
+│   └── testlib
+├── res  # Resource management
+└── TC  # Test Case xml
+    ├── PY_UNIT
+    └── TESTLIB
+```
+Available test Campaign put in `CAMPAIGN/Celadon` folder:
+```
+AppTesting_AOSP.xml
+BT.xml
+Graphics_Display.xml
+Graphics_System.xml
+System_FastBoot.xml
+system_os.xml
+System_Storage_USB.xml
+WiFi.xml
+```
 
-Setup instructions:
-1. ACS Open source Bluetooth test cases usage:
-2. Flash user debug builds on DUT and reference devices, enable developer options and usb debugging and make sure
-virtual keypad is ON.
-3. DUT and rooted reference devices are connected via adb to ACS installed host machine.
-4. Adb devices will detect connected two reference devices through adb devices command.
-5. Fill the connected two devices serial numbers in benchconfig xml
-(<otcqa-acs-opensource>/acs_test_suites/OTC/BENCHCFG/bench_config_HW_campaigns.xml) file
-6. Run ACS command by mentioning campaign path and benchconfig path as below:
-$ python ACS.py -c OTC/CAMPAIGN/Celadon/BT -b OTC/BENCHCONFIG/bench_config_HW_campaigns.
+##### Running Test Campaign
+In code root folder:
 
-Dependencies:
-1. Python 2.7
-2. Ubuntu 14.04
-3. NUC (DUT) with adb enabled
-4. Rooted reference device(NUC)
+1. Android Device with adb connect to Host.
+2. export ACS Execution Config path: `export ACS_EXECUTION_CONFIG_PATH={REPO}/acs_test_suites/`
+3. run campaign using ACS framework, command template: `python acs/acs/ACS.py -c OTC/CAMPAIGN/Celadon/{CAMPAIGN_NAME} -b OTC/BENCHCFG/benchConfig`
 
-----------------------------------------------------------------------------------------------------------------------
-ACS Open Source BKM – Storage
+**Note**: The file extension of `*.xml` should not be mentioned in the command line. ACS auto picks the xml file.
+Take `AppTesting_AOSP.xml` for example, you should only set `CAMAPIGN_NAME` to `AppTesting_AOSP`.
 
-ACS Open source Storage test cases usage:
-1. Flash user debug builds on DUT and reference devices, enable developer options and USB debugging.
-2. Connect the NUC to the Linux host over USB.
-3. Enter the Device Serial number in benchconfig xml (<otcqa-acs-opensource>/acs_test_suites/OTC/BENCHCFG/benchConfig
-.xml) file.
-4. Insert the micro SD card to the NUC.
+### Special Setup
 
-5. Automation Execution:
-$ python ACS.py -b OTC/BENCHCFG/benchConfig -c OTC/CAMPAIGN/Celadon/System_Storage_USB
+#### WiFi
+##### WiFi Access Point
+WiFI domain testing require a WiFi AP:
 
-Requirements:
-1. ADB connection to the DUT.
-2. Micro SD card.
-3. Ubuntu 14.04 LTS
-4. Python 2.7
+* With dual band support with manually configurable 802.11a/b/g/n/ac bands;
+* channels width configuration (20MHz and 40 MHz);
+* channel select configuration and Show/hide SSID configuration.
 
-Note:
-1. The file extension of *.xml should not be mentioned in the command line. ACS auto picks the xml file. Manual entry
-of xml extensions concatenates with the existing xml file and ACS fails to find the xml file.
-2. It is recommended to enter the serial number in BenchConfig file if multiple devices are connected to the host
-machine. For a single device connected to host machine, ACS runs automatically.
-3. Recommended to check the device listed in ‘adb devices’ command and the device should not be in offline state before
- executing the automation suite.
-4. Device serial number can be noted using the command adb devices in host machine.
-5. It is not necessary to be root or super user to execute the automation suite.
+##### Configuration
+Configure the AP manually to the desired configuration (Band, Channel, Security, Channel width, SSID broadcast) as per the test necessity.
 
----------------------------------------------------------------------------------------------------------------------
+The AP parameters can be edited in the TC xml files in the below path:
+`acs_test_suites/OTC/TC/TESTLIB/**.xml`
+
+Ex: `ap_name=test_ap passphrase=qwerasdf dut_security=WPA mode=n channel_bw=20 hidden_ssid=0 channel_no=6 trycount=10`
+
+Enter the NUC serial number in BenchConfig xml file: `OTC/BENCHCFG/bench_config_HW_campaigns.xml`
+
+##### Execution Command
+```
+python acs/acs/ACS.py -c OTC/CAMPAIGN/Celadon/WiFi -b OTC/BENCHCFG/bench_config_HW_campaigns
+```
+
+#### BT
+##### setup
+
+* Prepare *another* Android device with *ROOT* access as **reference device**
+* make sure virtual keypad is ON
+* DUT and reference device connect to host with USB adb
+* Fill two devices' serial number in `BENCHCFG/bench_config_HW_campaigns.xml`
+
+##### Execution Command
+```
+python acs/acs/ACS.py ACS.py -c OTC/CAMPAIGN/Celadon/BT -b OTC/BENCHCFG/bench_config_HW_campaigns
+```
+
+#### Storage_USB
+##### setup
+Insert a **micro SD card** to DUT.
+
+##### Execution Command
+```
+python acs/acs/ACS.py -c OTC/CAMPAIGN/Celadon/System_Storage_USB -b OTC/BENCHCFG/benchConfig
+```
