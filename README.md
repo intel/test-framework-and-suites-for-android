@@ -26,6 +26,10 @@ Test Suites including
 * Test Application and Tools that are being used by test scripts
 * Media resources list that are used during test execution
 
+Available test suite are in `acs_test_suites` folder. Currently we have [Test Suite for Android](acs_test_suites/OTC/README.md).
+
+## Contribute
+Follow [Contributing Guidelines](CONTRIBUTING.md)
 
 ## License
 [Apache License 2.0](LICENSE)
