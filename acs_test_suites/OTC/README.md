@@ -105,3 +105,37 @@ Insert a **micro SD card** to DUT.
 ```
 python acs/acs/ACS.py -c OTC/CAMPAIGN/Celadon/System_Storage_USB -b OTC/BENCHCFG/benchConfig
 ```
+
+#### System_FastBoot
+##### Rework NUC and attach relay card
+
+Get a [relay card](http://www.robot-electronics.co.uk/usb-rly08b-8-channel-relay-module.html).
+
+Open the chassis of the NUC, find the two contacts of power button switch, attach two wires respectively to each contact.
+
+Attach the other side of the two wires to the relay card's **RLY1** channel's  **NO** and **C** ports respectively, fasten the screws on the port. There is no need to worry about the order of the two wires.
+
+Connect the relay card with Linux host through USB bus.
+
+##### Change privileges
+
+Make sure the host has the right privileges(**read and write**) on the relay card by:
+```
+sudo chmod 666 /dev/ttyACM0
+```
+After this, create a rule in `/etc/udev/rules.d` to set the permission automatically:
+```
+# cd to the directory
+cd /etc/udev/rules.d
+# create a new rule file
+sudo touch relay_card.rules
+# edit the file
+sudo vim relay_card.rules
+# append a line
+KERNEL=="ttyACM0", MODE="0666"
+```
+
+##### Execution Command
+```
+python acs/acs/ACS.py -c OTC/CAMPAIGN/Celadon/System_FastBoot -b OTC/BENCHCFG/myBench_usb_fastboot
+```
