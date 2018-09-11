@@ -19,6 +19,7 @@ and limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 '''
 
+import time
 from testlib.scripts.android.ui import ui_steps
 from testlib.scripts.wireless.wifi_generic import wifi_generic_steps
 from testlib.utils.defaults import wifi_defaults
@@ -43,21 +44,51 @@ ui_steps.press_home(serial=args["serial"])()
 # make sure there are no saved networks
 wifi_generic_steps.clear_saved_networks(serial=args["serial"])()
 
-# add the Wi-Fi network
-wifi_generic_steps.add_network(ssid=script_params["ap_name"],
-                               security=script_params["dut_security"],
-                               password=script_params["passphrase"],
-                               serial=args["serial"])()
+if script_params["execute_add_network_and_test_ping"] == "True":
 
-# wait until the device connects to a wifi network
-wifi_generic_steps.wait_until_connected(serial=args["serial"])()
+    # add the Wi-Fi network
+    wifi_generic_steps.add_network(ssid=script_params["ap_name"],
+                                   security=script_params["dut_security"],
+                                   password=script_params["passphrase"],
+                                   serial=args["serial"])()
 
-# check we are connected to the correct network.
-wifi_generic_steps.check_connection_info(serial=args["serial"],
-                                         SSID=script_params["ap_name"],
-                                         state='CONNECTED/CONNECTED')()
+    # wait until the device connects to a wifi network
+    wifi_generic_steps.wait_until_connected(serial=args["serial"])()
 
-# check connection
-wifi_generic_steps.ping_gateway(trycount=5, serial=args["serial"])()
+    # check we are connected to the correct network.
+    wifi_generic_steps.check_connection_info(serial=args["serial"],
+                                             SSID=script_params["ap_name"],
+                                             state='CONNECTED/CONNECTED')()
+
+    # check connection
+    wifi_generic_steps.ping_gateway(trycount=5, serial=args["serial"])()
+
+    if script_params["iterate_connect_disconnect"] == "True":
+        for x in xrange(int(script_params["iterations"])):
+            # Turn ON the wifi and check if it is successfully turned ON
+            wifi_generic_steps.set_wifi(serial=args["serial"],
+                                        state="OFF", use_adb=False)()
+
+            time.sleep(3)
+
+            # Check for the connection status
+            wifi_generic_steps.check_connection_info(serial=args["serial"],
+                                                     state='DISCONNECTED/DISCONNECTED')()
+
+            # Turn OFF the wifi and check if it is successfully turned turned OFF
+            wifi_generic_steps.set_wifi(serial=args["serial"],
+                                        state="ON", use_adb=False)()
+
+            time.sleep(3)
+
+            wifi_generic_steps.wait_until_connected(serial=args["serial"])()
+
+            # Check for the connection status
+            wifi_generic_steps.check_connection_info(serial=args["serial"],
+                                                     SSID=script_params["ap_name"],
+                                                     state='CONNECTED/CONNECTED')()
+
+            # check connection
+            wifi_generic_steps.ping_gateway(trycount=5, serial=args["serial"])()
 
 ''' test end '''
