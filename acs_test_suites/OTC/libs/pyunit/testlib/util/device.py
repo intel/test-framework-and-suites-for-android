@@ -45,7 +45,8 @@ class TestDevice(object):
 
     """
 
-    def __init__(self, serial=None, adb_server_host=None, adb_server_port=None):
+    def __init__(self, serial=None,
+                 adb_server_host=None, adb_server_port=None):
         self.serial = serial
         self.adb_server_host = adb_server_host
         self.adb_server_port = adb_server_port
@@ -226,7 +227,8 @@ class TestDevice(object):
         cmdstr = "am force-stop %s" % packagename
         return self.adb_cmd(cmdstr)
 
-    def launch_app_from_home_sc(self, appname, appgallery="Apps", inspection=None):
+    def launch_app_from_home_sc(self, appname,
+                                appgallery="Apps", inspection=None):
         """
         Launch App from app gallery
         Parameter appname is the app's widget name in app gallery
@@ -352,26 +354,6 @@ class TestDevice(object):
         adbcmdstr = self.adb_prefix + "remount"
         LOG.debug('Execute adb remount')
         _, _ = shell_command(adbcmdstr)
-
-    def getDevices(self, device_num=1):
-        """get device serials
-        """
-        serials = getAllSerial()
-        result = []
-        if len(serials) < device_num:
-            raise Exception("Lack of devices: attached device %s, expected device %d" % (
-                len(serials), device_num))
-
-        if self.serial:
-            serials.remove(self.serial)
-            result = [self.serial] + serials[:device_num - 1]
-        elif 'preferred_device' in os.environ:
-            serials.remove(os.environ['preferred_device'])
-            result = [os.environ['preferred_device']] + serials[:device_num - 1]
-        else:
-            result = serials[:device_num]
-
-        return result
 
     def pull_file(self, local_path, remote_path):
         """download file from device"""

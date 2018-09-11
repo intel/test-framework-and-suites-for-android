@@ -78,11 +78,7 @@ class Common(object):
 
     def __init__(self, context=None):
         self.globalcontext = GlobalContext()
-        # TODO: override default context setting here
-        # if context object is not null.
-        self.default_device = None
         self.default_test_device = None
-        self.d = self.get_device()
 
     def close_background_apps(self):
         d = self.get_device()
@@ -119,23 +115,17 @@ class Common(object):
 
         if (context.user_log_dir is not None):
             self.globalcontext.user_log_dir = context.user_log_dir
-            LOG.debug('User log directory was set to: %s according to context object' %
+            LOG.debug('User log directory set to: %s by context object' %
                       self.globalcontext.user_log_dir)
 
-        if (context.device_config['deviceid'] is not None):
-            self.globalcontext.device_serial = context.device_config['deviceid']
-            LOG.debug('Device serial was set to : %s according to context object ' %
+        if (context.device_serial is not None):
+            self.globalcontext.device_serial = context.device_serial
+            LOG.debug('Device serial set to : %s by context object ' %
                       self.globalcontext.device_serial)
+            self.default_test_device = None
 
     def get_device(self, serial=None):
-        if serial:
-            return TestDevice(serial).get_device()
-        elif 'preferred_device' in os.environ:
-            return TestDevice(os.environ['preferred_device']).get_device()
-
-        if not self.default_device:
-            self.default_device = self.get_test_device().get_device()
-        return self.default_device
+        return self.get_test_device(serial).get_device()
 
     def get_device_name(self):
         d = self.get_device()
@@ -146,6 +136,10 @@ class Common(object):
     def get_test_device(self, serial=None):
         if serial:
             return TestDevice(serial)
+
+        env = 'preferred_device'  # in case, context is not set yet
+        if self.globalcontext.device_serial is None and env in os.environ:
+            return TestDevice(os.environ.get(env))
 
         if not self.default_test_device:
             self.default_test_device = TestDevice(
@@ -174,7 +168,8 @@ class Common(object):
         return self.get_test_device().adb_cmd_common(cmdstr, time_out)
 
     def sync_file_from_content_server(self, cmd, datapath):
-        return self.get_test_device().sync_file_from_content_server(cmd, datapath)
+        return self.get_test_device().sync_file_from_content_server(cmd,
+                                                                    datapath)
 
     def start_exp_handle(self):
         """
@@ -262,7 +257,8 @@ class Common(object):
         cmdstr = "am force-stop %s" % packagename
         return self.adb_cmd(cmdstr)
 
-    def launch_app_from_home_sc(self, appname, appgallery="Apps", inspection=None):
+    def launch_app_from_home_sc(self, appname,
+                                appgallery="Apps", inspection=None):
         """
         Launch App from app gallery
         Parameter appname is the app's widget name in app gallery
@@ -273,8 +269,10 @@ class Common(object):
         1) There is a app gallery icon in home screen;
         2) Your app widget could be found in home screen.
 
-        If your app meets above 2 assumtions, then it could be a convenient function
-        call for you. Otherwise you may consider write your own app launch steps or
+        If your app meets above 2 assumtions,
+        then it could be a convenient function
+        call for you.
+        Otherwise you may consider write your own app launch steps or
         using launch_app_am function instead.
 
         """
@@ -337,13 +335,6 @@ class Common(object):
 
     def set_vertical_screen(self):
         d = self.get_device()
-#        width = d.info["displayWidth"]
-#        height = d.info["displayHeight"]
-#        orientation = d.info["displayRotation"]
-#        if width > height and orientation == 0:
-#            d.orientation = "r"
-#        elif width > height and orientation > 0 :
-#            d.orientation = "n"
         d.orientation = 'natural'
         d.freeze_rotation()
 
@@ -358,10 +349,6 @@ class Common(object):
 
     def getAllSerial(self):
         return getAllSerial()
-
-    def getDevices(self, devNum=1):
-        serial = os.environ['preferred_device'] if 'preferred_device' in os.environ else None
-        return self.get_test_device(serial).getDevices(devNum)
 
 
 class TestRun():

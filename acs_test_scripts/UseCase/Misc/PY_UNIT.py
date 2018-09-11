@@ -71,8 +71,6 @@ class PyUnit(UseCaseBase):
         return self._device.run_cmd(cmd, timeout, silent_mode=True)
 
     def _setup(self):
-        self._upload_folder = tempfile.mkdtemp()
-
         cmd_line = self._device.get_config("logcatCmdLine",
                                            "adb shell logcat -v threadtime")
         self._logcat = LogCatReaderThread(device_handle=self._device,
@@ -81,10 +79,14 @@ class PyUnit(UseCaseBase):
                                           enable_writer=True)
         self._logcat.set_output_path(self._get_rel_path('logcat.txt'))
         self._logcat.start()
-        # user_log_dir
-        user_log_dir = self._get_rel_path('logs')
-        os.mkdir(user_log_dir)
-        os.environ['PYUNIT_USER_LOG_DIR'] = user_log_dir
+
+    def _create_log_folder(self, acs_report_root):
+        pyunit_root = os.path.join(acs_report_root, 'PY_UNIT')
+        if not os.path.exists(pyunit_root):
+            os.mkdir(pyunit_root)
+        name = os.path.basename(self._name)
+        self._upload_folder = os.path.join(pyunit_root, name)
+        os.mkdir(self._upload_folder)
 
     def _cleanup(self):
         self._run_cmd('adb shell logcat -c')
@@ -130,7 +132,8 @@ class PyUnit(UseCaseBase):
         if upload:
             self._collect_logs()
             self._upload()
-        self._cleanup()
+        else:  # remove logs if case passed
+            self._cleanup()
 
     def _get_rel_path(self, path):
         return os.path.join(self._upload_folder, path)
@@ -157,33 +160,41 @@ class PyUnit(UseCaseBase):
             script_root = path_join(Paths.EXECUTION_CONFIG, extra_sub_folders)
         test_data_root = path_join(script_root, data_root_rel)
         os.environ['TEST_DATA_ROOT'] = test_data_root
-        sys.path.insert(1, script_root)
+        if script_root not in sys.path:
+            sys.path.insert(1, script_root)
 
         # find case_name
         case_name = self._tc_parameters.get_param_value('TEST_CASE')
         self._logger.info("[PyUnit] case_name: " + case_name)
         module_name = '.'.join(case_name.split('.')[:-2])
         self._logger.info("[PyUnit] module_name: " + module_name)
+
+        # in case, some tests has code executed when imported
+        serial_number = self._device.get_serial_number()
+        os.environ['preferred_device'] = serial_number
+
         # load test case
         self.case_module = module_name
         loader = unittest.TestLoader()
-        loader.discover(script_root, '*.py')
         self.suite = loader.loadTestsFromName(case_name)
 
-        # Add additional paramters
-        acs_params = {}
+        # user_log_dir
         crt = self._global_conf.campaignConfig.get("campaignReportTree")
-        acs_params["report_path"] = crt.get_report_path()
+        self._create_log_folder(crt.get_report_path())
+        user_log_dir = self._get_rel_path('logs')
+        os.mkdir(user_log_dir)
+
+        context = Context(serial_number, user_log_dir)
 
         try:
             for suite in self.suite:
                 if isinstance(suite, unittest.TestCase):
-                    suite._acs_params = acs_params
+                    suite.contexts = context
                     break
                 for test in suite:
-                    test._acs_params = acs_params
-        except:
-            self._logger.error("SKIP set up acs_params.")
+                    test.contexts = context
+        except Exception:
+            self._logger.error("SKIP injext context.")
 
         self.runner = unittest.TextTestRunner(verbosity=0)
         return Global.SUCCESS, "SUCCESS"
@@ -209,9 +220,6 @@ class PyUnit(UseCaseBase):
             else:
                 ret = Global.BLOCKED, "unknown reason"
             self._logger.error(ret[1])
-            # handling INCONCLUSIVE
-            if ret[1].find("{INCONCLUSIVE}") != -1:
-                ret = Global.INCONCLUSIVE, ""
 
         self._tear_down(ret[0] != Global.SUCCESS)
         return ret

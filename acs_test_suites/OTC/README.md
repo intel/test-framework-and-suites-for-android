@@ -49,6 +49,16 @@ In code root folder:
 **Note**: The file extension of `*.xml` should not be mentioned in the command line. ACS auto picks the xml file.
 Take `AppTesting_AOSP.xml` for example, you should only set `CAMAPIGN_NAME` to `AppTesting_AOSP`.
 
+If more than one Andoird devices exist, please specified **serialNumber** parameter in *BenchConfig* file, here is an example:
+```xml
+<Phones>
+	<Phone name="PHONE1"
+		deviceModel="Android" >
+	    <Parameter serialNumber="emulator-5555" />
+	</Phone>
+</Phones>
+```
+
 ### Special Setup
 
 #### WiFi
