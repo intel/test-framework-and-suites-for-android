@@ -981,10 +981,12 @@ class contact_is_empty(fastboot_step, ui_step):
 
 class connect_to_internet(fastboot_step, ui_step):
 
-    def __init__(self, wait_time=5000, **kwargs):
+    def __init__(self, ssid, password, wait_time=5000, **kwargs):
         fastboot_step.__init__(self, **kwargs)
         ui_step.__init__(self, **kwargs)
         self.wait_time = wait_time
+        self.ssid = ssid
+        self.password = password
 
     def do(self):
         if self.platform_name in self.m_platform_list:
@@ -1006,11 +1008,11 @@ class connect_to_internet(fastboot_step, ui_step):
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
                                          "resourceId": "com.android.settings:id/ssid", "text": "Enter the SSID"})()
             local_steps.command(
-                "adb -s {} shell input text shz_asvl_ng_6d95_2.4".format(self.serial))()
+                "adb -s {0} shell input text {1}".format(self.serial, self.ssid))()
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
                                          "resourceId": "com.android.settings:id/password"})()
             local_steps.command(
-                "adb -s {} shell input text 16220BB9CC12316220BB9CC123".format(self.serial))()
+                "adb -s {0} shell input text {1}".format(self.serial, self.password))()
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
                                          "resourceId": "android:id/button1", "text": "Save"})()
         if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
@@ -1040,11 +1042,11 @@ class connect_to_internet(fastboot_step, ui_step):
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
                                          "resourceId": "com.android.settings:id/ssid", "text": "Enter the SSID"})()
             local_steps.command(
-                "adb -s {} shell input text shz_asvl_ng_6d95_2.4".format(self.serial))()
+                "adb -s {0} shell input text {1}".format(self.serial, self.ssid))()
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
                                          "resourceId": "com.android.settings:id/password"})()
             local_steps.command(
-                "adb -s {} shell input text 16220BB9CC12316220BB9CC123".format(self.serial))()
+                "adb -s {0} shell input text {1}".format(self.serial, self.password))()
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
                                          "resourceId": "android:id/button1", "text": "SAVE"})()
 

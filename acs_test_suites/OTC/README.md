@@ -135,6 +135,16 @@ sudo vim relay_card.rules
 KERNEL=="ttyACM0", MODE="0666"
 ```
 
+##### WiFi Configuration
+Configure the AP manually to the desired configuration.
+
+The AP parameters can be edited in the TC xml files in the below path:
+`acs_test_suites/OTC/TC/TESTLIB/System_FastBoot/CELADON/*.xml`
+
+Ex: `ssid=test_ap password=qwerasdf`
+
+**Note**: Not all the test case of fastboot needs WiFi connection, just configure those already have ssid and password configuration.
+
 ##### Execution Command
 ```
 python acs/acs/ACS.py -c OTC/CAMPAIGN/Celadon/System_FastBoot -b OTC/BENCHCFG/myBench_usb_fastboot

@@ -34,12 +34,14 @@ for entry in script_args:  # noqa
 relay_type = args["relay_type"]
 relay_port = args["relay_port"]
 power_port = args["power_port"]
+ssid = args["ssid"]
+password = args["password"]
 
 # test start
 try:
     fastboot_utils.push_uiautomator_jar(serial=serial)  # noqa
     fastboot_steps.config_first_boot_wizard(serial=serial)()  # noqa
-    fastboot_steps.connect_to_internet(serial=serial)()  # noqa
+    fastboot_steps.connect_to_internet(serial=serial, ssid=ssid, password=password)()  # noqa
     fastboot_steps.login_google_account(serial=serial)()  # noqa
     fastboot_steps.factory_data_reset(serial=serial)()  # noqa
 

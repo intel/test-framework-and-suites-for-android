@@ -20,5 +20,9 @@
             <Name>timeout</Name>
             <Value>2400</Value>
         </Parameter>
+        <Parameter>
+            <Name>script-args</Name>
+            <Value>ssid=******** password=********</Value>
+        </Parameter>
     </Parameters>
 </TestCase>
