@@ -29,13 +29,6 @@
             SI(System Integration)-> EAT | STAB | PACT | CAT0 | RELIABILITY | MTBF | CTS | ACS_CI
             Otherwise "Others" should be used -->
         <Parameter CampaignType="Others" />
-        <!-- TCRReportViaRESTAPI allows user to push campaign/test results to TCR via REST API
-            Possible values: False | True
-            ReportViaMsgBus allows user to push campaign/test results to TCR via Message bus
-            To avoid conflict when sending reports to TCR, both parameters can not be set to True at same time:
-            default choice is to push campaign/test results to TCR via REST API-->
-        <Parameter TCRReportViaRESTAPI="True"/>
-        <Parameter ReportViaMsgBus="True"/>
     </Parameters>
     <Targets>
         <!-- Target Values -->

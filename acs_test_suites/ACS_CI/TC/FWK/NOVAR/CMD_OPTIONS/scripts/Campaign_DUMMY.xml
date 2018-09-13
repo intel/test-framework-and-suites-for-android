@@ -12,7 +12,6 @@
     <Parameter stopCampaignOnCriticalFailure="False"/>
     <Parameter stopCampaignOnFirstFailure="False"/>
     <Parameter loggingLevel="info"/>
-    <Parameter TCRReportViaRESTAPI="True"/>
     <Parameter CampaignType="ACS_CI"/>
   </Parameters>
   <Targets>

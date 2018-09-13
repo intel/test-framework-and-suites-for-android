@@ -38,7 +38,7 @@ class BenchConf(object):
     """
     hostname = socket.getfqdn()
     user = os.path.split(os.path.expanduser('~'))[-1]
-    user_email = "no.name@intel.com"
+    user_email = "no.name@example.com"
     fwk_version = get_acs_release_version()
 
     @property

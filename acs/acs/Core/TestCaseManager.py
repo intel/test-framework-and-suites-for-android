@@ -963,13 +963,6 @@ class TestCaseManager(object):
         """
         is_provisioning = conf.is_provisioning
 
-        if ('TCR' in self._device_info_to_report and
-                'build' in self._device_info_to_report['TCR'] and
-                'buildId' in self._device_info_to_report['TCR']['build']):
-            # Reset build ID if already present,
-            # in order not to get previously cached (and maybe corrupted) build ID.
-            self._device_info_to_report['TCR']['build']['buildId'] = ""
-
         # First condition applies on all test cases except for "IsProvisioning" tagged one(s)
         if ((verdict is None and not is_provisioning) or
                 # Second condition applies only on test cases tagged "IsProvisioning" which get PASS verdict

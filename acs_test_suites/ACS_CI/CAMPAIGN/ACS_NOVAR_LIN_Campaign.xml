@@ -13,7 +13,6 @@
     <Parameter stopCampaignOnFirstFailure="False"/>
     <Parameter loggingLevel="debug"/>
     <Parameter CampaignType="ACS_CI"/>
-    <Parameter TCRReportViaRESTAPI="True"/>
   </Parameters>
   <Targets>
     <Target targetB2bPassRate="80"/>

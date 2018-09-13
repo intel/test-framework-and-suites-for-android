@@ -78,8 +78,7 @@ class LiveReporting(object):
     def init(self,
              report_dir,
              campaign_uuid=None,
-             live_reporting_plugin=None,
-             rerun=False):
+             live_reporting_plugin=None):
         """
 
         :param report_dir: report folder directory
@@ -87,7 +86,6 @@ class LiveReporting(object):
         :param tcr_dev_report: specify if tcr is dev server
         :param campaign_uuid: uuid of the campaign
         :param live_reporting_plugin: live reporting plugin to instantiate
-        :param rerun: rerun mode
         """
         if live_reporting_plugin:
             cls = LiveRerportingPluginLoader.load(live_reporting_plugin)
@@ -107,7 +105,7 @@ class LiveReporting(object):
 
         return res_id
 
-    def send_start_campaign_info(self, test_suite_uuid, campaign_name, user_email="no.name@intel.com"):
+    def send_start_campaign_info(self, test_suite_uuid, campaign_name, user_email="no.name@example.com"):
         """
         Notify the remote script that a campaign just stopped.
 
@@ -370,14 +368,6 @@ class LiveReporting(object):
         '''
         if self._instance:
             return self._instance.get_testcases(campaign_id, iteration)
-
-    def is_rerun(self, tc_name):
-        '''
-        check if test case is rerun needed
-        '''
-        if self._instance:
-            return self._instance.is_rerun(tc_name)
-        return True
 
     def wait_for_finish(self):
         """

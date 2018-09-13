@@ -40,7 +40,7 @@ class ArgChecker:
                         "flash_file_path": None,
                         "execution_request_nb": 1,
                         "random_mode": False,
-                        "user_email": "no.name@intel.com",
+                        "user_email": "no.name@example.com",
                         "credentials": "",
                         "metacampaign_uuid": "",
                         "device_parameter_list": None,
@@ -59,7 +59,7 @@ class ArgChecker:
         :return: Email validation status
         """
         error_msg = None
-        expr = "^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@intel.com)$"
+        expr = "^[^@]+@[^@]+\.[^@]+$"
 
         # Test matching correct email
         matches_str = re.compile(expr).search(str(email))

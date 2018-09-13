@@ -12,7 +12,6 @@
         <!-- LoggingLevel possible values: info | warning | debug | error -->
         <Parameter loggingLevel="debug"/>
         <Parameter CampaignType="Others"/>
-        <Parameter TCRReportViaRESTAPI="True"/>
     </Parameters>
     <Targets>
         <!-- Target Values -->

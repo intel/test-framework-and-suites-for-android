@@ -102,8 +102,6 @@ class CampaignEngine:
         self.__stop_on_first_failure = False
         self._credentials = ""
 
-        self.__rerun_mode = False
-
     @property
     def campaign_report_path(self):
         """
@@ -197,7 +195,7 @@ class CampaignEngine:
         # Create debug report
         self.__debug_report = DebugReport(campaign_report_path)
 
-    def __init_live_reporting(self, campaign_name, campaign_uuid, user_email, live_reporting_plugin, rerun):
+    def __init_live_reporting(self, campaign_name, campaign_uuid, user_email, live_reporting_plugin):
         """
         Instantiate a live reporting interface
 
@@ -207,12 +205,10 @@ class CampaignEngine:
         :param live_reporting_plugin: live reporting plugin to instantiate
         :type live_reporting_plugin: str
 
-        "param rerun: rerun mode
         """
         self._live_reporting_interface.init(self.campaign_report_path,
                                             campaign_uuid=campaign_uuid,
-                                            live_reporting_plugin=live_reporting_plugin,
-                                            rerun=rerun)
+                                            live_reporting_plugin=live_reporting_plugin)
         self._live_reporting_interface.send_start_campaign_info(campaign_uuid, campaign_name, user_email)
 
     def __random_sort_list(self, ordering_list, random_list, Group):
@@ -448,18 +444,12 @@ class CampaignEngine:
         credentials = kwargs["credentials"]
         log_level_param = kwargs["log_level"]
 
-        self.__rerun_mode = kwargs.get("rerun", False)
-        self.__logger.info('Rerun mode enabled: ' + str(self.__rerun_mode))
         # In case the uuid is not set, generate it to ensure that the campaign has an id
         # This id is used for reporting purpose
         self.__logger.info('Checking metacampaign UUID integrity...')
         metacampaign_uuid = kwargs["metacampaign_uuid"]
         valid_uuid = is_uuid4(metacampaign_uuid)
         if not valid_uuid:
-            if self.__rerun_mode:
-                msg = "--metacampaign_uuid must be set in 'rerun' mmode"
-                self.__logger.error(msg)
-                return msg
             self.__logger.warning("Metacampaign UUID is empty or not a valid UUID4; a new one is generated ...")
         metacampaign_uuid = metacampaign_uuid if valid_uuid else str(uuid.uuid4())
         self.__logger.info("Metacampaign UUID is {0}".format(metacampaign_uuid))
@@ -473,14 +463,7 @@ class CampaignEngine:
         self.__init_live_reporting(campaign_name,
                                    metacampaign_uuid,
                                    user_email,
-                                   kwargs.get("live_reporting_plugin"),
-                                   self.__rerun_mode)
-
-        # rerun mode
-        if self.__rerun_mode:
-            self.__logger.info("filter out test cases for rerun")
-            self.__test_case_conf_list = filter(lambda tc: self._live_reporting_interface.is_rerun(tc.get_name()),
-                                                self.__test_case_conf_list)
+                                   kwargs.get("live_reporting_plugin"))
 
         self.__stop_on_critical_failure = Util.str_to_bool(
             self.__global_config.campaignConfig.get("stopCampaignOnCriticalFailure", "False"))

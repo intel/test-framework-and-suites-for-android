@@ -198,19 +198,13 @@ def setup_arg_parser():
                               type="string",
                               dest="live_reporting_plugin")
 
-    optional_group.add_option("--rerun",
-                              help=("rerun failed or blocked tests cases. " +
-                                    "You must also set TCR campaign UUID using --metacampaign_uuid options"),
-                              dest="rerun",
-                              action="store_true", default=False)
-
     parser.add_option_group(optional_group)
     reporting_group = OptionGroup(parser, "REPORTING OPTIONS")
 
     reporting_group.add_option("-u", "--user",
                                help="Valid user email.",
                                metavar="EMAIL",
-                               default="no.name@intel.com",
+                               default="no.name@example.com",
                                dest="user_email")
 
     reporting_group.add_option("--metacampaign_uuid", "--uuid",
