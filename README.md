@@ -31,5 +31,8 @@ Available test suite are in `acs_test_suites` folder. Currently we have [Test Su
 ## Contribute
 Follow [Contributing Guidelines](CONTRIBUTING.md)
 
+## Mailing List
+https://eclists.intel.com/sympa/info/test-framework-suites-for-android
+
 ## License
 [Apache License 2.0](LICENSE)
