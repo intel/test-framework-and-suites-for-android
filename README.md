@@ -28,6 +28,10 @@ Test Suites including
 
 Available test suite are in `acs_test_suites` folder. Currently we have [Test Suite for Android](acs_test_suites/OTC/README.md).
 
+### Test Environment Setup
+
+Refer to [Setup Document](acs_setup_manager/README.md) for detail.
+
 ## Contribute
 Follow [Contributing Guidelines](CONTRIBUTING.md)
 
