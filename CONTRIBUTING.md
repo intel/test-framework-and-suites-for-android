@@ -49,7 +49,7 @@ sudo pip install flake8 autopep8  # make sure autopep8 & flake8 installed
 It will be trigger and check coding style when you commit the code in local.
 
 ### Running sanity check
-First, make sure you have already [install the depedencies](acs_setup_manager/README.txt).
+First, make sure you have already [install the depedencies](acs_setup_manager/README.md).
 
 Then:
 ```

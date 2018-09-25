@@ -5,7 +5,7 @@ Test sutie for Android, verified on [Intel Celadon](https://01.org/projectcelado
 ## Setup
 Prepare a Ubuntu host
 
-1. Install ACS [depedencies](../../acs_setup_manager/README.txt).
+1. Install ACS [depedencies](../../acs_setup_manager/README.md).
 2. Download test resources by `python acs_test_suites/OTC/res/download.py`
 3. Create *pyunit* global [config](libs/pyunit/README.md#pre-setup).
 
