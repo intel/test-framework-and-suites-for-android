@@ -77,11 +77,11 @@ The AP parameters can be edited in the TC xml files in the below path:
 
 Ex: `ap_name=test_ap passphrase=qwerasdf dut_security=WPA mode=n channel_bw=20 hidden_ssid=0 channel_no=6 trycount=10`
 
-Enter the NUC serial number in BenchConfig xml file: `OTC/BENCHCFG/bench_config_HW_campaigns.xml`
+Enter the NUC serial number in BenchConfig xml file: `OTC/BENCHCFG/bench_config_BT_HW_campaigns.xml`
 
 ##### Execution Command
 ```
-python acs/acs/ACS.py -c OTC/CAMPAIGN/Celadon/WiFi -b OTC/BENCHCFG/bench_config_HW_campaigns
+python acs/acs/ACS.py -c OTC/CAMPAIGN/Celadon/WiFi -b OTC/BENCHCFG/bench_config_BT_HW_campaigns
 ```
 
 #### BT
@@ -90,11 +90,11 @@ python acs/acs/ACS.py -c OTC/CAMPAIGN/Celadon/WiFi -b OTC/BENCHCFG/bench_config_
 * Prepare *another* Android device with *ROOT* access as **reference device**
 * make sure virtual keypad is ON
 * DUT and reference device connect to host with USB adb
-* Fill two devices' serial number in `BENCHCFG/bench_config_HW_campaigns.xml`
+* Fill two devices' serial number in `BENCHCFG/bench_config_BT_HW_campaigns.xml`
 
 ##### Execution Command
 ```
-python acs/acs/ACS.py ACS.py -c OTC/CAMPAIGN/Celadon/BT -b OTC/BENCHCFG/bench_config_HW_campaigns
+python acs/acs/ACS.py ACS.py -c OTC/CAMPAIGN/Celadon/BT -b OTC/BENCHCFG/bench_config_BT_HW_campaigns
 ```
 
 #### Storage_USB
