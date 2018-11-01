@@ -149,3 +149,14 @@ Ex: `ssid=test_ap password=qwerasdf`
 ```
 python acs/acs/ACS.py -c OTC/CAMPAIGN/Celadon/System_FastBoot -b OTC/BENCHCFG/myBench_usb_fastboot
 ```
+
+#### Multimedia Video
+##### setup
+
+* Multimedia Video testing require conf file `/etc/oat/sys.conf` to get resource file’s path. 
+* Ex:
+```
+[artifactory]
+location = ~/.acs-resources/resources
+```
+
