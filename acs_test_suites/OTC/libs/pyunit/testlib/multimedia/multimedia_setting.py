@@ -191,8 +191,8 @@ class MultiMediaSetting:
         if verify_apps(apk_path_config.get("package_name")) == 1:
             return False
         else:
-            filepath = download_file(self.resource_file_path + apk_path_config.get("file_path"),
-                                     apk_path_config.get("file_name"))
+            env_path = os.environ.get('TEST_DATA_ROOT')
+            filepath = os.path.join(env_path, "app/", apk_path_config.get("file_name"))
             install_verify_apps(filepath, apk_path_config.get("package_name"), times)
             return True
 
