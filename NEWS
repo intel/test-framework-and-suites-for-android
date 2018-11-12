@@ -1,0 +1,9 @@
+Release Note v1.0.0
+======================
+
+test-framework-and-suites-for-android is an automation test framework for validation of Android projects, contains ACS runner and test suites.
+
+This release is for functional testing of open source project -- Celadon O MR1.
+    - recommended hardware: Intel NUC7i5BNH
+    - conatins 10 test domain, for example: Video, Audio, BT, Wifi, etc.
+    - contains 43 test cases
