@@ -457,8 +457,13 @@ class config_first_boot_wizard(ui_step):
         self.uidevice.wakeup()
         self.uidevice.press("home")
         time.sleep(2)
+        if self.uidevice(text="GOT IT").exists:
+            self.uidevice(text="GOT IT").click.wait()
         if self.uidevice(textContains="Owner").exists:
             self.uidevice(textContains="Owner").click.wait()
+            self.succeed = True
+            return
+        if self.uidevice(textContains="Let's Drive").exists:
             self.succeed = True
             return
         self.uidevice.wakeup()
@@ -1029,9 +1034,8 @@ class connect_to_internet(fastboot_step, ui_step):
                                          "resourceId": "android:id/title", "textContains": "Network"})()
             ui_steps.click_button_common(serial=self.serial, view_to_find={
                                          "resourceId": "android:id/title", "text": "Wi‑Fi"})()
-            if self.uidevice(resourceId="com.android.settings:id/switch_text",
-                             text="Off").wait.exists(timeout=self.wait_time):
-                self.uidevice(text="Off").right(
+            if not self.uidevice(text="Add network").wait.exists(timeout=self.wait_time * 2):
+                self.uidevice(resourceId="com.android.settings:id/switch_text").right(
                     className="android.widget.Switch").click.wait()
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
                                          "text": "Add network"})()
@@ -1047,11 +1051,19 @@ class connect_to_internet(fastboot_step, ui_step):
                                          "resourceId": "com.android.settings:id/password"})()
             local_steps.command(
                 "adb -s {0} shell input text {1}".format(self.serial, self.password))()
+            if self.platform_name in self.p_platform_list:
+                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                             "text": "Advanced options"})()
+                ui_steps.click_button_common(scroll=True, serial=self.serial, view_to_find={
+                                             "text": "No"})()
+                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                             "text": "Yes"})()
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
                                          "resourceId": "android:id/button1", "text": "SAVE"})()
 
     def check_condition(self):
-        if self.platform_name in self.m_platform_list or self.platform_name in self.o_platform_list:
+        if self.platform_name in self.m_platform_list or self.platform_name in self.o_platform_list or \
+            self.platform_name in self.p_platform_list:
             return self.uidevice(resourceId="android:id/summary",
                                  text="Connected").wait.exists(timeout=self.wait_time * 12)
         return False
@@ -1266,11 +1278,48 @@ class login_google_account(fastboot_step, ui_step):
                         className="android.widget.Switch").click.wait()
                 ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
                                              "textContains": "AGREE"})()
+        if self.platform_name in self.p_platform_list:
+            self.uidevice.press.home()
+            ui_steps.am_start_command(
+                component="com.android.settings/.Settings", serial=self.serial)()
+            ui_steps.click_button_common(scroll=True, serial=self.serial, view_to_find={
+                                         "text": "Accounts"})()
+            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                         "text": "Add account"})()
+            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                         "text": "Google"})()
+            if self.uidevice(text="Email or phone").wait.exists(timeout=self.wait_time):
+                time.sleep(5)
+                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                             "text": "Email or phone"})()
+                local_steps.command(
+                    "adb -s {} shell input text otcqatestbackup@gmail.com".format(self.serial))()
+                self.uidevice.press.enter()
+            if self.uidevice(text="Enter your password").wait.exists(timeout=self.wait_time):
+                time.sleep(5)
+                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                             "text": "Enter your password"})()
+                local_steps.command(
+                    "adb -s {} shell input text otcqa123456".format(self.serial))()
+                self.uidevice.press.enter()
+            time.sleep(5)
+            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                         "text": "I agree"})()
+            if self.uidevice(resourceId="com.google.android.gms:id/suw_layout_title",
+                             text="Google Services").wait.exists(timeout=self.wait_time):
+                if self.uidevice(textContains="Back up to Google Drive").right(
+                        className="android.widget.Switch").info["text"] == "ON":
+                    self.uidevice(textContains="Back up to Google Drive").right(
+                        className="android.widget.Switch").click.wait()
+                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                             "text": "MORE"})()
+                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                             "text": "ACCEPT"})()
 
     def check_condition(self):
         if self.platform_name in self.m_platform_list:
             return self.uidevice(resourceId="android:id/title", text="Google").wait.exists(timeout=self.wait_time)
-        if self.platform_name in self.o_platform_list:
+        if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
             return self.uidevice(resourceId="android:id/summary", text="Google").wait.exists(timeout=self.wait_time)
         return False
 
@@ -1292,11 +1341,15 @@ class google_account_is_empty(fastboot_step, ui_step):
                 component="com.android.settings/.Settings", serial=self.serial)()
             ui_steps.click_button_common(serial=self.serial, view_to_find={
                                          "resourceId": "android:id/title", "text": "Users & accounts"})()
+        if self.platform_name in self.p_platform_list:
+            ui_steps.am_start_command(
+                component="com.android.settings/.Settings", serial=self.serial)()
+            ui_steps.click_button_common(serial=self.serial, view_to_find={"text": "Accounts"})()
 
     def check_condition(self):
         if self.platform_name in self.m_platform_list:
             return not self.uidevice(resourceId="android:id/title", text="Google").wait.exists(timeout=self.wait_time)
-        if self.platform_name in self.o_platform_list:
+        if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
             return not self.uidevice(resourceId="android:id/summary",
                                      text="Google").wait.exists(timeout=self.wait_time)
         return False
