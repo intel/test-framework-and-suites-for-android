@@ -276,3 +276,32 @@ class LoggingPool(Pool):
                                 args,
                                 kwds,
                                 callback)
+
+
+def import_module(module_path):
+    return __import__(name=module_path,
+                      globals=globals(),
+                      locals=locals(),
+                      fromlist=["*"])
+
+
+def getconfig(class_path, attribute, serial=None):
+    from testlib.utils.statics.android.statics import get_dessert, get_device_type
+    # from testlib.base.abstract import abstract_utils
+    class_name = class_path.split(".")[-1]
+    module_path = class_path.split(".")[:-1]
+    module_path = ".".join(module_path)
+    if serial:
+        dessert = get_dessert(serial)
+        device_type = get_device_type(serial)
+        device_name = device_type + "_" + dessert
+
+        module_name = module_path.split(".")[-1]
+        module_path = ".".join(module_path.split(".")[:-1])
+        module_path = ".".join([module_path, device_name])
+        module_path = ".".join([module_path, module_name])
+
+    target_module = import_module(module_path)
+
+    class_obj = getattr(target_module, class_name)
+    return getattr(class_obj, attribute)

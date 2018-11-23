@@ -306,12 +306,19 @@ class Oreo(Desert):
         self.cts_runner_type = "module_based"
 
 
+class Pie(Oreo):
+    def __init__(self, **kwargs):
+        Oreo.__init__(self, **kwargs)
+        self.name = "P"
+
+
 class Device(object):
     __metaclass__ = base_utils.SingletonType
 
     __DESSERTS = {
         "N": "N",
-        "O": "Oreo"
+        "O": "Oreo",
+        "P": "Pie"
     }
 
     __BUILD_TYPES = {
@@ -331,6 +338,9 @@ class Device(object):
         "gordon_peak": "gordon_peak",
         "cel_apl": "cel_apl"
     }
+
+    __DEVICE_TYPE = {"tab": ("celadon", ),
+                     "automotive": ("cel_apl", )}
 
     def __init__(self, **kwargs):
         self.kwargs = kwargs
@@ -372,6 +382,7 @@ class Device(object):
             target = self.__PLATFORMS[platform]
             self._platform = platform
             self._target = globals()[target](**self.kwargs)
+            self._initialize_device_type()
         except Exception:
             raise StaticsError("{0}: Error while trying to get target from the device - {1}"
                                .format(self.kwargs["serial"], traceback.format_exc()))
@@ -418,12 +429,22 @@ class Device(object):
                 dessert = self.__DESSERTS["N"]
             elif int(api_level) == 26 or int(api_level) == 27:
                 dessert = self.__DESSERTS["O"]
+            elif int(api_level) == 28:
+                dessert = self.__DESSERTS["P"]
             else:
                 raise StaticsError("{0}: Unknown API level: {1}".format(self.kwargs["serial"], str(api_level)))
             self._dessert = globals()[dessert](**self.kwargs)
         except Exception:
             raise StaticsError("{0}: Error while trying to get API level from the device - {1}".
                                format(self.kwargs["serial"], traceback.format_exc()))
+
+    def _initialize_device_type(self):
+        for device_type in self.__DEVICE_TYPE:
+            if self.platform in self.__DEVICE_TYPE[device_type]:
+                self._device_type = device_type
+                break
+        else:
+            raise Exception("Invalid platform - {0}".format(self.platform))
 
     @property
     def partition_bounds_check_string(self):
@@ -814,10 +835,31 @@ class Device(object):
         return self._platform
 
     @property
+    def device_type(self):
+        if self._target is None:
+            self._initialize_target()
+        return self._device_type
+
+    @property
     def all_apps_icon(self):
         if self._dessert is None:
             self._initialize_dessert()
-        if self.platform not in ["gordon_peak", "cel_apl"]:
+        if self.device_type == "tab":
             return self._dessert.all_apps_icon
         else:
             return None
+
+
+def get_dessert(serial):
+    device_statics = Device(serial=serial)
+    return device_statics.dessert
+
+
+def get_platform(serial):
+    device_statics = Device(serial=serial)
+    return device_statics.platform
+
+
+def get_device_type(serial):
+    device_statics = Device(serial=serial)
+    return device_statics.device_type

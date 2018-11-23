@@ -43,6 +43,10 @@ def get_module(mod_type):
     return None
 
 
+def import_module_from_path(module_path):
+    return __import__(name=module_path, globals=globals(), locals=locals(), fromlist=["*"])
+
+
 def import_module(module_name):
     """ Method for geting the desired step class by importing it's
     module and returning the class object from inside it. """
@@ -53,18 +57,28 @@ def import_module(module_name):
 
     module_path_to_import = MODULE_PATHS[module_name]
 
-    return __import__(name=module_path_to_import, globals=globals(), locals=locals(), fromlist=["*"])
+    return import_module_from_path(module_path_to_import)
 
 
-def get_obj(module, step_class):
+def get_obj(module, step_class, obj_type="class"):
     try:
         obj = getattr(module, step_class)
     except:
-        raise Exception("Module {0} does not implement class {1}.".format(module, step_class))
+        raise Exception(
+            "Module {0} does not implement class {1}.".format(module, step_class))
 
     if obj:
-        if (not isinstance(obj, (type, types.ClassType))):
-            raise Exception("Target {0} found, but not of type Class".format(step_class))
-        if(not issubclass(obj, base_step)):
-            raise Exception("Target {0} found, but subclass is not a 'step'".format(step_class))
+        if obj_type == "class":
+            if (not isinstance(obj, (type, types.ClassType))):
+                raise Exception(
+                    "Target {0} found, but not of type Class".format(step_class))
+            if(not issubclass(obj, base_step)):
+                raise Exception(
+                    "Target {0} found, but subclass is not a 'step'".format(step_class))
+        elif obj_type == "function":
+            if (not isinstance(obj, (type, types.FunctionType))):
+                raise Exception(
+                    "Target {0} found, but not of type Function".format(step_class))
+        else:
+            raise Exception("Unsupported type {0} passed".format(obj_type))
     return obj
