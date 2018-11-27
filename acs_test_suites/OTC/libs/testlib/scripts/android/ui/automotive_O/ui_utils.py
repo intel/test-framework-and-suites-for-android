@@ -22,277 +22,9 @@ from testlib.utils.ui.uiandroid import UIDevice as ui_device
 # from testlib.base import base_utils
 from testlib.utils.connections.adb import Adb as connection_adb
 from testlib.scripts.android.adb import adb_utils
-from testlib.scripts.android.ui import ui_statics
 
 import time
-from time import strftime
-
-
-def my_handler(**kwargs):
-    """ description:
-            Create handler class to be registered
-
-        usage:
-            ui_utils.my_handler(selector = {'textContains': 'Process system isn't responding.'},
-                                action_view = {'text': 'OK'},
-                                action = 'click',
-                                handler_name = 'process_system',
-                                serial = some_serial)
-
-        tags:
-            ui, android, handler, function, create
-    """
-
-    class My_Handler(object):
-
-        def __init__(self, serial, selector, action, action_view, handler_name):
-            self.selector = selector
-            self.action = action
-            self.action_view = action_view
-            self.handler_name = handler_name
-            if serial:
-                self.uidevice = ui_device(serial=serial)
-            else:
-                self.uidevice = ui_device()
-            self.serial = serial
-
-        def create_handler_function(self):
-            obj = self
-
-            def function_template(*args, **kwargs):
-                if obj.uidevice(**obj.selector).exists:
-                    print "[ {0} ]: Handler {1} has been triggered".format(str(obj.serial), obj.handler_name)
-                    if obj.action == "click":
-                        obj.uidevice(**obj.action_view).click.wait()
-                    elif self.action == "press":
-                        obj.uidevice.press(obj.action_view)
-                    return True
-            return function_template
-
-        def register(self):
-            funct = self.create_handler_function()
-            funct.__name__ = self.handler_name
-            self.uidevice.handlers.on(funct)
-
-    return My_Handler(**kwargs)
-
-
-def register_handlers(ui_handler_groups, serial=None):
-    """ description:
-            Register all the hadlers that are part of <ui_handler_group>
-
-        usage:
-            ui_utils.register_handlers(ui_handler_group = "cts")
-
-        tags:
-            ui, android, handler, register
-    """
-
-    if serial:
-        uidevice = ui_device(serial=serial)
-    else:
-        uidevice = ui_device()
-    for ui_handler_group in ui_handler_groups.split(" "):
-        for handler_name, handler_value in ui_statics.handler_list.iteritems():
-            if ui_handler_group in handler_value['groups'] and handler_name not in uidevice.handlers():
-                handler_function = my_handler(selector=handler_value['selector'], action_view=handler_value[
-                    'action_view'], action=handler_value['action'], handler_name=handler_name, serial=serial)
-                handler_function.register()
-                print "[ {0} ]: Handler {1} has been registered".format(serial, handler_name)
-
-
-def get_registered_handlers(serial=None):
-    """ description:
-            returns all register handlers
-
-        usage:
-            ui_utils.get_registered_handlers()
-
-        tags:
-            ui, android, handler, get
-    """
-    if serial:
-        uidevice = ui_device(serial=serial)
-    else:
-        uidevice = ui_device()
-
-    return uidevice.handlers()
-
-
-def get_triggered_watchers(serial=None):
-    """ description:
-            returns all register watchers that were triggered
-
-        usage:
-            ui_utils.get_triggered_watchers()
-
-        tags:
-            ui, android, watcher, get, triggered
-    """
-    if serial:
-        uidevice = ui_device(serial=serial)
-        adb_connection = connection_adb(serial=serial)
-    else:
-        uidevice = ui_device()
-        adb_connection = connection_adb()
-
-    triggered_watchers = []
-    if adb_connection.check_connected():
-        try:
-            for watcher in uidevice.watchers:
-                if uidevice.watcher(watcher).triggered:
-                    triggered_watchers.append(watcher)
-        except Exception as e:
-            if "RPC" not in str(e.message) and "not connected" not in \
-                    str(e.message) and "not attached" not in str(e.message):
-                print strftime("%d/%m %X.%S0 ", time.localtime()) + \
-                    "Registered watchers query exception due to lack of adb connectivity: {0}".format(
-                        e.message)
-                raise
-            else:
-                print strftime("%d/%m %X.%S0 ", time.localtime()) + \
-                    "Watchers could not be queried due to exception: {}".format(
-                        e.message)
-
-    return triggered_watchers
-
-
-def get_registered_watchers(serial=None):
-    """ description:
-            returns all register watchers
-
-        usage:
-            ui_utils.get_registered_watchers()
-
-        tags:
-            ui, android, watcher, get
-    """
-    if serial:
-        uidevice = ui_device(serial=serial)
-    else:
-        uidevice = ui_device()
-
-    return uidevice.watchers
-
-
-def register_watchers(ui_watcher_groups, serial=None):
-    """ description:
-            register all the watchers that are part of <ui_watcher_group>
-
-        usage:
-            ui_utils.register_watchers(ui_watcher_goup = "cts")
-
-        tags:
-            ui, android, watcher, register
-    """
-    if serial:
-        uidevice = ui_device(serial=serial)
-    else:
-        uidevice = ui_device()
-    remove_non_group_watchers(
-        ui_watcher_groups=ui_watcher_groups.split(" "), serial=serial)
-    for ui_watcher_group in ui_watcher_groups.split(" "):
-        for watcher_name, watcher_value in ui_statics.watcher_list.iteritems():
-            if ui_watcher_group in watcher_value['groups']:
-                if watcher_name not in uidevice.watchers:
-                    try:
-                        if watcher_value['action'] == "click":
-                            uidevice.watcher(watcher_name).when(**watcher_value['selector']).click(**watcher_value[
-                                'action_view'])
-                            print strftime("%d/%m %X.%S0 ", time.localtime()) + \
-                                "Watcher {0} has been  registered for {1}.".format(
-                                    watcher_name, serial)
-                        elif watcher_value['action'] == "press":
-                            uidevice.watcher(watcher_name).when(**watcher_value['selector'])\
-                                .press(watcher_value['action_view'])
-                            print strftime("%d/%m %X.%S0 ", time.localtime()) + \
-                                "Watcher {0} has been registered for {1}."\
-                                .format(watcher_name, serial)
-                        else:
-                            print strftime("%d/%m %X.%S0 ", time.localtime()) + "Invalid watcher action: {" \
-                                                                                "0}".format(
-                                                                                    watcher_value['action'])
-                    except Exception as e:
-                        if "RPC" not in str(e.message) and "not connected" not in str(e.message) and "not attached" \
-                                not in str(e.message):
-                            print strftime("%d/%m %X.%S0 ", time.localtime()) + \
-                                "Watcher registration exception due to lack of adb connectivity: {0}"\
-                                .format(e.message)
-                            raise
-                        else:
-                            print strftime("%d/%m %X.%S0 ", time.localtime()) + \
-                                "Watcher {} could not be registered due to exception: {}"\
-                                .format(watcher_name, e.message)
-
-
-def remove_non_group_watchers(ui_watcher_groups, serial=None):
-    """ description:
-            removes all the watchers that are not part of <ui_watcher_group>
-
-        usage:
-            ui_utils.remove_non_group_watchers(ui_watcher_goup = "cts")
-
-        tags:
-            ui, android, watcher, remove
-    """
-    if serial:
-        uidevice = ui_device(serial=serial)
-    else:
-        uidevice = ui_device()
-
-    try:
-        for watcher in uidevice.watchers:
-            found = True
-            for ui_watcher_group in ui_watcher_groups:
-                if ui_statics.watcher_list in (watcher) and ui_watcher_group in ui_statics.watcher_list[watcher][
-                        'groups']:
-                    break
-                else:
-                    found = False
-            if not found:
-                uidevice.watchers.remove(watcher)
-    except Exception as e:
-        if "RPC" not in str(e.message) and "not connected" not in str(e.message) and "not attached" not in str(
-                e.message):
-            print "[ {0} ]: Remove non-group watchers due to lost adb connection exception: {1}".format(serial,
-                                                                                                        e.message)
-            raise
-        else:
-            print "[ {0} ]: Non group watchers could not be unregistered due to exception: {1}".format(serial,
-                                                                                                       e.message)
-
-
-def remove_watchers(ui_watcher_group=None, serial=None):
-    """ description:
-            removes all the watchers that are part of <ui_watcher_group>
-            if <ui_watcher_group> is None it will remove all watchers
-
-        usage:
-            ui_utils.remove_watchers(ui_watcher_goup = "cts")
-
-        tags:
-            ui, android, watcher, remove
-    """
-
-    if serial:
-        uidevice = ui_device(serial=serial)
-    else:
-        uidevice = ui_device()
-
-    try:
-        for watcher in ui_statics.watcher_list:
-            if ui_watcher_group:
-                if ui_watcher_group in ui_statics.watcher_list[watcher]['groups']:
-                    uidevice.watchers.remove(watcher)
-            else:
-                uidevice.watchers.remove()
-    except Exception as e:
-        if "RPC" not in str(e.message) and "not connected" not in str(e.message) and "not attached" not in str(
-                e.message):
-            print "[ {0} ]: Watchers unregister due to lost adb connection exception: {1}".format(serial, e.message)
-            raise
-        else:
-            print "[ {0} ]: Watchers could not be unregistered due to exception: {1}".format(serial, e.message)
+from testlib.scripts.android.ui import ui_utils
 
 
 def click_apps_entry(view_to_find, serial=None, app=True):
@@ -332,7 +64,7 @@ def click_apps_entry(view_to_find, serial=None, app=True):
 
         first_app = uidevice(className="android.widget.TextView", instance=3)
 
-        if dict_element_of_list(first_app_in_each_page, first_app.info):
+        if ui_utils.dict_element_of_list(first_app_in_each_page, first_app.info):
             return False
 
 
@@ -349,7 +81,7 @@ def dict_element_of_list(my_dict_list, dict):
     for el in my_dict_list:
         eq = True
         for key, val in el.iteritems():
-            if val != dict[key] and type(val) != dict:
+            if val != dict[key] and not isinstance(val, dict):
                 eq = False
                 break
         if eq:
@@ -424,7 +156,8 @@ def is_text_visible(text_to_find, serial=None):
         tags:
             ui, android, text, visible
     """
-    return is_view_visible(serial=serial, view_to_find={"text": text_to_find})
+    return ui_utils.is_view_visible(
+        serial=serial, view_to_find={"text": text_to_find})
 
 
 def is_view_visible(view_to_find, serial=None, click=False):
@@ -501,7 +234,8 @@ def is_text_visible_scroll_left(text_to_find, serial=None):
         tags:
             ui, android , text, visible, swipe, scroll
     """
-    return is_view_visible_scroll_left(serial=serial, view_to_find={"text": text_to_find})
+    return ui_utils.is_view_visible_scroll_left(
+        serial=serial, view_to_find={"text": text_to_find})
 
 
 def is_enabled(view_to_find, serial=None, **kwargs):
@@ -558,7 +292,8 @@ def is_radio_button_enabled(instance, serial=None):
     return radio_btn.info['checked']
 
 
-def is_checkbox_checked(view_to_find, serial=None, is_switch=False, relationship="sibling"):
+def is_checkbox_checked(
+        view_to_find, serial=None, is_switch=False, relationship="sibling"):
     """ description:
             check the actual state of a checkbox
 
@@ -595,7 +330,8 @@ def is_checkbox_checked(view_to_find, serial=None, is_switch=False, relationship
     return btn.info['checked']
 
 
-def move_slider(view_to_find, position=50, x_min_delta=16, x_max_delta=5, serial=None):
+def move_slider(
+        view_to_find, position=50, x_min_delta=16, x_max_delta=5, serial=None):
     """ description:
             move the slider to position which is a percentage
             the percentage is not very precise due to slider borders
@@ -708,21 +444,6 @@ def get_view_middle_coords(view_to_find, serial=None):
     return (x_coord_r + x_coord_l) / 2, (y_coord_b + y_coord_t) / 2
 
 
-def get_center_coords(bounds):
-    """ description:
-            Return if center coords from bounds dict
-
-        usage:
-            ui_utils.get_center_coords(obj.info['bounds'])
-
-        tags: ui, android, center, coords
-    """
-
-    x = bounds['left'] + (bounds['right'] - bounds['left']) / 2
-    y = bounds['top'] + (bounds['bottom'] - bounds['top']) / 2
-    return (x, y)
-
-
 def is_device_locked(serial=None):
     """ description:
             Check if the device is locked
@@ -816,7 +537,8 @@ def check_google_account(serial=None):
     return return_value
 
 
-def google_account_exists(serial=None, db="/data/system/users/0/accounts.db", table="accounts", where="1"):
+def google_account_exists(
+        serial=None, db="/data/system/users/0/accounts.db", table="accounts", where="1"):
     """ description:
             Check if a Google account is configured on the device from
             DB
@@ -827,7 +549,8 @@ def google_account_exists(serial=None, db="/data/system/users/0/accounts.db", ta
         tags:
             ui, android, account, google, sqlite, db
     """
-    return int(adb_utils.sqlite_count_query(serial=serial, db=db, table=table, where=where)) == 1
+    return int(adb_utils.sqlite_count_query(
+        serial=serial, db=db, table=table, where=where)) == 1
 
 
 def get_view_text(view_to_find, serial=None):
@@ -932,7 +655,8 @@ def is_homescreen(serial=None, sim_pin_enabled=False):
         uidevice = ui_device()
 
     if sim_pin_enabled:
-        return is_view_displayed(serial=serial, view_to_find={"resourceId": "com.android.systemui:id/simPinEntry"})
+        return ui_utils.is_view_displayed(serial=serial, view_to_find={"resourceId":
+                                                                       "com.android.systemui:id/simPinEntry"})
 
     views = [
         {"resourceId": "com.google.android.googlequicksearchbox:id/workspace"},
@@ -952,9 +676,9 @@ def is_homescreen(serial=None, sim_pin_enabled=False):
             uidevice.wakeup()
         if uidevice(resourceId="com.android.systemui:id/lock_icon"):
             uidevice.swipe(200, 500, 200, 0, 10)
-        if is_view_displayed(serial=serial, view_to_find=view):
+        if ui_utils.is_view_displayed(serial=serial, view_to_find=view):
             return True
-    if is_view_displayed(serial=serial, view_to_find={"textContains": "To start Android, enter your"}):
+    if ui_utils.is_view_displayed(serial=serial, view_to_find={"textContains": "To start Android, enter your"}):
         return None
     return False
 
@@ -1001,7 +725,8 @@ def swipe_to_app_from_recent(view_to_find, serial=None):
     return True
 
 
-def search_object_in_direction(searched_object, direction_to_search, object_type, serial=None):
+def search_object_in_direction(
+        searched_object, direction_to_search, object_type, serial=None):
     """ description:
             Searches a text in a direction (up, down, left or right)
 
