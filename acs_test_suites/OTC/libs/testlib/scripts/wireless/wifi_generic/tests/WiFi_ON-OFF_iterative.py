@@ -20,7 +20,7 @@ SPDX-License-Identifier: Apache-2.0
 '''
 import time
 from testlib.scripts.android.ui import ui_steps
-from testlib.scripts.wireless.wifi_generic import wifi_generic_steps
+from testlib.scripts.wireless.wifi import wifi_steps
 from testlib.utils.defaults import wifi_defaults
 from testlib.base.base_utils import parse_args
 
@@ -42,19 +42,19 @@ ui_steps.press_home(serial=args["serial"])()
 
 for x in xrange(int(script_params["iterations"])):
     # Turn ON the wifi and check if it is successfully turned ON
-    wifi_generic_steps.set_wifi(serial=args["serial"],
-                                state="ON", use_adb=False)()
+    wifi_steps.set_wifi(serial=args["serial"],
+                        state="ON", use_adb=False)()
 
     time.sleep(3)
 
     # Turn OFF the wifi and check if it is successfully turned turned OFF
-    wifi_generic_steps.set_wifi(serial=args["serial"],
-                                state="OFF", use_adb=False)()
+    wifi_steps.set_wifi(serial=args["serial"],
+                        state="OFF", use_adb=False)()
 
     time.sleep(3)
 
     # Check for the connection status
-    wifi_generic_steps.check_connection_info(serial=args["serial"],
-                                             state='DISCONNECTED/DISCONNECTED')()
+    wifi_steps.check_connection_info(serial=args["serial"],
+                                     state='DISCONNECTED/DISCONNECTED')()
 
 ''' test end '''

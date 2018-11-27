@@ -20,7 +20,7 @@ SPDX-License-Identifier: Apache-2.0
 '''
 
 from testlib.scripts.android.ui import ui_steps
-from testlib.scripts.wireless.wifi_generic import wifi_generic_steps
+from testlib.scripts.wireless.wifi import wifi_steps
 from testlib.utils.defaults import wifi_defaults
 from testlib.base.base_utils import parse_args
 
@@ -40,16 +40,16 @@ ui_steps.unlock_device(serial=args["serial"], pin=wifi_defaults.wifi['pin'])()
 ui_steps.press_home(serial=args["serial"])()
 
 # make sure there are no saved networks
-wifi_generic_steps.clear_saved_networks(serial=args["serial"])()
+wifi_steps.clear_saved_networks(serial=args["serial"])()
 
 # add the Wi-Fi network
-wifi_generic_steps.add_network(ssid=script_params["ap_name"],
-                               security=script_params["dut_security"],
-                               password=script_params["passphrase"],
-                               serial=args["serial"])()
+wifi_steps.add_network(ssid=script_params["ap_name"],
+                       security=script_params["dut_security"],
+                       password=script_params["passphrase"],
+                       serial=args["serial"])()
 
 # check we are connected to the correct network.
-wifi_generic_steps.check_connection_info(serial=args["serial"],
-                                         state='DISCONNECTED/DISCONNECTED')()
+wifi_steps.check_connection_info(serial=args["serial"],
+                                 state='DISCONNECTED/DISCONNECTED')()
 
 ''' test end '''
