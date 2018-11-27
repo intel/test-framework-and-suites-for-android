@@ -19,14 +19,6 @@ SPDX-License-Identifier: Apache-2.0
 """
 ##
 
-########################################################################
-#
-# @filename:    wifi_step.py
-# @description: Wifi test step
-# @author:      alexandru.i.nemes@intel.com
-#
-########################################################################
-
 from testlib.scripts.android.ui.ui_step import step as ui_step
 from testlib.scripts.android.adb.adb_step import step as adb_step
 
