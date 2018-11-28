@@ -2170,5 +2170,18 @@ class device_info(ui_step):
             return False
 
 
+@devicedecorator
+class PressNotification(ui_step):
+    """
+        description:
+            Open Notification
+        usage:
+            ui_steps.PressNotification()
+        tags:
+            ui, android, press, click, quick setting
+      """
+    pass
+
+
 click_button = click_button_common
 wait_for_view = wait_for_view_common
