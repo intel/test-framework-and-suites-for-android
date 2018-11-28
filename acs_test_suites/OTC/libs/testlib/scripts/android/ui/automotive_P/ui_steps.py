@@ -1,4 +1,4 @@
-#!/usr/bin/env python#!/usr/bin/env python
+# !/usr/bin/env python#!/usr/bin/env python
 
 #######################################################################
 #
@@ -14,9 +14,11 @@ import time
 from testlib.scripts.android.ui.ui_step import step as ui_step
 from testlib.utils.connections.adb import Adb
 from testlib.scripts.android.ui.automotive_O import ui_steps as parent_ui_steps
+from testlib.scripts.android.ui import ui_steps
 
 
 class set_pin_screen_lock(parent_ui_steps.set_pin_screen_lock):
+
     """ description:
             sets screen lock method to PIN <selected PIN>
                 if already set to PIN, it will skip
@@ -57,7 +59,12 @@ class open_security_settings(parent_ui_steps.open_security_settings):
         tags:
             ui, android, settings, security, intent
     """
-    pass
+
+    def do(self):
+        press_car(serial=self.serial)()
+        open_settings(serial=self.serial)()
+        ui_steps.click_button_common(serial=self.serial, view_to_find={"text": "Security & location"},
+                                     view_to_check={"textMatches": "Screen lock"})()
 
 
 class open_users_settings(parent_ui_steps.open_users_settings):
@@ -90,6 +97,7 @@ class am_start_command(parent_ui_steps.am_start_command):
 
 
 class am_stop_package(parent_ui_steps.am_stop_package):
+
     """ Description:
             Executes command 'adb shell am force-stop [package_name]'. Pass
             package name to package_name parameter.
@@ -134,7 +142,45 @@ class press_home(parent_ui_steps.press_home):
         tags:
             ui, android, press, click, home, homepage
     """
-    pass
+
+    def __init__(self, wait_time=20000, **kwargs):
+        self.wait_time = wait_time
+        ui_step.__init__(self, **kwargs)
+        # adb_connection = Adb(serial=self.serial)
+        # product_name = adb_connection.parse_cmd_output(
+        #     cmd="cat /system/build.prop", grep_for="ro.product.name")
+        # self.ro_name = None
+        # if product_name:
+        #     ro_name = product_name.split("=")[1]
+        #     self.ro_name = ro_name
+        self.step_data = False
+
+    def do(self):
+        # if self.home_state:
+        #    self.logger.info("Home screen already present [ {0} ]".format(
+        # self.serial))
+        info = self.uidevice.info
+        x = 410
+        activity_bar_single_element_width = x / 6
+        # In P dessert home resides at 1st position and click has to be done at
+        # the center
+        home_x_coordinate = activity_bar_single_element_width * 2 - \
+            activity_bar_single_element_width / 2
+        y = info['displaySizeDpY']
+        home_y_coordinate = y - 30
+        # cmd = "input tap 405 1050"
+        cmd = "input tap {0} {1}".format(home_x_coordinate, home_y_coordinate)
+        adb_connection = Adb(serial=self.serial)
+        adb_connection.run_cmd(cmd)
+        time.sleep(2)
+        ui_steps.wait_for_view_common(
+            view_to_find={
+                "text": "Let's Drive"},
+            serial=self.serial)()
+        self.step_data = True
+
+    def check_condition(self):
+        return self.step_data
 
 
 class press_recent_apps(parent_ui_steps.press_recent_apps):
@@ -166,6 +212,7 @@ class app_in_recent_apps(parent_ui_steps.app_in_recent_apps):
 
 
 class open_app_from_recent_apps(parent_ui_steps.open_app_from_recent_apps):
+
     """ description:
             Opens <app_name> app from recent apps.
             If the DUT is a tablet (default), it will swipe to the
@@ -183,6 +230,7 @@ class open_app_from_recent_apps(parent_ui_steps.open_app_from_recent_apps):
 
 
 class open_app_from_allapps(parent_ui_steps.open_app_from_allapps):
+
     """ description:
             opens the application identified by <view_to_finWidgetd> from
                 all application activity
@@ -201,6 +249,7 @@ class open_app_from_allapps(parent_ui_steps.open_app_from_allapps):
 
 
 class find_app_from_allapps(parent_ui_steps.find_app_from_allapps):
+
     """ description:
             finds the application identified by <view_to_find> from
                 all application activity
@@ -215,6 +264,7 @@ class find_app_from_allapps(parent_ui_steps.find_app_from_allapps):
 
 
 class open_smart_lock_settings(parent_ui_steps.open_smart_lock_settings):
+
     """ description:
             opens settings activity from all application page
 
@@ -228,6 +278,7 @@ class open_smart_lock_settings(parent_ui_steps.open_smart_lock_settings):
 
 
 class open_settings(parent_ui_steps.open_settings):
+
     """ description:
             opens settings activity from all application page
 
@@ -237,10 +288,24 @@ class open_settings(parent_ui_steps.open_settings):
         tags:
             ui, android, press, click, settings, allapps
     """
-    pass
+
+    def __init__(self, timeout=10000, **kwargs):
+        ui_step.__init__(self, **kwargs)
+        self.version = self.device_info.dessert
+        self.timeout = timeout
+        self.step_data = False
+
+    def do(self):
+        ui_steps.am_start_command(serial=self.serial,
+                                  component="com.android.settings/.Settings")()
+        self.step_data = True
+
+    def check_condition(self):
+        return self.step_data
 
 
 class open_settings_app(parent_ui_steps.open_settings_app):
+
     """ description:
             opens an app/activity ideintified by <view_to_find> from
                 settings page starting from homepahe
@@ -261,6 +326,7 @@ class open_settings_app(parent_ui_steps.open_settings_app):
 
 
 class open_app_from_settings(parent_ui_steps.open_app_from_settings):
+
     """ description:
             opens an app/activity ideintified by <view_to_find> from
                 settings page
@@ -281,6 +347,7 @@ class open_app_from_settings(parent_ui_steps.open_app_from_settings):
 
 # TODO: remake
 class open_quick_settings(parent_ui_steps.open_quick_settings):
+
     """ description:
             opens quick settings
 
@@ -294,6 +361,7 @@ class open_quick_settings(parent_ui_steps.open_quick_settings):
 
 
 class open_playstore(parent_ui_steps.open_playstore):
+
     """ description:
             opens Play store application from all application page
 
@@ -307,6 +375,7 @@ class open_playstore(parent_ui_steps.open_playstore):
 
 
 class open_google_books(parent_ui_steps.open_google_books):
+
     """ description:
             opens Google Books application from all application page
 
@@ -335,7 +404,9 @@ class add_google_account(parent_ui_steps.add_google_account):
     pass
 
 
-class add_app_from_all_apps_to_homescreen(parent_ui_steps.add_app_from_all_apps_to_homescreen):
+class add_app_from_all_apps_to_homescreen(
+        parent_ui_steps.add_app_from_all_apps_to_homescreen):
+
     """ description:
             Click on an App from App view and drag it
             to home screen
@@ -349,7 +420,9 @@ class add_app_from_all_apps_to_homescreen(parent_ui_steps.add_app_from_all_apps_
     pass
 
 
-class uninstall_app_from_apps_settings(parent_ui_steps.uninstall_app_from_apps_settings):
+class uninstall_app_from_apps_settings(
+        parent_ui_steps.uninstall_app_from_apps_settings):
+
     """ description:
             unistalls <app_name> application from Apps page in settings
                 it check that <package_name> package is not present
@@ -367,6 +440,7 @@ class uninstall_app_from_apps_settings(parent_ui_steps.uninstall_app_from_apps_s
 
 
 class uninstall_app(parent_ui_steps.uninstall_app):
+
     """ description:
             unistalls <app_name> application from Apps starting from
                 homepage
@@ -385,6 +459,7 @@ class uninstall_app(parent_ui_steps.uninstall_app):
 
 
 class open_display_from_settings(parent_ui_steps.open_display_from_settings):
+
     """ description:
             open display menu from settings
 
@@ -423,10 +498,41 @@ class enable_developer_options(parent_ui_steps.enable_developer_options):
         tags:
             ui, android, developer, options
     """
-    pass
+
+    def __init__(self, intent=False, **kwargs):
+        self.intent = intent
+        ui_step.__init__(self, **kwargs)
+
+    def do(self):
+        if self.intent:
+            ui_steps.am_start_command(serial=self.serial,
+                                      component="com.android.settings/.DevelopmentSettings")()
+        else:
+            ui_steps.open_settings(serial=self.serial)()
+            ui_steps.click_button_common(serial=self.serial, view_to_find={
+                "text": "System"}, optional=True)()
+            ui_steps.click_button_common(serial=self.serial,
+                                         view_to_find={
+                                             "textContains": "About "},
+                                         view_to_check={"text": "Build number"})()
+            for i in range(7):
+                ui_steps.click_button_common(serial=self.serial,
+                                             view_to_find={"text": "Build number"})()
+            ui_steps.press_back(serial=self.serial)()
+            ui_steps.click_button_common(
+                view_to_find={
+                    "textContains": "Advanced"},
+                serial=self.serial)()
+
+    def check_condition(self):
+        if self.intent:
+            return True
+        return self.uidevice(
+            text="Developer options").wait.exists(timeout=1000)
 
 
-class disable_options_from_developer_options(parent_ui_steps.disable_options_from_developer_options):
+class disable_options_from_developer_options(
+        parent_ui_steps.disable_options_from_developer_options):
 
     """ description:
             disables an option from developer options
@@ -441,7 +547,8 @@ class disable_options_from_developer_options(parent_ui_steps.disable_options_fro
     pass
 
 
-class enable_options_from_developer_options(parent_ui_steps.enable_options_from_developer_options):
+class enable_options_from_developer_options(
+        parent_ui_steps.enable_options_from_developer_options):
 
     """ description:
             enables an option from developer options
@@ -458,6 +565,7 @@ class enable_options_from_developer_options(parent_ui_steps.enable_options_from_
 
 
 class enable_oem_unlock(parent_ui_steps.enable_options_from_developer_options):
+
     """ description:
             enables Oem unlock from "Developer options"
 
@@ -471,6 +579,7 @@ class enable_oem_unlock(parent_ui_steps.enable_options_from_developer_options):
 
 
 class allow_unknown_sources(parent_ui_steps.allow_unknown_sources):
+
     """ description:
             enables/disables Unknwon sources according to <state>
 
@@ -484,6 +593,7 @@ class allow_unknown_sources(parent_ui_steps.allow_unknown_sources):
 
 
 class put_device_into_sleep_mode(parent_ui_steps.put_device_into_sleep_mode):
+
     """ description:
             sets the device into sleep mode with sleep button
             checks the logcat for sleep message
@@ -499,6 +609,7 @@ class put_device_into_sleep_mode(parent_ui_steps.put_device_into_sleep_mode):
 
 
 class wake_up_device(parent_ui_steps.wake_up_device):
+
     """ description:
             wakes the device from sleep with sleep button
             checks the logcat for wake message
@@ -513,6 +624,7 @@ class wake_up_device(parent_ui_steps.wake_up_device):
 
 
 class unlock_device_swipe(parent_ui_steps.unlock_device_swipe):
+
     """ description:
             unlocks the screen with swipe
 
@@ -540,6 +652,7 @@ class unlock_device_pin(parent_ui_steps.unlock_device_pin):
 
 
 class unlock_device(parent_ui_steps.unlock_device):
+
     """ description:
             unlocks the screen with swipe and/or PIN
 
@@ -567,7 +680,9 @@ class perform_startup_wizard(parent_ui_steps.perform_startup_wizard):
     pass
 
 
-class perform_startup_wizard_for_new_user(parent_ui_steps.perform_startup_wizard_for_new_user):
+class perform_startup_wizard_for_new_user(
+        parent_ui_steps.perform_startup_wizard_for_new_user):
+
     """ description:
             performs start-up wizard
 
@@ -615,6 +730,7 @@ class close_app_from_recent(parent_ui_steps.close_app_from_recent):
 
 
 class open_widget_section(parent_ui_steps.open_widget_section):
+
     """ description:
             opens the widget section on L dessert
 
@@ -628,6 +744,7 @@ class open_widget_section(parent_ui_steps.open_widget_section):
 
 
 class add_widget_to_homescreen(parent_ui_steps.add_widget_to_homescreen):
+
     """ description:
             adds a widget to the homescreen. Homescreen should be empty
 
@@ -640,7 +757,9 @@ class add_widget_to_homescreen(parent_ui_steps.add_widget_to_homescreen):
     pass
 
 
-class open_add_google_account_wizard(parent_ui_steps.open_add_google_account_wizard):
+class open_add_google_account_wizard(
+        parent_ui_steps.open_add_google_account_wizard):
+
     """ description:
             opens add google account wizard from Settings
 
@@ -653,7 +772,8 @@ class open_add_google_account_wizard(parent_ui_steps.open_add_google_account_wiz
     pass
 
 
-class open_google_account_for_edit(parent_ui_steps.open_google_account_for_edit):
+class open_google_account_for_edit(
+        parent_ui_steps.open_google_account_for_edit):
 
     """ description:
             opens google accounts for editing
@@ -668,6 +788,7 @@ class open_google_account_for_edit(parent_ui_steps.open_google_account_for_edit)
 
 
 class remove_google_account(parent_ui_steps.remove_google_account):
+
     """ description:
             removes gmail account given its name
 
@@ -681,6 +802,7 @@ class remove_google_account(parent_ui_steps.remove_google_account):
 
 
 class remove_all_google_accounts(parent_ui_steps.remove_all_google_accounts):
+
     """ description:
             removes all gmail accounts
 
@@ -694,6 +816,7 @@ class remove_all_google_accounts(parent_ui_steps.remove_all_google_accounts):
 
 
 class show_as_list(parent_ui_steps.show_as_list):
+
     """ description:
             Show as list when grid or list is available in More options
 
@@ -707,6 +830,7 @@ class show_as_list(parent_ui_steps.show_as_list):
 
 
 class close_all_app_from_recent(parent_ui_steps.close_all_app_from_recent):
+
     """ description:
             close all application from recent apps
 
@@ -720,6 +844,7 @@ class close_all_app_from_recent(parent_ui_steps.close_all_app_from_recent):
 
 
 class set_timezone_from_settings(parent_ui_steps.set_timezone_from_settings):
+
     """ description:
             Configures system timezone to a specified value.
 
@@ -734,6 +859,7 @@ class set_timezone_from_settings(parent_ui_steps.set_timezone_from_settings):
 
 
 class sync_google_account(parent_ui_steps.sync_google_account):
+
     """ description:
             Attempts to sync an existing google account.
             Returns True on success, False on failure.
@@ -751,7 +877,9 @@ class sync_google_account(parent_ui_steps.sync_google_account):
     pass
 
 
-class handle_google_action_required(parent_ui_steps.handle_google_action_required):
+class handle_google_action_required(
+        parent_ui_steps.handle_google_action_required):
+
     """ description:
             If "Action required" message is displayed, reenter password.
 
@@ -815,15 +943,36 @@ class create_new_user(parent_ui_steps.create_new_user):
             Creates new user
 
         usage:
-            ui_steps.create(user_name = "USER"()()
+            ui_steps.create_new_user()()
 
         tags:
             ui, android, create, user
     """
-    pass
+
+    def __init__(self, **kwargs):
+        ui_step.__init__(self, **kwargs)
+        self.step_data = False
+
+    def do(self):
+        ui_steps.open_users_settings(serial=self.serial)()
+        ui_steps.click_button_common(serial=self.serial,
+                                     view_to_find={"text": "Add user"})()
+        ui_steps.click_button_common(
+            serial=self.serial,
+            view_to_find={
+                "text": "OK"})()
+        ui_steps.click_button_common(
+            view_to_find={
+                "text": "NOT NOW"},
+            serial=self.serial)()
+        self.step_data = True
+
+    def check_condition(self):
+        return self.step_data
 
 
 class remove_user(parent_ui_steps.remove_user):
+
     """ description:
             Deletes new user
 
@@ -833,7 +982,29 @@ class remove_user(parent_ui_steps.remove_user):
         tags:
             ui, android, delete, user
     """
-    pass
+
+    def __init__(self, user_name, check_condition=True, **kwargs):
+        self.user_name = user_name
+        ui_step.__init__(self, **kwargs)
+        self.perform_check_condition = check_condition
+        self.optional = False
+        self.step_data = False
+
+    def do(self):
+        ui_steps.open_users_settings(serial=self.serial)()
+        ui_steps.click_button_common(serial=self.serial,
+                                     view_to_find={"text": self.user_name},
+                                     second_view_to_find={
+                                         "resourceId": "com.android.settings:id/manage_user"},
+                                     view_to_check={"textContains": "Remove user"}, optional=True)()
+        ui_steps.click_button_common(serial=self.serial,
+                                     view_to_find={"text": "Remove user"})()
+        ui_steps.click_button_common(serial=self.serial,
+                                     view_to_find={"textContains": "DELETE"})()
+        self.step_data = True
+
+    def check_condition(self):
+        return self.step_data
 
 
 class set_up_user(parent_ui_steps.set_up_user):
@@ -847,10 +1018,30 @@ class set_up_user(parent_ui_steps.set_up_user):
         tags:
             ui, android, switch, user
     """
-    pass
+
+    def __init__(self, user_name, **kwargs):
+        self.user_name = user_name
+        ui_step.__init__(self, **kwargs)
+        self.step_data = False
+
+    def do(self):
+        ui_steps.open_users_settings(serial=self.serial)()
+        ui_steps.click_button(serial=self.serial,
+                              view_to_find={"text": "Not set up"},
+                              view_to_check={"textContains": "Set up user now?"})()
+        ui_steps.click_button(serial=self.serial,
+                              view_to_find={"text": "SET UP NOW"})()
+        time.sleep(10)
+        ui_steps.wake_up_device(serial=self.serial)()
+        ui_steps.unlock_device(serial=self.serial)()
+        self.step_data = True
+
+    def check_condition(self):
+        return self.step_data
 
 
 class switch_user(parent_ui_steps.switch_user):
+
     """ description:
             Deletes new user
 
@@ -864,6 +1055,7 @@ class switch_user(parent_ui_steps.switch_user):
 
 
 class add_trusted_location(parent_ui_steps.add_trusted_location):
+
     """ description:
             Adds a trusted location (Smart lock)
 
@@ -877,6 +1069,7 @@ class add_trusted_location(parent_ui_steps.add_trusted_location):
 
 
 class remove_trusted_location(parent_ui_steps.remove_trusted_location):
+
     """ description:
             Adds a trusted location (Smart lock)
 
@@ -890,6 +1083,7 @@ class remove_trusted_location(parent_ui_steps.remove_trusted_location):
 
 
 class add_trusted_device(parent_ui_steps.add_trusted_location):
+
     """ description:
             Adds a trusted device (Smart lock)
 
@@ -906,7 +1100,9 @@ class set_date_and_time(parent_ui_steps.set_date_and_time):
     pass
 
 
-class enable_disable_auto_time_date(parent_ui_steps.enable_disable_auto_time_date):
+class enable_disable_auto_time_date(
+        parent_ui_steps.enable_disable_auto_time_date):
+
     """ description:
             Enables or disables the auto time and date option in settings
 
@@ -920,7 +1116,9 @@ class enable_disable_auto_time_date(parent_ui_steps.enable_disable_auto_time_dat
     pass
 
 
-class enable_disable_auto_timezone(parent_ui_steps.enable_disable_auto_timezone):
+class enable_disable_auto_timezone(
+        parent_ui_steps.enable_disable_auto_timezone):
+
     """ description:
             Enables or disables the timezone switch button from Date & time settings
 
@@ -935,6 +1133,7 @@ class enable_disable_auto_timezone(parent_ui_steps.enable_disable_auto_timezone)
 
 
 class press_map(parent_ui_steps.press_map):
+
     """ description:
                 Open car map application
 
@@ -945,7 +1144,8 @@ class press_map(parent_ui_steps.press_map):
                 ui, android, map, ivi
         """
 
-    def __init__(self, view_to_check={"packageName": "com.android.car.mapsplaceholder"}, timeout=5000, **kwargs):
+    def __init__(self, view_to_check={
+                 "packageName": "com.android.car.mapsplaceholder"}, timeout=5000, **kwargs):
         ui_step.__init__(self, **kwargs)
         self.view_to_check = view_to_check
         self.timeout = timeout
@@ -966,8 +1166,10 @@ class press_map(parent_ui_steps.press_map):
             # Todo x has to be dynamic based on the screen size
             x = 410
             activity_bar_single_element_width = x / 6
-            # In P dessert Maps resides at 2 position and click has to be done at the center
-            map_x_coordinate = activity_bar_single_element_width * 3 - activity_bar_single_element_width / 2
+            # In P dessert Maps resides at 2 position and click has to be done
+            # at the center
+            map_x_coordinate = activity_bar_single_element_width * \
+                3 - activity_bar_single_element_width / 2
 
             # Default acitivity bar resides at the bottom, so y coordinate
             # can be used and to click at the center reducing the value by 30
@@ -976,7 +1178,9 @@ class press_map(parent_ui_steps.press_map):
 
             for i in range(0, 5):
                 # cmd = "input tap 405 1050"
-                cmd = "input tap {0} {1}".format(map_x_coordinate, map_y_coordinate)
+                cmd = "input tap {0} {1}".format(
+                    map_x_coordinate,
+                    map_y_coordinate)
                 adb_connection = Adb(serial=self.serial)
                 adb_connection.run_cmd(cmd)
                 time.sleep(2)
@@ -986,6 +1190,7 @@ class press_map(parent_ui_steps.press_map):
 
 
 class press_dialer(parent_ui_steps.press_dialer):
+
     """ description:
                 Open car dialer application
 
@@ -1009,15 +1214,19 @@ class press_dialer(parent_ui_steps.press_dialer):
             # Todo x has to be dynamic based on the screen size
             x = 410
             activity_bar_single_element_width = x / 6
-            # In P dessert Dialer resides at 4 position and click has to be done at the center
-            dialer_x_coordinate = activity_bar_single_element_width * 5 - activity_bar_single_element_width / 2
+            # In P dessert Dialer resides at 4 position and click has to be
+            # done at the center
+            dialer_x_coordinate = activity_bar_single_element_width * \
+                5 - activity_bar_single_element_width / 2
 
             # Default acitivity bar resides at the bottom, so y coordinate
             # can be used and to click at the center reducing the value by 30
             y = info['displaySizeDpY']
             dialer_y_coordinate = y - 30
 
-            cmd = "input tap {0} {1}".format(dialer_x_coordinate, dialer_y_coordinate)
+            cmd = "input tap {0} {1}".format(
+                dialer_x_coordinate,
+                dialer_y_coordinate)
             adb_connection = Adb(serial=self.serial)
             adb_subprocess_object = adb_connection.run_cmd(cmd)
             if adb_subprocess_object.poll() == 0:
@@ -1025,6 +1234,7 @@ class press_dialer(parent_ui_steps.press_dialer):
 
 
 class press_media(parent_ui_steps.press_media):
+
     """ description:
                 Open car media application and shows app picker
 
@@ -1057,8 +1267,10 @@ class press_media(parent_ui_steps.press_media):
             # Todo x has to be dynamic based on the screen size
             x = 410
             activity_bar_single_element_width = x / 6
-            # In P dessert Media resides at 3 position and click has to be done at the center
-            media_x_coordinate = activity_bar_single_element_width * 4 - activity_bar_single_element_width / 2
+            # In P dessert Media resides at 3 position and click has to be done
+            # at the center
+            media_x_coordinate = activity_bar_single_element_width * \
+                4 - activity_bar_single_element_width / 2
 
             # Default acitivity bar resides at the bottom, so y coordinate
             # can be used and to click at the center reducing the value by 30
@@ -1066,7 +1278,9 @@ class press_media(parent_ui_steps.press_media):
             media_y_coordinate = y - 30
 
             for i in range(0, 5):
-                cmd = "input tap {0} {1}".format(media_x_coordinate, media_y_coordinate)
+                cmd = "input tap {0} {1}".format(
+                    media_x_coordinate,
+                    media_y_coordinate)
                 adb_connection = Adb(serial=self.serial)
                 adb_connection.run_cmd(cmd)
                 time.sleep(1)
@@ -1076,6 +1290,7 @@ class press_media(parent_ui_steps.press_media):
 
 
 class press_car(parent_ui_steps.press_car):
+
     """ description:
                 Open car application and shows app picker
 
@@ -1086,7 +1301,8 @@ class press_car(parent_ui_steps.press_car):
                 ui, android, dialer, ivi
         """
 
-    def __init__(self, view_to_check={"text": "All apps"}, timeout=5000, **kwargs):
+    def __init__(
+            self, view_to_check={"text": "All apps"}, timeout=5000, **kwargs):
         ui_step.__init__(self, **kwargs)
         self.view_to_check = view_to_check
         self.timeout = timeout
@@ -1107,8 +1323,10 @@ class press_car(parent_ui_steps.press_car):
             # Todo x has to be dynamic based on the screen size
             x = 410
             activity_bar_single_element_width = x / 6
-            # In P dessert Car(All apps icon) resides at 5 position and click has to be done at the center
-            car_x_coordinate = activity_bar_single_element_width * 6 - activity_bar_single_element_width / 2
+            # In P dessert Car(All apps icon) resides at 5 position and click
+            # has to be done at the center
+            car_x_coordinate = activity_bar_single_element_width * \
+                6 - activity_bar_single_element_width / 2
             self.view_to_check = {"text": "All apps"}
 
             # Default acitivity bar resides at the bottom, so y coordinate
@@ -1117,7 +1335,9 @@ class press_car(parent_ui_steps.press_car):
             car_y_coordinate = y - 30
 
             for i in range(0, 5):
-                cmd = "input tap {0} {1}".format(car_x_coordinate, car_y_coordinate)
+                cmd = "input tap {0} {1}".format(
+                    car_x_coordinate,
+                    car_y_coordinate)
                 adb_connection = Adb(serial=self.serial)
                 adb_connection.run_cmd(cmd)
                 time.sleep(1)
@@ -1126,23 +1346,14 @@ class press_car(parent_ui_steps.press_car):
                     break
 
 
-class press_bell(ui_step):
-    """ description:
-                Open bell icon (Notification in android P)
-            usage:
-                ui_steps.press_bell(serial=serial)()
-            tags:
-                ui, android, press, click, quick setting, bell
+class PressNotification(parent_ui_steps.PressNotification):
 
     """
-
-    def __init__(self, **kwargs):
-        ui_step.__init__(self, **kwargs)
-        self.step_data = False
-
-    def do(self):
-        self.uidevice.open.quick_settings()
-        self.step_data = True
-
-    def check_condition(self):
-        return self.step_data
+        description:
+            Open quick settings
+        usage:
+            ui_steps.PressNotification()
+        tags:
+            ui, android, press, click, quick setting
+      """
+    pass
