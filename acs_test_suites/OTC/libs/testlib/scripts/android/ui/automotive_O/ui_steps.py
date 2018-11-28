@@ -3079,3 +3079,24 @@ class press_car(ui_step):
 
     def check_condition(self):
         return self.step_data
+
+
+class PressNotification(ui_step):
+    """
+        description:
+            Open Notification
+        usage:
+            ui_steps.PressNotification()
+        tags:
+            ui, android, press, click, quick setting
+      """
+    def __init__(self, **kwargs):
+        ui_step.__init__(self, **kwargs)
+        self.step_data = False
+
+    def do(self):
+        self.uidevice.open.quick_settings()
+        self.step_data = True
+
+    def check_condition(self):
+        return self.step_data
