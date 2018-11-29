@@ -38,21 +38,7 @@ log = logger.testlib_log(log_path=testlib_log_path, log_name="testlib_default")
 
 args = parse_args()
 
-ui_steps.press_home(serial=args["serial"])()
-ui_steps.open_settings(serial=args["serial"])()
-ui_steps.click_button_common(view_to_find={"text": "System"},
-                             serial=args["serial"])()
-if ui_steps.wait_for_view_common(view_to_find={"text": "Developer options"},
-                                 optional=True,
-                                 serial=args["serial"])():
-    log.info("Developer option is already enabled")
-else:
-    ui_steps.enable_developer_options(serial=args["serial"])()
-    log.info("Developer option is enabled")
-
-ui_steps.enable_options_from_developer_options(serial=args["serial"],
-                                               developer_options=["Force 4x MSAA"])()
+ui_steps.enable_options_from_developer_options(serial=args["serial"], developer_options=["Force 4x MSAA"])()
 
 # TearDown
-ui_steps.disable_options_from_developer_options(serial=args["serial"],
-                                                developer_options=["Force 4x MSAA"])()
+ui_steps.disable_options_from_developer_options(serial=args["serial"], developer_options=["Force 4x MSAA"])()

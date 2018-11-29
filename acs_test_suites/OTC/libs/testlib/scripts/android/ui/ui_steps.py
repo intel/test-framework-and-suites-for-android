@@ -26,7 +26,7 @@ from testlib.scripts.android.ui.ui_step import step as ui_step
 from testlib.scripts.android.ui import ui_utils
 from testlib.utils.connections.adb import Adb
 from testlib.base.base_step import BlockingError
-from testlib.base.abstract.abstract_step import devicedecorator, applicable
+from testlib.base.abstract.abstract_step import devicedecorator, applicable, notapplicable
 
 
 class dump(ui_step):
@@ -2175,6 +2175,7 @@ class device_info(ui_step):
             return False
 
 
+@notapplicable("O")
 @devicedecorator
 class PressNotification(ui_step):
     """

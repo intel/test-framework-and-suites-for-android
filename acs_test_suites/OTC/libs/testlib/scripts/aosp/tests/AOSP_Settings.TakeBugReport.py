@@ -20,10 +20,12 @@ SPDX-License-Identifier: Apache-2.0
 # Used defined libraries
 from testlib.base.base_utils import parse_args
 from testlib.scripts.android.ui import ui_steps
+from testlib.utils.statics.android import statics
 import time
 
 # ############# Get parameters ############
 args = parse_args()
+dessert = statics.get_dessert(serial=args["serial"])
 
 # Setup
 ui_steps.press_home(serial=args["serial"])()
@@ -56,6 +58,10 @@ ui_steps.click_button_common(view_to_find={"text": "REPORT"},
 # teardown
 # moving  to home to verify if the report has been submitted
 ui_steps.press_home(serial=args["serial"])()
-time.sleep(60)  # Sleep is mentioned because captured BugReport might take few seconds to reflect on notifaction bar
-ui_steps.wait_for_view_common(view_to_find={"text": "Tap to share your bug report"},
-                              serial=args["serial"])()
+time.sleep(30)
+if dessert == "P":
+    ui_steps.PressNotification(serial=args["serial"])()
+    ui_steps.wait_for_view_common(view_to_find={"textContains": "Bug report"}, serial=args["serial"])()
+    ui_steps.ClearRecentApps(serial=args["serial"])()
+else:
+    ui_steps.wait_for_view_common(view_to_find={"text": "Tap to share your bug report"}, serial=args["serial"])()

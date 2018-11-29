@@ -493,12 +493,14 @@ class press_recent_apps(ui_step):
     """
 
     def do(self):
-        if not self.uidevice(resourceId="com.android.systemui:id/recents_view").wait.exists(timeout=1000) and not \
-                self.uidevice(textContains="recent screens").wait.exists(timeout=1000):
+        if not self.uidevice(resourceId="com.android.systemui:id/task_view_thumbnail").wait.exists(timeout=1000) and \
+                not self.uidevice(textContains="recent items").wait.exists(timeout=1000):
             self.uidevice.press.recent()
 
     def check_condition(self):
-        return self.uidevice(resourceId="com.android.systemui:id/task_view_thumbnail").wait.exists(timeout=1000)
+        self.uidevice.wait.update(timeout=5000)
+        return self.uidevice(text="No recent items").wait.exists(timeout=1000) or self.uidevice(
+            resourceId="com.android.systemui:id/task_view_thumbnail").wait.exists(timeout=1000)
 
 
 class app_in_recent_apps(base_step):
@@ -2138,7 +2140,7 @@ class ClearRecentApps(ui_step):
         try:
             ui_steps.press_recent_apps(serial=self.serial)()
             if not ui_steps.wait_for_view(view_to_find={"resourceId": "com.android.systemui:id/dismiss_task"},
-                                          serial=self.serial):
+                                          serial=self.serial, optional=True)():
                 self.set_passm("No recent apps to clear")
             else:
                 if self.uidevice(textContains="CLEAR ALL").exists:

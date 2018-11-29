@@ -204,11 +204,18 @@ class press_recent_apps(parent_ui_steps.press_recent_apps):
         tags:
             ui, android, press, click, recent apps, homepage
     """
-    pass
+    def do(self):
+        if not self.uidevice(resourceId="com.android.systemui:id/task_view_thumbnail").wait.exists(timeout=1000) and \
+                not self.uidevice(textContains="recent items").wait.exists(timeout=1000):
+            self.uidevice.press.recent()
+
+    def check_condition(self):
+        self.uidevice.wait.update(timeout=5000)
+        return self.uidevice(text="No recent items").wait.exists(timeout=1000) or self.uidevice(
+            resourceId="com.android.systemui:id/task_view_thumbnail").wait.exists(timeout=1000)
 
 
 class app_in_recent_apps(parent_ui_steps.app_in_recent_apps):
-
     """ description:
             opens recent apps and checks if <app_name> app is present
 
@@ -515,34 +522,29 @@ class enable_developer_options(parent_ui_steps.enable_developer_options):
 
     def do(self):
         if self.intent:
-            ui_steps.am_start_command(serial=self.serial,
-                                      component="com.android.settings/.DevelopmentSettings")()
+            ui_steps.am_start_command(serial=self.serial, component="com.android.settings/.DevelopmentSettings")()
         else:
             ui_steps.open_settings(serial=self.serial)()
             ui_steps.click_button_common(serial=self.serial, view_to_find={
                 "text": "System"}, optional=True)()
-            ui_steps.click_button_common(serial=self.serial,
-                                         view_to_find={
-                                             "textContains": "About "},
+            ui_steps.click_button_common(serial=self.serial, view_to_find={"textContains": "About "},
                                          view_to_check={"text": "Build number"})()
             for i in range(7):
-                ui_steps.click_button_common(serial=self.serial,
-                                             view_to_find={"text": "Build number"})()
-            ui_steps.press_back(serial=self.serial)()
-            ui_steps.click_button_common(
-                view_to_find={
-                    "textContains": "Advanced"},
-                serial=self.serial)()
+                ui_steps.click_button_common(serial=self.serial, view_to_find={"text": "Build number"})()
+            # ui_steps.press_home(serial=self.serial)()
+            # ui_steps.click_button_common(view_to_find={"textContains": "Advanced"}, serial=self.serial)()
 
     def check_condition(self):
         if self.intent:
             return True
-        return self.uidevice(
-            text="Developer options").wait.exists(timeout=1000)
+        ui_steps.open_settings(serial=self.serial)()
+        ui_steps.click_button_common(serial=self.serial, view_to_find={
+            "text": "System"}, optional=True)()
+        ui_steps.click_button_common(view_to_find={"textContains": "Advanced"}, serial=self.serial)()
+        return self.uidevice(text="Developer options").wait.exists(timeout=1000)
 
 
-class disable_options_from_developer_options(
-        parent_ui_steps.disable_options_from_developer_options):
+class disable_options_from_developer_options(parent_ui_steps.disable_options_from_developer_options):
 
     """ description:
             disables an option from developer options
@@ -1355,7 +1357,7 @@ class press_car(parent_ui_steps.press_car):
                     break
 
 
-class PressNotification(parent_ui_steps.PressNotification):
+class PressNotification(ui_step):
 
     """
         description:
@@ -1365,4 +1367,23 @@ class PressNotification(parent_ui_steps.PressNotification):
         tags:
             ui, android, press, click, quick setting
       """
+    def __init__(self, **kwargs):
+        ui_step.__init__(self, **kwargs)
+        self.step_data = False
+
+    def do(self):
+        self.uidevice.open.quick_settings()
+        self.step_data = True
+
+    def check_condition(self):
+        return self.step_data
+
+
+class ClearRecentApps(parent_ui_steps.ClearRecentApps):
+
+    """ Description:
+            Clear recent apps in recent apps windows
+        Usage:
+            ui_steps.ClearRecentApps(serial=serial)
+    """
     pass
