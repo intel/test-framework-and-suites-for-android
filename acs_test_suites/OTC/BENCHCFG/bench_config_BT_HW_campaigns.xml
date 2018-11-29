@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <BenchConfig>
   <Phones>
-      <Phone name="PHONE1" description="Phone to use during test campaign. Please refer to Device_Catalog.xml to fill DeviceModel parameter" deviceModel="ECS-Android-LLP">
+      <Phone name="PHONE1" description="Phone to use during test campaign. Please refer to Device_Catalog.xml to fill DeviceModel parameter" deviceModel="Android">
             <Parameter disableTcReboot="false" description="Disable TC reboot options"/>
             <Parameter multipleDevices="true"/>
             <!-- serial number for device under test -->
-            <Parameter serialNumber="xxxxxxxxxxxx"/>
+            <Parameter serialNumber="xxxxxxxx"/>
         </Phone>
-        <Phone name="PHONE2" description="Phone to use during test campaign. Please refer to Device_Catalog.xml to fill DeviceModel parameter" deviceModel="ECS-Android-LLP">
+        <Phone name="PHONE2" description="Phone to use during test campaign. Please refer to Device_Catalog.xml to fill DeviceModel parameter" deviceModel="Android">
             <Parameter disableTcReboot="true" description="Disable TC reboot options"/>
             <!-- serial number for reference device -->
-            <Parameter serialNumber="xxxxxxxxxxxx"/>
+            <Parameter serialNumber="xxxxxxxx"/>
         </Phone>
     </Phones>
     <Equipments>

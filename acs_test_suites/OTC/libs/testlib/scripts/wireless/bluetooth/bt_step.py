@@ -20,10 +20,6 @@ SPDX-License-Identifier: Apache-2.0
 
 """
 
-#######################################################################
-#  @description: Bluetooth base step
-#  @author:      adrian.palko@intel.com
-#######################################################################
 import os
 import time
 
