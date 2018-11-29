@@ -498,9 +498,7 @@ class press_recent_apps(ui_step):
             self.uidevice.press.recent()
 
     def check_condition(self):
-        return self.uidevice(resourceId="com.android.systemui:id/task_view_content").wait.exists(timeout=1000) or \
-            self.uidevice(text="Your recent screens appear here").wait.exists(
-                timeout=1000)
+        return self.uidevice(resourceId="com.android.systemui:id/task_view_thumbnail").wait.exists(timeout=1000)
 
 
 class app_in_recent_apps(base_step):
@@ -2121,6 +2119,53 @@ class close_all_app_from_recent(ui_step):
         return exist_stat
 
 
+class ClearRecentApps(ui_step):
+
+    """ Description:
+            Clear recent apps in recent apps windows
+        Usage:
+            bluetooth_steps.ClearRecentApps(serial=serial)
+    """
+
+    def __init__(self, app=None, timeout=8000, **kwargs):
+        super(ClearRecentApps, self).__init__(**kwargs)
+        self.app = app
+        self.step_data = True
+        self.timeout = timeout
+        self.set_passm("Cleared all recent apps")
+
+    def do(self):
+        try:
+            ui_steps.press_recent_apps(serial=self.serial)()
+            if not ui_steps.wait_for_view(view_to_find={"resourceId": "com.android.systemui:id/dismiss_task"},
+                                          serial=self.serial):
+                self.set_passm("No recent apps to clear")
+            else:
+                if self.uidevice(textContains="CLEAR ALL").exists:
+                    self.uidevice(textContains="CLEAR ALL").click()
+                else:
+                    for i in range(0, 5):
+                        self.uidevice(scrollable=True).scroll.toBeginning()
+                        if self.uidevice(textContains="CLEAR ALL").exists:
+                            self.uidevice(textContains="CLEAR ALL").click()
+                            break
+                        # if ui_steps.click_button(textContains="CLEAR ALL", serial=self.serial, optional=True)():
+                        #     break
+            # self.uidevice.press.home()
+        except Exception as e:
+            self.set_errorm(e.message, "Failed to clear recent apps")
+            self.step_data = False
+
+    def check_condition(self):
+        time.sleep(1)
+        if self.step_data and self.uidevice(resourceId="com.android.systemui:id/dismiss_task").exists:
+            self.step_data = False
+            self.set_errorm("ClearRecentApps", "Still some apps are "
+                                               "available in recent apps window")
+        self.uidevice.press("home")
+        return self.step_data
+
+
 class set_timezone_from_settings(ui_step):
 
     """ description:
@@ -3076,27 +3121,6 @@ class press_car(ui_step):
                 if self.check_view():
                     self.step_data = True
                     break
-
-    def check_condition(self):
-        return self.step_data
-
-
-class PressNotification(ui_step):
-    """
-        description:
-            Open Notification
-        usage:
-            ui_steps.PressNotification()
-        tags:
-            ui, android, press, click, quick setting
-      """
-    def __init__(self, **kwargs):
-        ui_step.__init__(self, **kwargs)
-        self.step_data = False
-
-    def do(self):
-        self.uidevice.open.quick_settings()
-        self.step_data = True
 
     def check_condition(self):
         return self.step_data

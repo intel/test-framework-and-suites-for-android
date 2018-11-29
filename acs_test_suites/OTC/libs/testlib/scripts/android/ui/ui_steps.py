@@ -1423,6 +1423,11 @@ class close_all_app_from_recent():
 
 
 @devicedecorator
+class ClearRecentApps():
+    pass
+
+
+@devicedecorator
 class set_timezone_from_settings():
 
     """ description:
