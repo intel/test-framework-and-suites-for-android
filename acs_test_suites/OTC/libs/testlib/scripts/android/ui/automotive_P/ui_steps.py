@@ -1154,8 +1154,7 @@ class press_map(parent_ui_steps.press_map):
                 ui, android, map, ivi
         """
 
-    def __init__(self, view_to_check={
-                 "packageName": "com.android.car.mapsplaceholder"}, timeout=5000, **kwargs):
+    def __init__(self, view_to_check={"packageName": "com.google.android.apps.maps"}, timeout=5000, **kwargs):
         ui_step.__init__(self, **kwargs)
         self.view_to_check = view_to_check
         self.timeout = timeout

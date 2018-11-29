@@ -8,11 +8,11 @@
     <Parameters>
         <Parameter>
             <Name>test</Name>
-            <Value>scripts/android/system_os/tests/O_navigation_car.py</Value>
+            <Value>scripts/system_os/tests/O_navigation_car.py</Value>
         </Parameter>
         <Parameter>
             <Name>script-args</Name>
-            <Value>option=contacts</Value>
+            <Value>option=Contacts</Value>
         </Parameter>
     </Parameters>
 </TestCase>
