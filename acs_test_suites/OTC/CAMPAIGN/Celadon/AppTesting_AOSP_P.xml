@@ -8,5 +8,6 @@
         <TestCase Id="../../TC/TESTLIB/AppTesting_AOSP/Force4xMSAA"/>
         <TestCase Id="../../TC/TESTLIB/AppTesting_AOSP/GMS_Overview_Select_Settings"/>
         <TestCase Id="../../TC/TESTLIB/AppTesting_AOSP/AOSP_Settings_Strict_mode_enabled"/>
+        <TestCase Id="../../TC/TESTLIB/AppTesting_AOSP/AOSP_Settings.TakeBugReport"/>
     </TestCases>
 </Campaign>
