@@ -32,6 +32,10 @@ Available test suite are in `acs_test_suites` folder. Currently we have [Test Su
 
 Refer to [Setup Document](acs_setup_manager/README.md) for detail.
 
+### Recommeded device under test
+
+Refer to [DUT Document](docs/DUT.md)
+
 ## Contribute
 Follow [Contributing Guidelines](CONTRIBUTING.md)
 

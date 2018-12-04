@@ -1,6 +1,6 @@
 # ACS Silent install
 
-### On Linux:
+### On Linux (recommended Ubuntu 16.04):
 
 * Open a terminal
 * Go to setup_manager folder
