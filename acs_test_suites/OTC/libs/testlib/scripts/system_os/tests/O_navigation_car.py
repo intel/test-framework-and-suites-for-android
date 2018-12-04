@@ -31,17 +31,20 @@ option = script_args["option"]
 if option == "home":
     ui_steps.press_home(serial=args["serial"])()
 if option == "car":
+    ui_steps.press_home(serial=args["serial"])()
     ui_steps.press_car(serial=args["serial"])()
 if option == "settings":
     ui_steps.open_settings(serial=args["serial"])()
 if option == "map":
     ui_steps.press_map(serial=args["serial"])()
 if option == "SystemUpdater":
+    ui_steps.press_home(serial=args["serial"])()
     ui_steps.press_car(serial=args["serial"])()
     ui_steps.click_button_common(view_to_find={"text": "SystemUpdater"},
                                  view_to_check={"text": "SystemUpdater"},
                                  serial=args["serial"])()
 if option == "Contacts":
+    ui_steps.press_home(serial=args["serial"])()
     ui_steps.press_car(serial=args["serial"])()
     ui_steps.click_button_common(view_to_find={"text": "Contacts"},
                                  view_to_check={"text": "Contacts"},
