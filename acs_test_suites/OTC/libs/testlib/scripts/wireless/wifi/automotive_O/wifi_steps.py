@@ -72,8 +72,8 @@ class install_WIFI_certificate(wifi_step):
         # if self.device_info.dessert == "O":
         #    ui_steps.click_button(serial=self.serial, view_to_find={
         #        "textContains": "Encryption"})()
-        ui_steps.click_button_if_exists(serial=self.serial,
-                                        view_to_find={"textContains": "Encryption"})()
+        ui_steps.click_button(serial=self.serial,
+                              view_to_find={"textContains": "Encryption"})()
 
         if self.uidevice(className="android.widget.ListView",
                          scrollable=True).wait.exists(timeout=self.wait_time):
@@ -88,10 +88,10 @@ class install_WIFI_certificate(wifi_step):
         ui_steps.click_button(serial=self.serial,
                               view_to_find={"textContains": "Install certificate"})()
 
-        ui_steps.click_button_if_exists(serial=self.serial,
-                                        view_to_find={"descriptionContains": "Show roots"})()
-        ui_steps.click_button_if_exists(serial=self.serial,
-                                        view_to_find={"textContains": "B free"})()
+        ui_steps.click_button(serial=self.serial,
+                              view_to_find={"descriptionContains": "Show roots"})()
+        ui_steps.click_button(serial=self.serial,
+                              view_to_find={"textContains": "B free"})()
         if self.uidevice(className="android.widget.ListView",
                          scrollable=True).wait.exists(timeout=self.wait_time):
             self.uidevice(scrollable=True).scroll.to(text="client.p12")
@@ -167,11 +167,11 @@ class open_wifi_settings(wifi_step):
         else:
             ui_steps.open_settings(serial=self.serial)()
             time.sleep(3)
-            ui_steps.click_button_common(
+            ui_steps.click_button(
                 serial=self.serial, view_to_find={
                     "text": "Network & Internet"}, optional=True)()
             time.sleep(5)
-            ui_steps.click_button_common(
+            ui_steps.click_button(
                 serial=self.serial, view_to_find={
                     "textMatches": "Wi.Fi"}, view_to_check={
                     "textMatches": "Wi.Fi"})()
@@ -671,8 +671,8 @@ class clear_saved_networks(wifi_step):
                 serial=self.serial, use_adb=self.use_adb)()
 
         # Click the More button
-        if not ui_steps.click_button_if_exists(serial=self.serial,
-                                               view_to_find=self.device_info.wifi_more_options_id)():
+        if not ui_steps.click_button(serial=self.serial,
+                                     view_to_find=self.device_info.wifi_more_options_id)():
             if self.uidevice(scrollable=True):
                 self.uidevice(scrollable=True).scroll.toEnd()
 
@@ -695,10 +695,10 @@ class clear_saved_networks(wifi_step):
                     .click.wait()
                 self.uidevice(
                     **self.device_info.wifi_saved_network_forget_btn_id).wait.exists(timeout=1000)
-                if not ui_steps.click_button_common(serial=self.serial,
-                                                    view_to_find=self.device_info.wifi_saved_network_forget_btn_id,
-                                                    optional=True,
-                                                    scroll=False, view_to_check={"text": "Saved networks"})():
+                if not ui_steps.click_button(serial=self.serial,
+                                             view_to_find=self.device_info.wifi_saved_network_forget_btn_id,
+                                             optional=True,
+                                             scroll=False, view_to_check={"text": "Saved networks"})():
                     break
 
                 '''ui_steps.click_button(serial=self.serial,
@@ -707,10 +707,10 @@ class clear_saved_networks(wifi_step):
 
                 self.max_entries -= 1
                 '''
-                if not ui_steps.click_button_common(serial=self.serial,
-                                                    view_to_find=self.device_info.wifi_saved_network_forget_btn_id,
-                                                    optional=True,
-                                                    scroll=False, view_to_check={"text": "Saved networks"})():
+                if not ui_steps.click_button(serial=self.serial,
+                                             view_to_find=self.device_info.wifi_saved_network_forget_btn_id,
+                                             optional=True,
+                                             scroll=False, view_to_check={"text": "Saved networks"})():
                     break
             # If we still have an entry in the list, the step is failed.
             if self.max_entries == 0:
@@ -744,16 +744,16 @@ class set_wifi_security(wifi_step):
     def do(self):
         # Complete security fields
         if self.security:
-            ui_steps.click_button_with_scroll(serial=self.serial,
-                                              view_to_find={
-                                                  "className": "android.widget.Spinner",
-                                                  "resourceId": "com.android.settings:id/security"},
-                                              view_to_check={"textContains": self.security})()
-            ui_steps.click_button_with_scroll(serial=self.serial,
-                                              view_to_find={
-                                                  "textContains": self.security},
-                                              view_to_check={"className": "android.widget.Spinner",
-                                                             "resourceId": "com.android.settings:id/security"})()
+            ui_steps.click_button(serial=self.serial,
+                                  view_to_find={
+                                      "className": "android.widget.Spinner",
+                                      "resourceId": "com.android.settings:id/security"},
+                                  view_to_check={"textContains": self.security})()
+            ui_steps.click_button(serial=self.serial,
+                                  view_to_find={
+                                      "textContains": self.security},
+                                  view_to_check={"className": "android.widget.Spinner",
+                                                 "resourceId": "com.android.settings:id/security"})()
 
             if self.password:
                 ui_steps.edit_text(serial=self.serial, clear_text=self.clear_text,
@@ -764,58 +764,58 @@ class set_wifi_security(wifi_step):
                                    is_password=True)()
 
             if self.EAP_method:
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={"className": "android.widget.Spinner",
-                                                                "resourceId": "com.android.settings:id/method"})()
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={
-                                                      "textContains": self.EAP_method},
-                                                  view_to_check={"className": "android.widget.Spinner",
-                                                                 "resourceId": "com.android.settings:id/method"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={"className": "android.widget.Spinner",
+                                                    "resourceId": "com.android.settings:id/method"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={
+                                          "textContains": self.EAP_method},
+                                      view_to_check={"className": "android.widget.Spinner",
+                                                     "resourceId": "com.android.settings:id/method"})()
 
             if self.phase_2_auth:
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={"className": "android.widget.Spinner",
-                                                                "resourceId": "com.android.settings:id/phase2"})()
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={
-                                                      "textContains": self.phase_2_auth},
-                                                  view_to_check={"className": "android.widget.Spinner",
-                                                                 "resourceId": "com.android.settings:id/phase2"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={"className": "android.widget.Spinner",
+                                                    "resourceId": "com.android.settings:id/phase2"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={
+                                          "textContains": self.phase_2_auth},
+                                      view_to_check={"className": "android.widget.Spinner",
+                                                     "resourceId": "com.android.settings:id/phase2"})()
 
             if self.EAP_method and not self.user_certificate and \
                ui_utils.is_view_displayed(serial=self.serial,
                                           view_to_find={"resourceId": "com.android.settings:id/ca_cert"}):
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={"className": "android.widget.Spinner",
-                                                                "resourceId": "com.android.settings:id/ca_cert"})()
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={
-                                                      "textContains": self.device_info.wifi_ca_certificate_none_id},
-                                                  view_to_check={"className": "android.widget.Spinner",
-                                                                 "resourceId": "com.android.settings:id/ca_cert"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={"className": "android.widget.Spinner",
+                                                    "resourceId": "com.android.settings:id/ca_cert"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={
+                                          "textContains": self.device_info.wifi_ca_certificate_none_id},
+                                      view_to_check={"className": "android.widget.Spinner",
+                                                     "resourceId": "com.android.settings:id/ca_cert"})()
 
             if self.user_certificate:
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={"className": "android.widget.Spinner",
-                                                                "resourceId": "com.android.settings:id/user_cert"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={"className": "android.widget.Spinner",
+                                                    "resourceId": "com.android.settings:id/user_cert"})()
 
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={
-                                                      "textContains": self.user_certificate},
-                                                  view_to_check={"className": "android.widget.Spinner",
-                                                                 "resourceId": "com.android.settings:id/user_cert"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={
+                                          "textContains": self.user_certificate},
+                                      view_to_check={"className": "android.widget.Spinner",
+                                                     "resourceId": "com.android.settings:id/user_cert"})()
 
             if self.ca_certificate:
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={"className": "android.widget.Spinner",
-                                                                "resourceId": "com.android.settings:id/ca_cert"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={"className": "android.widget.Spinner",
+                                                    "resourceId": "com.android.settings:id/ca_cert"})()
 
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={
-                                                      "textContains": self.ca_certificate},
-                                                  view_to_check={"className": "android.widget.Spinner",
-                                                                 "resourceId": "com.android.settings:id/ca_cert"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={
+                                          "textContains": self.ca_certificate},
+                                      view_to_check={"className": "android.widget.Spinner",
+                                                     "resourceId": "com.android.settings:id/ca_cert"})()
 
             if self.identity:
                 ui_steps.edit_text(scroll=True, clear_text=self.clear_text, serial=self.serial,
@@ -834,14 +834,14 @@ class set_wifi_security(wifi_step):
             if self.device_info.dessert in ['N'] and self.EAP_method == "TLS" and \
                     ui_utils.is_view_displayed(serial=self.serial,
                                                view_to_find={"resourceId": "com.android.settings:id/ca_cert"}):
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={"className": "android.widget.Spinner",
-                                                                "resourceId": "com.android.settings:id/ca_cert"})()
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={
-                                                      "textContains": self.device_info.wifi_ca_certificate_none_id},
-                                                  view_to_check={"className": "android.widget.Spinner",
-                                                                 "resourceId": "com.android.settings:id/ca_cert"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={"className": "android.widget.Spinner",
+                                                    "resourceId": "com.android.settings:id/ca_cert"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={
+                                          "textContains": self.device_info.wifi_ca_certificate_none_id},
+                                      view_to_check={"className": "android.widget.Spinner",
+                                                     "resourceId": "com.android.settings:id/ca_cert"})()
 
         self.step_data = True
 
@@ -883,12 +883,12 @@ class set_wifi_advanced_options(wifi_step):
 
             # Complete the proxy settings
             if self.proxy:
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={"className": "android.widget.Spinner",
-                                                                "resourceId":
-                                                                    "com.android.settings:id/proxy_settings"})()
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={"textContains": self.proxy})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={"className": "android.widget.Spinner",
+                                                    "resourceId":
+                                                    "com.android.settings:id/proxy_settings"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={"textContains": self.proxy})()
 
                 if self.proxy_hostname:
                     ui_steps.edit_text(scroll=True, clear_text=self.clear_text, serial=self.serial,
@@ -920,11 +920,11 @@ class set_wifi_advanced_options(wifi_step):
 
             # Complete the IP Settings
             if self.ip_settings:
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={"className": "android.widget.Spinner",
-                                                                "resourceId": "com.android.settings:id/ip_settings"})()
-                ui_steps.click_button_with_scroll(serial=self.serial,
-                                                  view_to_find={"textContains": self.ip_settings})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={"className": "android.widget.Spinner",
+                                                    "resourceId": "com.android.settings:id/ip_settings"})()
+                ui_steps.click_button(serial=self.serial,
+                                      view_to_find={"textContains": self.ip_settings})()
 
                 if self.gateway:
                     ui_steps.edit_text(scroll=True, clear_text=self.clear_text, serial=self.serial,
@@ -1029,10 +1029,10 @@ class add_network(wifi_step):
                                                iterations=5)()
 
         # Click "Add network"
-        ui_steps.click_button_with_scroll(serial=self.serial,
-                                          view_to_find={
-                                              "textContains": "Add network"},
-                                          view_to_check={"textContains": "Network name"})()
+        ui_steps.click_button(serial=self.serial,
+                              view_to_find={
+                                  "textContains": "Add network"},
+                              view_to_check={"textContains": "Network name"})()
 
         # Complete the SSID text field
         ui_steps.edit_text(serial=self.serial,
