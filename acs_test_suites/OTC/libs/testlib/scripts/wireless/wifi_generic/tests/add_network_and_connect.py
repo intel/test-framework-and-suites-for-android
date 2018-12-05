@@ -82,6 +82,9 @@ if script_params["execute_add_network_and_test_ping"] == "True":
 
             time.sleep(3)
 
+            ui_steps.click_button(serial=args["serial"],
+                                  view_to_find={"text": script_params["ap_name"]})(),
+
             wifi_steps.wait_until_connected(serial=args["serial"])()
 
             # Check for the connection status

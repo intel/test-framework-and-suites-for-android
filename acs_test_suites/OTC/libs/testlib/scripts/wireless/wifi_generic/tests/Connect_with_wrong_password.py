@@ -19,6 +19,7 @@ and limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 '''
 
+import time
 from testlib.scripts.android.ui import ui_steps
 from testlib.scripts.wireless.wifi import wifi_steps
 from testlib.utils.defaults import wifi_defaults
@@ -47,6 +48,9 @@ wifi_steps.add_network(ssid=script_params["ap_name"],
                        security=script_params["dut_security"],
                        password=script_params["passphrase"],
                        serial=args["serial"])()
+
+# Introduce sleep so that the Authentication failure happens and the device state moves to Disconnect
+time.sleep(15)
 
 # check we are connected to the correct network.
 wifi_steps.check_connection_info(serial=args["serial"],
