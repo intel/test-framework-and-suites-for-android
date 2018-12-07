@@ -1,7 +1,0 @@
-<?xml version="1.0" ?>
-<Campaign version="13.49">
-    <TestCases>
-        <TestCase Id="../../TC/TESTLIB/System_Storage_USB/Storage.USB_SDCard_Check.Mountpoint_sdcardfs"/>
-    </TestCases>
-</Campaign>
-
