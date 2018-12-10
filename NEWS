@@ -1,9 +1,22 @@
-Release Note v1.0.0
-======================
+Release Note v1.0.1 -- Dec.07.2018
+==================================
+
+This release has changes of test cases porting to support Celadon P validation. All test cases have been verified on KBL-NUC NUC7i5DN.
+    - Testlib: Improve Testlib workflow by seggregating APIs based on device type(automotive_O, tab_O, automotive_P, tab_P)
+    - Testlib: Fix few path issues and api calling issue
+    - Testlib: Port missed few generic APIs to Android P
+    - Testlib: Add new api to clear recent apps
+    - Ported test cases from Celadon O to P for 9 domains: AppTesting_AOSP, AppTesting_GMS, Comms_BT, Comms_WIFI, Graphics_Display, Graphics_System, Multimedia_Video, System_FastBoot, System_OS
+    - Total case number is 38
+    - 5 cases just only support Celadon O were removed in this release
+
+
+Release Note v1.0.0 -- Nov.12.2018
+==================================
 
 test-framework-and-suites-for-android is an automation test framework for validation of Android projects, contains ACS runner and test suites.
 
-This release is for functional testing of open source project -- Celadon O MR1.
+This release is focus on functional testing of open source project -- Celadon O
     - recommended hardware: Intel NUC7i5BNH
-    - conatins 10 test domain, for example: Video, Audio, BT, Wifi, etc.
-    - contains 43 test cases
+    - conatins 10 test domains: AppTesting_AOSP, AppTesting_GMS, Comms_BT, Comms_WIFI, Graphics_Display, Graphics_System, Multimedia_Video, System_FastBoot, System_OS, System_Storage_USB
+    - contains total 43 test cases
