@@ -559,7 +559,7 @@ class factory_data_reset(fastboot_step, ui_step):
                                          "textContains": "RESET"})()
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
                                          "text": "ERASE EVERYTHING"})()
-        time.sleep(120)
+        time.sleep(180)
         local_steps.wait_for_adb(serial=self.serial, timeout=300)()
 
     def check_condition(self):
