@@ -27,6 +27,13 @@ from testlib.util.process import shell_command
 from testlib.util.log import Logger
 
 LOG = Logger.getlogger(__name__)
+ANDROID_DESSERT = {
+    '9': 'P',
+    '8': 'O',
+    '7': 'N',
+    '6': 'M',
+    '5': 'L'
+}
 
 
 def add(x):
@@ -347,8 +354,31 @@ class Common(object):
         d.server.stop()
         d.server.start()
 
-    def getAllSerial(self):
+    def get_all_serial(self):
         return getAllSerial()
+
+    def get_prop(self, context=""):
+        return self.adb_cmd_capture_msg("getprop %s" % context).strip()
+
+    def get_android_dessert(self):
+        text = self.get_prop("ro.build.version.release")
+        textlist = text.split(".")
+        if (textlist[0] in ANDROID_DESSERT):
+            dessert = ANDROID_DESSERT.get(textlist[0])
+            LOG.debug("Android dessert is %s" % dessert)
+        else:
+            dessert = 'L'
+            LOG.debug("Use default Android dessert %s" % dessert)
+        return dessert
+
+    def get_platform(self):
+        platform = self.get_prop("ro.product.device")
+        if platform == "cel_apl":
+            bootloader = self.get_prop("ro.boot.bootloader")
+            if "kbl" in bootloader.lower():
+                platform = "cel_kbl"
+        LOG.debug("Android platform is %s" % platform)
+        return platform
 
 
 class TestRun():
