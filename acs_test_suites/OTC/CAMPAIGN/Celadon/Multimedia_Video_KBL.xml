@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<Campaign version="13.49">
+    <TestCases>
+        <TestCase Id="../../TC/PY_UNIT/Multimedia_Video/testMPEG4_352_288_24fps_144kbps_aaclc_22_05kHz_38kbps_Mono_3GP"/>
+	<TestCase Id="../../TC/PY_UNIT/Multimedia_Video/testPlayback_H264_HP_1080P_60fps_50Mbps_AAC_LC_48KHz_320Kbps_mp4"/>
+	<TestCase Id="../../TC/PY_UNIT/Multimedia_Video/testVideoPlayback_MKV_VP8_640x360_25fps_Vorbis_44KHz_128Kbps"/>
+    </TestCases>
+</Campaign>
