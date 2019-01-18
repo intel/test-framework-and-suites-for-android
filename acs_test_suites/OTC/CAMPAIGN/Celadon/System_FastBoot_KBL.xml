@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Campaign version="13.49">
+    <TestCases>
+        <TestCase Id="../../TC/TESTLIB/System_FastBoot/CELADON/All_passwd_set_cleared_after_factory_reset"/>
+        <TestCase Id="../../TC/TESTLIB/System_FastBoot/CELADON/Class_A_device_boot_in_Green"/>
+        <TestCase Id="../../TC/TESTLIB/System_FastBoot/CELADON/Contact_record_are_empty_after_factory_reset"/>
+        <TestCase Id="../../TC/TESTLIB/System_FastBoot/CELADON/Factory_Reset_Data_Reset"/>
+        <TestCase Id="../../TC/TESTLIB/System_FastBoot/CELADON/FORCED_SHUTDOWN"/>
+        <TestCase Id="../../TC/TESTLIB/System_FastBoot/CELADON/Restore_factory_settings_with_reboot_10times"/>
+    </TestCases>
+</Campaign>
