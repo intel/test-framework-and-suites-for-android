@@ -25,7 +25,6 @@ from testlib.base.base_utils import parse_args
 from testlib.scripts.android.ui import ui_steps
 from testlib.utils import logger
 from testlib.utils.statics.android import statics
-from testlib.scripts.wireless.bluetooth import bluetooth_steps
 
 #############################################
 log = None
@@ -52,7 +51,7 @@ if dessert == "P":
     ui_steps.click_button_common(view_to_find={"text": "More"}, serial=args["serial"])()
     Settings_not_found = []
     Settings_to_check = {"Display", "Sound", "Wi‑Fi", "Bluetooth", "App info", "Date & time", "Users", "Accounts",
-                         "Security", "Google", "System"}
+                         "Security", "System"}
     for find in Settings_to_check:
         try:
             ui_steps.wait_for_view_common(view_to_find={"text": find}, serial=args["serial"])()
@@ -60,7 +59,7 @@ if dessert == "P":
             Settings_not_found.append(find)
             log.info(find + " option is not available in IVI settings")
     # Tear Down
-            bluetooth_steps.ClearRecentApps(serial=args["serial"])()
+    ui_steps.press_back(serial=args["serial"])()
 
 
 else:
