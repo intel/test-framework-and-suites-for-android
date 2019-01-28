@@ -459,7 +459,7 @@ class BtRemoveAllPairedDevices(parent_bluetooth_steps.BtRemoveAllPairedDevices):
 
                     counter += 1
                     self.set_passm(str(counter - 1) + " device(s) unpaired")
-                    self.uidevice.press.back()
+                    ui_steps.click_button_common(serial=self.serial, view_to_find={"description": "Navigate up"})()
 
         except Exception, e:
             self.set_errorm("Unpair devices", e.message)

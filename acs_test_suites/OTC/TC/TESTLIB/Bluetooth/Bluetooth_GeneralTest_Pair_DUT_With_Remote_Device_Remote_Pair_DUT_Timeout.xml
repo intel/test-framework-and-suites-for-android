@@ -12,7 +12,7 @@
         </Parameter>
         <Parameter>
             <Name>script-args</Name>
-            <Value>initiator=dut action_dut=Timeout action_dev=Pair action_initiator_first=true</Value>
+            <Value> action_dut=Timeout action_dev=Pair action_initiator_first=true</Value>
         </Parameter>
         <Parameter>
             <Name>timeout</Name>

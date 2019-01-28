@@ -157,6 +157,11 @@ class cel_apl(BXT):
         BXT.__init__(self, **kwargs)
 
 
+class cel_kbl(BXT):
+    def __init__(self, **kwargs):
+        BXT.__init__(self, **kwargs)
+
+
 class Desert(object):
     def __init__(self, **kwargs):
         self.get_interfaces_tool = "netcfg"
@@ -330,17 +335,19 @@ class Device(object):
     __PLATFORMS = {
         "cht_ffd": "cht_ffd",
         "gordon_peak": "gordon_peak",
-        "cel_apl": "cel_apl"
+        "cel_apl": "cel_apl",
+        "cel_kbl": "cel_kbl"
     }
 
     __SW_PLATFORMS = {
         "cht_ffd": "cht_ffd",
         "gordon_peak": "gordon_peak",
-        "cel_apl": "cel_apl"
+        "cel_apl": "cel_apl",
+        "cel_kbl": "cel_kbl"
     }
 
     __DEVICE_TYPE = {"tab": ("celadon", ),
-                     "automotive": ("cel_apl", )}
+                     "automotive": ("cel_apl", "cel_kbl")}
 
     def __init__(self, **kwargs):
         self.kwargs = kwargs
