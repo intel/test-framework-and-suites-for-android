@@ -767,8 +767,9 @@ class CheckIfPaired(BtStep):
                         self.step_data = False
             else:
                 condition = False
-                PressHome(serial=self.serial, critical=False)()
-                OpenBluetoothSettings(serial=self.serial, use_intent=True, critical=False)()
+                ui_steps.click_button_common(serial=self.serial, view_to_find={"description": "Navigate up"})()
+                ui_steps.click_button_common(serial=self.serial, view_to_find={"textContains": "Connected devices"})()
+                time.sleep(1)
                 condition = ui_steps.wait_for_view_common(serial=self.serial,
                                                           view_to_find={"textContains": self.dev_paired_with},
                                                           second_view_to_find={
@@ -890,8 +891,12 @@ class InitiatePairRequest(BtStep):
                 raise Exception("Search for device failed")
             #  click on the device name (already scrolled in the view)
             # self.uidevice(text=self.dev_to_pair_name).click()
-            ui_steps.click_button_common(serial=self.serial, view_to_find={"textContains": self.dev_to_pair_name},
-                                         view_to_check={"resourceId": "android:id/alertTitle"})()
+            if not ui_steps.click_button_common(serial=self.serial,
+                                                view_to_find={"textContains": self.dev_to_pair_name},
+                                                view_to_check={"resourceId": "android:id/alertTitle"})():
+                time.sleep(1)
+                ui_steps.click_button_common(serial=self.serial, view_to_find={"textContains": self.dev_to_pair_name},
+                                             view_to_check={"resourceId": "android:id/alertTitle"})()
             time.sleep(5)
             if self.version.startswith("5."):
                 #  LLP version
