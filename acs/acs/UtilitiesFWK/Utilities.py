@@ -129,8 +129,8 @@ class Verdict(object):
         - INTERRUPTED
     """
     (PASS, FAIL, BLOCKED, INTERRUPTED,
-     INCONCLUSIVE, INVALID, VALID) = ("PASS", "FAIL", "BLOCKED", "INTERRUPTED",
-                                      "INCONCLUSIVE", "INVALID", "VALID")
+     INCONCLUSIVE, INVALID, VALID, NA) = ("PASS", "FAIL", "BLOCKED", "INTERRUPTED",
+                                          "INCONCLUSIVE", "INVALID", "VALID", "NA")
 
     @classmethod
     def is_pass(cls, verdict):
@@ -197,6 +197,8 @@ class Global(object):
     BLOCKED = -2
     # Code to return in case the result is known to be wrong/inaccurate
     INVALID = -3
+    # Code to return in case the test is not applicable to run, like dependence hardware is not available
+    NA = -4
 
 
 class Verdict2Global(object):
@@ -212,7 +214,8 @@ class Verdict2Global(object):
         Verdict.BLOCKED: Global.BLOCKED,
         Verdict.INTERRUPTED: Global.BLOCKED,
         Verdict.INCONCLUSIVE: Global.INCONCLUSIVE,
-        Verdict.INVALID: Global.INVALID
+        Verdict.INVALID: Global.INVALID,
+        Verdict.NA: Global.NA
     }
 
 
