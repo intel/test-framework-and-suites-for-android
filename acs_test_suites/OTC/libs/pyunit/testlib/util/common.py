@@ -20,6 +20,7 @@ import os
 import time
 import Queue
 import threading
+import unittest
 
 from testlib.util.globalcontext import GlobalContext
 from testlib.util.device import TestDevice, getAllSerial
@@ -28,12 +29,27 @@ from testlib.util.log import Logger
 
 LOG = Logger.getlogger(__name__)
 ANDROID_DESSERT = {
+    '10': 'Q',
     '9': 'P',
     '8': 'O',
     '7': 'N',
     '6': 'M',
     '5': 'L'
 }
+
+
+def reportPeripheralNotAvailable(reason=""):
+    execpt_msg = "Peripheral not available"
+    if reason:
+        execpt_msg = execpt_msg + ": " + reason
+    reportNAVerdict(execpt_msg)
+
+
+def reportNAVerdict(reason=""):
+    execpt_msg = "{NOT_APPLICABLE_CASE}"
+    if reason:
+        execpt_msg = execpt_msg + reason
+    raise unittest.TestCase.failureException(execpt_msg)
 
 
 def add(x):

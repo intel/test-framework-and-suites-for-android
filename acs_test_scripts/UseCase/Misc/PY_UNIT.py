@@ -220,6 +220,12 @@ class PyUnit(UseCaseBase):
             else:
                 ret = Global.BLOCKED, "unknown reason"
             self._logger.error(ret[1])
+            # handling INCONCLUSIVE
+            if ret[1].find("{INCONCLUSIVE}") != -1:
+                ret = Global.INCONCLUSIVE, ""
+            # handling NOT_APPLICABLE_CASE
+            if ret[1].find("{NOT_APPLICABLE_CASE}") != -1:
+                ret = Global.NA, ""
 
         self._tear_down(ret[0] != Global.SUCCESS)
         return ret
