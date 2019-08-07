@@ -531,34 +531,21 @@ class factory_data_reset(fastboot_step, ui_step):
         self.wait_time = wait_time
 
     def do(self):
-        if self.platform_name in self.m_platform_list:
-            ui_steps.open_settings(serial=self.serial)()
-            ui_steps.click_button_common(serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/title", "text": "Backup & reset"})()
-            ui_steps.click_button_common(serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/title", "text": "Factory data reset"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/initiate_master_clear",
-                                         "text": "Reset phone"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/execute_master_clear",
-                                         "text": "Erase everything"})()
-        if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
-            ui_steps.am_start_command(
-                component="com.android.settings/.Settings", serial=self.serial)()
+        ui_steps.am_start_command(
+            component="com.android.settings/.Settings", serial=self.serial)()
+        ui_steps.click_button_common(
+            serial=self.serial, view_to_find={"text": "System"})()
+        if self.platform_name in self.p_platform_list:
             ui_steps.click_button_common(
-                serial=self.serial, view_to_find={"text": "System"})()
-            if self.platform_name in self.p_platform_list:
-                ui_steps.click_button_common(
-                    scroll=False, serial=self.serial, view_to_find={"text": "Advanced"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "text": "Reset options"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "textContains": "Erase all data"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "textContains": "RESET"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "text": "ERASE EVERYTHING"})()
+                scroll=False, serial=self.serial, view_to_find={"text": "Advanced"})()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "text": "Reset options"})()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "textContains": "Erase all data"})()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "textContains": "RESET"})()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "text": "ERASE EVERYTHING"})()
         time.sleep(180)
         local_steps.wait_for_adb(serial=self.serial, timeout=300)()
 
@@ -827,14 +814,6 @@ class unlock_device(fastboot_step):
             if self.change_result is False:
                 raise Exception(
                     "The test result did not achieve the desired results")
-            if self.platform_name == "gordon_peak":
-                command(
-                    command="format data > ./temp/files/format_data_result.txt 2>&1", serial=self.serial)()
-                self.format_result = fastboot_utils.fastboot_command_result(
-                    file_name="./temp/files/format_data_result.txt")
-                if self.format_result is False:
-                    raise Exception(
-                        "The test result did not achieve the desired results")
             command(
                 command="getvar device-state > ./temp/files/device_state.txt 2>&1", serial=self.serial)()
             self.device_state = fastboot_utils.get_device_state(
@@ -858,14 +837,6 @@ class lock_device(fastboot_step):
         self.device_state = fastboot_utils.get_device_state(
             file_path="./temp/files/device_state.txt")
         if self.device_state == "unlocked":
-            if self.platform_name == "gordon_peak":
-                command(
-                    command="format data > ./temp/files/format_data_result.txt 2>&1", serial=self.serial)()
-                self.format_result = fastboot_utils.fastboot_command_result(
-                    file_name="./temp/files/format_data_result.txt")
-                if self.format_result is False:
-                    raise Exception(
-                        "The test result did not achieve the desired results")
             command(
                 command="flashing lock > ./temp/files/lock_result.txt 2>&1", serial=self.serial)()
             self.change_result = fastboot_utils.fastboot_command_result(
@@ -892,66 +863,32 @@ class create_some_contacts(fastboot_step, ui_step):
         self.wait_time = wait_time
 
     def do(self):
-        if self.platform_name in self.m_platform_list:
-            ui_steps.am_start_command(
-                component="com.android.contacts/.activities.PeopleActivity", serial=self.serial)()
-            if self.uidevice(resourceId="com.google.android.gms:id/suw_layout_title",
-                             text="Couldn't sign in").wait.exists(timeout=self.wait_time):
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "com.google.android.gms:id/suw_navbar_next",
-                                             "text": "Next"})()
+        ui_steps.am_start_command(
+            component="com.android.contacts/.activities.PeopleActivity", serial=self.serial)()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "resourceId": "com.android.contacts:id/floating_action_button"})()
+        if self.uidevice(resourceId="com.android.contacts:id/text",
+                         text="Take a minute to add an account "
+                              "that will back up your contacts to Google.").wait.exists(timeout=self.wait_time):
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.contacts:id/floating_action_button"})()
-            if self.uidevice(resourceId="com.android.contacts:id/text",
-                             text="Your new contact won't be backed up. "
-                                  "Add an account that backs up contacts online?").wait.exists(timeout=self.wait_time):
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "com.android.contacts:id/left_button",
-                                             "text": "Keep local"})()
-            if self.uidevice(text="Add new contact").wait.exists(timeout=self.wait_time):
-                ui_steps.click_button_common(
-                    scroll=False, serial=self.serial, view_to_find={"text": "Name"})()
-                local_steps.command(
-                    "adb -s {} shell input text test".format(self.serial))()
-                ui_steps.click_button_common(
-                    scroll=False, serial=self.serial, view_to_find={"text": "Phone"})()
-                local_steps.command(
-                    "adb -s {} shell input text 1234567890".format(self.serial))()
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "com.android.contacts:id/menu_save"})()
-            self.uidevice.press.back()
-        if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
-            ui_steps.am_start_command(
-                component="com.android.contacts/.activities.PeopleActivity", serial=self.serial)()
+                                         "resourceId": "com.android.contacts:id/left_button", "text": "CANCEL"})()
+        if self.uidevice(text="Create new contact").wait.exists(timeout=self.wait_time):
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.contacts:id/floating_action_button"})()
-            if self.uidevice(resourceId="com.android.contacts:id/text",
-                             text="Take a minute to add an account "
-                                  "that will back up your contacts to Google.").wait.exists(timeout=self.wait_time):
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "com.android.contacts:id/left_button", "text": "CANCEL"})()
-            if self.uidevice(text="Create new contact").wait.exists(timeout=self.wait_time):
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "text": "First name"})()
-                local_steps.command(
-                    "adb -s {} shell input text test".format(self.serial))()
-                ui_steps.click_button_common(
-                    scroll=False, serial=self.serial, view_to_find={"text": "Phone"})()
-                local_steps.command(
-                    "adb -s {} shell input text 1234567890".format(self.serial))()
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "com.android.contacts:id/editor_menu_save_button",
-                                             "text": "SAVE"})()
-            self.uidevice.press.back()
+                                         "text": "First name"})()
+            local_steps.command(
+                "adb -s {} shell input text test".format(self.serial))()
+            ui_steps.click_button_common(
+                scroll=False, serial=self.serial, view_to_find={"text": "Phone"})()
+            local_steps.command(
+                "adb -s {} shell input text 1234567890".format(self.serial))()
+            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                         "resourceId": "com.android.contacts:id/editor_menu_save_button",
+                                         "text": "SAVE"})()
+        self.uidevice.press.back()
 
     def check_condition(self):
-        if self.platform_name in self.m_platform_list:
-            return not self.uidevice(resourceId="com.android.contacts:id/message",
-                                     text="No contacts.").wait.exists(timeout=self.wait_time)
-        if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
-            return not self.uidevice(resourceId="com.android.contacts:id/message",
-                                     text="Your contacts list is empty").wait.exists(timeout=self.wait_time)
-        return False
+        return not self.uidevice(resourceId="com.android.contacts:id/message",
+                                 text="Your contacts list is empty").wait.exists(timeout=self.wait_time)
 
 
 class contact_is_empty(fastboot_step, ui_step):
@@ -962,26 +899,12 @@ class contact_is_empty(fastboot_step, ui_step):
         self.wait_time = wait_time
 
     def do(self):
-        if self.platform_name in self.m_platform_list:
-            ui_steps.am_start_command(
-                component="com.android.contacts/.activities.PeopleActivity", serial=self.serial)()
-            if self.uidevice(resourceId="com.google.android.gms:id/suw_layout_title",
-                             text="Couldn't sign in").wait.exists(timeout=self.wait_time):
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "com.google.android.gms:id/suw_navbar_next",
-                                             "text": "Next"})()
-        if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
-            ui_steps.am_start_command(
-                component="com.android.contacts/.activities.PeopleActivity", serial=self.serial)()
+        ui_steps.am_start_command(
+            component="com.android.contacts/.activities.PeopleActivity", serial=self.serial)()
 
     def check_condition(self):
-        if self.platform_name in self.m_platform_list:
-            return self.uidevice(resourceId="com.android.contacts:id/message",
-                                 text="No contacts.").wait.exists(timeout=self.wait_time)
-        if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
-            return self.uidevice(resourceId="com.android.contacts:id/message",
-                                 text="Your contacts list is empty").wait.exists(timeout=self.wait_time)
-        return False
+        return self.uidevice(resourceId="com.android.contacts:id/message",
+                             text="Your contacts list is empty").wait.exists(timeout=self.wait_time)
 
 
 class connect_to_internet(fastboot_step, ui_step):
@@ -994,79 +917,42 @@ class connect_to_internet(fastboot_step, ui_step):
         self.password = password
 
     def do(self):
-        if self.platform_name in self.m_platform_list:
-            ui_steps.open_settings(serial=self.serial)()
-            ui_steps.click_button_common(serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/title", "text": "Wi‑Fi"})()
-            if self.uidevice(resourceId="com.android.settings:id/switch_text",
-                             text="Off").wait.exists(timeout=self.wait_time):
-                self.uidevice(text="Off").right(
-                    className="android.widget.Switch").click.wait()
+        ui_steps.am_start_command(
+            component="com.android.settings/.Settings", serial=self.serial)()
+        ui_steps.click_button_common(serial=self.serial, view_to_find={
+                                     "resourceId": "android:id/title", "textContains": "Network"})()
+        ui_steps.click_button_common(serial=self.serial, view_to_find={
+                                     "resourceId": "android:id/title", "text": "Wi‑Fi"})()
+        if not self.uidevice(text="Add network").wait.exists(timeout=self.wait_time * 2):
+            self.uidevice(resourceId="com.android.settings:id/switch_text").right(
+                className="android.widget.Switch").click.wait()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "text": "Add network"})()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "resourceId": "com.android.settings:id/security"})()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "resourceId": "android:id/text1", "text": "WPA/WPA2 PSK"})()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "resourceId": "com.android.settings:id/ssid", "text": "Enter the SSID"})()
+        local_steps.command(
+            "adb -s {0} shell input text {1}".format(self.serial, self.ssid))()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "resourceId": "com.android.settings:id/password"})()
+        local_steps.command(
+            "adb -s {0} shell input text {1}".format(self.serial, self.password))()
+        if self.platform_name in self.p_platform_list:
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "className": "android.widget.ImageButton", "description": "More options"})()
+                                         "text": "Advanced options"})()
+            ui_steps.click_button_common(scroll=True, serial=self.serial, view_to_find={
+                                         "text": "No"})()
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/title", "text": "Add network"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/security"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/text1", "text": "WPA/WPA2 PSK"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/ssid", "text": "Enter the SSID"})()
-            local_steps.command(
-                "adb -s {0} shell input text {1}".format(self.serial, self.ssid))()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/password"})()
-            local_steps.command(
-                "adb -s {0} shell input text {1}".format(self.serial, self.password))()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/button1", "text": "Save"})()
-        if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
-            # if self.platform_name == "o_gordon_peak" or self.platform_name == "o_gordon_peak_acrn"
-            #    or self.platform_name in self.p_platform_list:
-            #     self.off_resourceid = "com.android.settings:id/switch_widget"
-            #     self.off_text = "OFF"
-            # if self.platform_name == "o_celadon" or self.platform_name == "o_cel_apl":
-            #     self.off_resourceid = "com.android.settings:id/switch_text"
-            #     self.off_text = "Off"
-            ui_steps.am_start_command(
-                component="com.android.settings/.Settings", serial=self.serial)()
-            ui_steps.click_button_common(serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/title", "textContains": "Network"})()
-            ui_steps.click_button_common(serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/title", "text": "Wi‑Fi"})()
-            if not self.uidevice(text="Add network").wait.exists(timeout=self.wait_time * 2):
-                self.uidevice(resourceId="com.android.settings:id/switch_text").right(
-                    className="android.widget.Switch").click.wait()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "text": "Add network"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/security"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/text1", "text": "WPA/WPA2 PSK"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/ssid", "text": "Enter the SSID"})()
-            local_steps.command(
-                "adb -s {0} shell input text {1}".format(self.serial, self.ssid))()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/password"})()
-            local_steps.command(
-                "adb -s {0} shell input text {1}".format(self.serial, self.password))()
-            if self.platform_name in self.p_platform_list:
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "text": "Advanced options"})()
-                ui_steps.click_button_common(scroll=True, serial=self.serial, view_to_find={
-                                             "text": "No"})()
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "text": "Yes"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/button1", "text": "SAVE"})()
+                                         "text": "Yes"})()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "resourceId": "android:id/button1", "text": "SAVE"})()
 
     def check_condition(self):
-        if self.platform_name in self.m_platform_list or self.platform_name in self.o_platform_list or \
-            self.platform_name in self.p_platform_list:
-            return self.uidevice(resourceId="android:id/summary",
-                                 text="Connected").wait.exists(timeout=self.wait_time * 12)
-        return False
+        return self.uidevice(resourceId="android:id/summary",
+                             text="Connected").wait.exists(timeout=self.wait_time * 12)
 
 
 class find_bt_devices(fastboot_step, ui_step):
@@ -1077,40 +963,26 @@ class find_bt_devices(fastboot_step, ui_step):
         self.wait_time = wait_time
 
     def do(self):
-        if self.platform_name in self.m_platform_list:
-            ui_steps.open_settings(serial=self.serial)()
-            ui_steps.click_button_common(serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/title", "text": "Bluetooth"})()
-            if self.uidevice(resourceId="com.android.settings:id/switch_text",
-                             text="Off").wait.exists(timeout=self.wait_time):
-                self.uidevice(text="Off").right(
-                    className="android.widget.Switch").click.wait()
-        if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
-            ui_steps.am_start_command(
-                component="com.android.settings/.Settings", serial=self.serial)()
-            ui_steps.click_button_common(serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/title", "text": "Connected devices"})()
-            if self.platform_name in self.p_platform_list:
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "text": "Connection preferences"})()
-            ui_steps.click_button_common(serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/title", "text": "Bluetooth"})()
-            if self.uidevice(resourceId="com.android.settings:id/switch_text",
-                             text="Off").wait.exists(timeout=self.wait_time):
-                self.uidevice(text="Off").right(
-                    className="android.widget.Switch").click.wait()
+        ui_steps.am_start_command(
+            component="com.android.settings/.Settings", serial=self.serial)()
+        ui_steps.click_button_common(serial=self.serial, view_to_find={
+                                     "resourceId": "android:id/title", "text": "Connected devices"})()
+        if self.platform_name in self.p_platform_list:
             ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "text": "Pair new device"})()
+                                         "text": "Connection preferences"})()
+        ui_steps.click_button_common(serial=self.serial, view_to_find={
+                                     "resourceId": "android:id/title", "text": "Bluetooth"})()
+        if self.uidevice(resourceId="com.android.settings:id/switch_text",
+                         text="Off").wait.exists(timeout=self.wait_time):
+            self.uidevice(text="Off").right(
+                className="android.widget.Switch").click.wait()
+        ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
+                                     "text": "Pair new device"})()
 
     def check_condition(self):
-        if self.platform_name in self.m_platform_list or self.platform_name in self.o_platform_list:
-            return self.uidevice(resourceId="com.android.settings:"
-                                            "id/scanning_progress").wait.exists(timeout=self.wait_time * 2)
-        if self.platform_name in self.p_platform_list:
-            return self.uidevice(text="When Bluetooth is turned on, "
-                                      "your device can communicate with "
-                                      "other nearby Bluetooth devices.").wait.exists(timeout=self.wait_time * 2)
-        return False
+        return self.uidevice(text="When Bluetooth is turned on, "
+                                  "your device can communicate with "
+                                  "other nearby Bluetooth devices.").wait.exists(timeout=self.wait_time * 2)
 
 
 class visit_web_page_by_browser(ui_step):
@@ -1193,57 +1065,10 @@ class login_google_account(fastboot_step, ui_step):
         self.wait_time = wait_time
 
     def do(self):
-        if self.platform_name in self.m_platform_list:
-            self.uidevice.press.home()
-            ui_steps.open_settings(serial=self.serial)()
-            ui_steps.click_button_common(serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/title", "text": "Accounts"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/title", "text": "Add account"})()
-            ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                         "resourceId": "android:id/title", "text": "Google"})()
-            if self.uidevice(resourceId="headingText",
-                             description="Add your account").wait.exists(timeout=self.wait_time):
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "identifierId", "text": "Email or phone"})()
-                local_steps.command(
-                    "adb -s {} shell input text otcqatestbackup@gmail.com".format(self.serial))()
-                self.uidevice.press.enter()
-            if self.uidevice(className="android.view.View", description="Sign in").wait.exists(timeout=self.wait_time):
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "password", "text": "Password"})()
-                local_steps.command(
-                    "adb -s {} shell input text otcqa123456".format(self.serial))()
-                self.uidevice.press.enter()
-            if self.uidevice(resourceId="tosText").wait.exists(timeout=self.wait_time):
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "next", "description": "ACCEPT"})()
-            if self.uidevice(resourceId="com.google.android.gms:id/suw_layout_title",
-                             text="Google services").wait.exists(timeout=self.wait_time):
-                if (self.uidevice(textContains="Automatically back up device data")
-                        .right(className="android.widget.Switch").info["text"] == "ON"):
-                    self.uidevice(textContains="Automatically back up device data").right(
-                        className="android.widget.Switch").click.wait()
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "com.google.android.gms:id/suw_navbar_next",
-                                             "text": "Next"})()
-            if self.uidevice(resourceId="com.android.vending:id/title",
-                             text="Set up payment info").wait.exists(timeout=self.wait_time):
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "com.android.vending:id/title", "text": "No thanks"})()
-                ui_steps.click_button_common(scroll=False, serial=self.serial, view_to_find={
-                                             "resourceId": "com.android.vending:id/positive_button",
-                                             "text": "Continue"})()
         if self.platform_name in self.o_platform_list:
-            if (self.platform_name == "o_gordon_peak" or self.platform_name == "o_gordon_peak_acrn" or
-                    self.platform_name == "o_cel_apl"):
-                self.iagree_control = "description"
-                self.iagree_text = "I agree"
-                self.googleservices_text = "Google Services"
-            if self.platform_name == "o_celadon":
-                self.iagree_control = "text"
-                self.iagree_text = "I AGREE"
-                self.googleservices_text = "Google services"
+            self.iagree_control = "text"
+            self.iagree_text = "I AGREE"
+            self.googleservices_text = "Google services"
             self.uidevice.press.home()
             ui_steps.am_start_command(
                 component="com.android.settings/.Settings", serial=self.serial)()
@@ -1317,11 +1142,7 @@ class login_google_account(fastboot_step, ui_step):
                                              "text": "ACCEPT"})()
 
     def check_condition(self):
-        if self.platform_name in self.m_platform_list:
-            return self.uidevice(resourceId="android:id/title", text="Google").wait.exists(timeout=self.wait_time)
-        if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
-            return self.uidevice(resourceId="android:id/summary", text="Google").wait.exists(timeout=self.wait_time)
-        return False
+        return self.uidevice(resourceId="android:id/summary", text="Google").wait.exists(timeout=self.wait_time)
 
 
 class google_account_is_empty(fastboot_step, ui_step):
@@ -1332,10 +1153,6 @@ class google_account_is_empty(fastboot_step, ui_step):
         self.wait_time = wait_time
 
     def do(self):
-        if self.platform_name in self.m_platform_list:
-            ui_steps.open_settings(serial=self.serial)()
-            ui_steps.click_button_common(serial=self.serial, view_to_find={
-                                         "resourceId": "com.android.settings:id/title", "text": "Accounts"})()
         if self.platform_name in self.o_platform_list:
             ui_steps.am_start_command(
                 component="com.android.settings/.Settings", serial=self.serial)()
@@ -1347,12 +1164,8 @@ class google_account_is_empty(fastboot_step, ui_step):
             ui_steps.click_button_common(serial=self.serial, view_to_find={"text": "Accounts"})()
 
     def check_condition(self):
-        if self.platform_name in self.m_platform_list:
-            return not self.uidevice(resourceId="android:id/title", text="Google").wait.exists(timeout=self.wait_time)
-        if self.platform_name in self.o_platform_list or self.platform_name in self.p_platform_list:
-            return not self.uidevice(resourceId="android:id/summary",
-                                     text="Google").wait.exists(timeout=self.wait_time)
-        return False
+        return not self.uidevice(resourceId="android:id/summary",
+                                 text="Google").wait.exists(timeout=self.wait_time)
 
 
 class time_management_with_device_off(ui_step):

@@ -28,7 +28,6 @@ import threading
 import time
 import warnings
 import zipfile
-from testlib.scripts.android.fastboot import fastboot_statics
 from testlib.scripts.connections.local import local_steps
 from testlib.scripts.connections.local import local_utils
 from testlib.utils.connections.adb import Adb as connection_adb
@@ -108,26 +107,6 @@ def get_platform_name(serial):
     return None
 
 
-def get_image_platform(serial, platform_name):
-    if platform_name == "m_bxtp_abl":
-        return "image_m_bxt"
-    if platform_name == "o_gordon_peak":
-        ram_value = get_bxt_ram(serial=serial)
-        if ram_value == "2g":
-            return "image_o_bxt_2g"
-        if ram_value == "4g":
-            return "image_o_bxt_4g"
-        if ram_value == "8g":
-            return "image_o_bxt_4g"
-    if platform_name == "o_gordon_peak_acrn":
-        return "image_o_acrn"
-    if platform_name == "p_gordon_peak":
-        return "image_p_bxt"
-    if platform_name == "p_gordon_peak_acrn":
-        return "image_p_acrn"
-    return None
-
-
 def get_zip_name(zip_path):
     zip_name = zip_path.split("/")[-1]
     platform_name = zip_name.split("-")[0]
@@ -201,12 +180,7 @@ def creat_big_file(file_name, size):
 
 
 def adb_install_apk(serial=None, platform_name=None, apk_path=None, file_path=None):
-    if platform_name in fastboot_statics.platforms_list().m_platform_list:
-        install_command = "adb -s {0} install {1}".format(serial, apk_path)
-        return_result = os.popen(install_command).readlines()
-    if platform_name in fastboot_statics.platforms_list().o_platform_list or \
-        platform_name in fastboot_statics.platforms_list().p_platform_list:
-        return_result = open(file_path).readlines()
+    return_result = open(file_path).readlines()
     for line in return_result:
         if "Success" in line.strip():
             return True
@@ -413,66 +387,6 @@ def to_fastboot_by_script(serial):
                 break
             time.sleep(1)
             step_data += 1
-
-
-def flash_android_os(platform, zip_file, relay_port, serial, flash_ioc="True", flash_ifwi="True",
-                     flash_android="True", image_type="userdebug", sleep_time=120, wait_for_adb=True):
-    if platform == "bxt":
-        flash_script_name = "flash_bxt.py"
-    if platform == "acrn":
-        flash_script_name = "flash_acrn.py"
-    debugcard_port_list = get_debugcard_port(serial=serial)
-    arduino_port_list = get_arduino_port(serial=serial)
-    os.system("sudo python ./temp/files/flash/{0} --flash_ioc=\"{1}\" --flash_ifwi=\"{2}\""
-              " --flash_android=\"{3}\" --zip_file=\"{4}\" --debugcard_port=\"{5}\""
-              " --relay_port=\"{6}\" --image_type=\"{7}\" --arduino_port=\"{8}\""
-              .format(flash_script_name, flash_ioc, flash_ifwi, flash_android, zip_file,
-                      debugcard_port_list[-2], relay_port, image_type, arduino_port_list[0]))
-    time.sleep(sleep_time)
-    if wait_for_adb:
-        local_steps.wait_for_adb(timeout=300, serial=serial)()
-
-
-def flash_m_bxt_fused(eb_user_patch_flashfiles_zip_name, eb_userdebug_patch_flashfiles_zip_name,
-                      serial, relay_port, support_flash=False):
-    unpack_the_zip(file_name="./temp/image/eb/userdebug/" + eb_userdebug_patch_flashfiles_zip_name,
-                   temp_path=r"./temp/image/eb/userdebug/flashfiles")
-    unpack_the_zip(file_name="./temp/image/eb/user/" + eb_user_patch_flashfiles_zip_name,
-                   temp_path=r"./temp/image/eb/user/flashfiles")
-    os.system(
-        "cp -f ./temp/image/eb/userdebug/flashfiles/boot.img ./temp/image/eb/user/flashfiles")
-    if support_flash:
-        os.system(
-            "cp -f ./temp/image/eb/userdebug/flashfiles/ifwi_gr_mrb_b1.bin ./temp/image/eb/user/flashfiles")
-    make_the_zip(dir_name="./temp/image/eb/user/flashfiles/",
-                 file_name="./temp/image/eb/flashfiles.zip")
-
-    flash_android_os(platform="bxt", flash_ioc="True", flash_ifwi="False", flash_android="True",
-                     zip_file="./temp/image/eb/flashfiles.zip", relay_port=relay_port,
-                     serial=serial, sleep_time=30, wait_for_adb=False)
-    flash_android_os(platform="bxt", flash_ioc="False", flash_ifwi="True", flash_android="False",
-                     zip_file="./temp/image/eb/flashfiles.zip", relay_port=relay_port,
-                     serial=serial, sleep_time=30, wait_for_adb=False)
-    to_fastboot_by_script(serial=serial)
-    time.sleep(30)
-    local_steps.wait_for_fastboot(timeout=300, serial=serial)()
-    os.system("fastboot reboot > /dev/null 2>&1")
-    time.sleep(120)
-
-    push_uiautomator_jar(serial=serial)
-    d = Device(serial)
-    time.sleep(5)
-    if d(text="To start Android, enter your password").exists:
-        d(resourceId="com.android.settings:id/passwordEntry").click.wait()
-        time.sleep(5)
-        os.system("adb -s {0} shell input text 1234".format(serial))
-        time.sleep(5)
-        os.system("adb -s {0} shell input keyevent 66".format(serial))
-        time.sleep(5)
-    if d(text="Decryption unsuccessful").exists:
-        d(text="Reset phone").click.wait()
-        time.sleep(120)
-    local_steps.wait_for_adb(timeout=300, serial=serial)()
 
 
 def enable_oem_unlock(serial=None):
