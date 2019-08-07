@@ -20,10 +20,5 @@ SPDX-License-Identifier: Apache-2.0
 
 
 class platforms_list(object):
-    m_platform_list = ["m_bxtp_abl"]
-    o_platform_list = ["o_celadon", "o_cel_apl",
-                       "o_gordon_peak", "o_gordon_peak_acrn"]
-    p_platform_list = ["p_cel_apl", "p_gordon_peak",
-                       "p_gordon_peak_acrn"]
-    acrn_flash_list = ["o_gordon_peak_acrn", "p_gordon_peak_acrn"]
-    bxt_flash_list = ["m_bxtp_abl", "o_gordon_peak", "p_gordon_peak"]
+    o_platform_list = ["o_celadon", "o_cel_apl"]
+    p_platform_list = ["p_cel_apl"]

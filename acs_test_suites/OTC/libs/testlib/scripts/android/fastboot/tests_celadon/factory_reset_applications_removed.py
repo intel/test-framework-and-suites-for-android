@@ -25,7 +25,6 @@ import sys
 import time
 from testlib.base.base_utils import get_args
 from testlib.scripts.android.adb import adb_steps
-from testlib.scripts.android.fastboot import fastboot_statics
 from testlib.scripts.android.fastboot import fastboot_steps
 from testlib.scripts.android.fastboot import fastboot_utils
 from testlib.scripts.relay import relay_steps
@@ -63,15 +62,11 @@ try:
     adb_steps.root_connect_device(serial=serial)()  # noqa
     time.sleep(5)
     platform_name = fastboot_utils.get_platform_name(serial=serial)  # noqa
-    if platform_name in fastboot_statics.platforms_list().m_platform_list:
-        return_result = fastboot_utils.adb_install_apk(
-            platform_name=platform_name, apk_path="./temp/files/resources/" + test_apk_name, serial=serial)  # noqa
-    if platform_name in fastboot_statics.platforms_list().o_platform_list:
-        install_command = "adb -s {0} install ./temp/files/resources/{1}  > ./temp/files/temp.txt 2>&1".format(
-            serial, test_apk_name)  # noqa
-        os.system(install_command)
-        return_result = fastboot_utils.adb_install_apk(
-            platform_name=platform_name, file_path="./temp/files/temp.txt")
+    install_command = "adb -s {0} install ./temp/files/resources/{1}  > ./temp/files/temp.txt 2>&1".format(
+        serial, test_apk_name)  # noqa
+    os.system(install_command)
+    return_result = fastboot_utils.adb_install_apk(
+        platform_name=platform_name, file_path="./temp/files/temp.txt")
 
     if not return_result:
         raise Exception("The test result did not achieve the desired results")

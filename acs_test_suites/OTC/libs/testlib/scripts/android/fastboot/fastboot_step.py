@@ -28,10 +28,7 @@ class step(android_step):
         android_step.__init__(self, **kwargs)
         self.platform_name = fastboot_utils.get_platform_name(
             serial=self.serial)
-        self.m_platform_list = ["m_bxtp_abl"]
-        self.o_platform_list = ["gordon_peak", "o_celadon",
-                                "o_cel_apl", "o_gordon_peak", "o_gordon_peak_acrn"]
-        self.p_platform_list = ["p_cel_apl", "p_gordon_peak",
-                                "p_gordon_peak_acrn"]
+        self.o_platform_list = ["o_celadon", "o_cel_apl"]
+        self.p_platform_list = ["p_cel_apl"]
         self.o_partition_list = ["boot", "bootloader",
                                  "multiboot", "system", "tos", "vbmeta", "vendor"]
