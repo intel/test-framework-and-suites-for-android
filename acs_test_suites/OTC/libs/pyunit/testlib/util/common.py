@@ -29,7 +29,6 @@ from testlib.util.log import Logger
 
 LOG = Logger.getlogger(__name__)
 ANDROID_DESSERT = {
-    '10': 'Q',
     '9': 'P',
     '8': 'O',
     '7': 'N',

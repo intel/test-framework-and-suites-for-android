@@ -147,11 +147,6 @@ class BXT(SoC):
         self.repackage_userdata_on_flash = False
 
 
-class gordon_peak(BXT):
-    def __init__(self, **kwargs):
-        BXT.__init__(self, **kwargs)
-
-
 class cel_apl(BXT):
     def __init__(self, **kwargs):
         BXT.__init__(self, **kwargs)
@@ -333,15 +328,11 @@ class Device(object):
     }
 
     __PLATFORMS = {
-        "cht_ffd": "cht_ffd",
-        "gordon_peak": "gordon_peak",
         "cel_apl": "cel_apl",
         "cel_kbl": "cel_kbl"
     }
 
     __SW_PLATFORMS = {
-        "cht_ffd": "cht_ffd",
-        "gordon_peak": "gordon_peak",
         "cel_apl": "cel_apl",
         "cel_kbl": "cel_kbl"
     }
