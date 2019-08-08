@@ -17,7 +17,7 @@ and limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 """
 
-# flake8: noqa: W504
+
 import os
 from lxml import etree
 import acs.UtilitiesFWK.Utilities as Util

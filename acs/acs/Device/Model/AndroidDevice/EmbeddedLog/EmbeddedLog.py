@@ -16,7 +16,6 @@ and limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 """
 
-# flake8: noqa: W504
 import os
 import re
 import shutil
@@ -35,9 +34,9 @@ except NameError:
     _SysErrors = OSError, IOError
 
 # Pattern :     checksum  aplogsize aplogname
-APLOG_PATTERN_DEVICE = "(\\d+) (\\d+) .*aplog\\.(\\d+)$"
+APLOG_PATTERN_DEVICE = "(\d+) (\d+) .*aplog\.(\d+)$"
 # Pattern :     aploggroup.aplogname.checksum
-APLOG_PATTERN_HOST = "(\\d+)\\.aplog\\.(\\d+)\\.(\\d+)$"
+APLOG_PATTERN_HOST = "(\d+)\.aplog\.(\d+)\.(\d+)$"
 
 # The list of folder to create in the campaign report tree
 LOG_SUBFOLDERS = ["AP_LOGS", "MODEM_LOGS", "PTI", "SERIAL"]
