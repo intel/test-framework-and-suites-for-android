@@ -18,6 +18,10 @@ and limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 """
 
+import os
+import time
+import traceback
+
 from testlib.scripts.android.adb.adb_step import step as adb_step
 from testlib.scripts.android.ui.ui_step import step as ui_step
 from testlib.scripts.connections.local.local_step import step as local_step
@@ -30,11 +34,6 @@ from testlib.scripts.connections.local import local_utils
 from testlib.base.base_step import step as base_step
 from testlib.base import base_utils
 from testlib.scripts.android.adb.adb_utils import Sqlite
-
-
-import os
-import time
-import traceback
 
 
 class connect_device(adb_step):
@@ -477,7 +476,7 @@ class wait_for_ui(adb_step):
         else:
             menu_to_unlock(serial=self.serial)()
         command(serial=self.serial, command="svc power stayon true")()
-        if self.device_info.platform not in ["gordon_peak", "cel_apl"]:
+        if self.device_info.platform is not "cel_apl":
             print "[ {0} ]: perform startup wizard if necessary".format(self.serial)
             if ui_utils.is_view_displayed(serial=self.serial,
                                           view_to_find={"resourceId": "com.google.android.setupwizard:id/start"}):
