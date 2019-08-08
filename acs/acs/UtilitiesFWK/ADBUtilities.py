@@ -77,10 +77,10 @@ class ADBSocket():
 
         # ADB command formatting
         if clean_cmd.startswith("adb"):
-            clean_cmd = re.sub("^adb\\s+", "", clean_cmd, 1)
+            clean_cmd = re.sub("^adb\s+", "", clean_cmd, 1)
 
         # Remove formatting from Binder
-        clean_cmd = re.sub("^shell\\s+", "shell:", clean_cmd, 1)
+        clean_cmd = re.sub("^shell\s+", "shell:", clean_cmd, 1)
         clean_cmd = re.sub("^reboot", "reboot:", clean_cmd, 1)
         clean_cmd = re.sub("^root", "root:", clean_cmd, 1)
         clean_cmd = re.sub("^get-state", "host:get-state", clean_cmd, 1)

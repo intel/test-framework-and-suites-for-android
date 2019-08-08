@@ -20,7 +20,7 @@ and limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 """
 
-# flake8: noqa: W504
+
 import os
 import os.path as path
 import fnmatch

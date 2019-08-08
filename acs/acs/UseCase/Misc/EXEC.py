@@ -16,7 +16,7 @@ and limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 """
 
-# flake8: noqa: W504
+
 import platform
 import os.path
 import re
@@ -334,7 +334,7 @@ class Exec(UseCaseBase):
                 self._logger.info(output)
 
         # Remove special characters which could be stored in output message
-        allowed_characters = '[^a-zA-Z0-9\\-\\+\\=\'\\.\\:\\,\\;\\!\\?\\%\\(\\)\\#\\*\\@\\_\n\t]'
+        allowed_characters = '[^a-zA-Z0-9\-\+\=\'\.\:\,\;\!\?\%\(\)\#\*\@\_\n\t]'
         parsed_output = re.sub(allowed_characters, ' ', output)
 
         return status, parsed_output

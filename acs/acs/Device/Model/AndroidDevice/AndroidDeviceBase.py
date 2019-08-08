@@ -16,7 +16,7 @@ and limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 """
 
-# flake8: noqa: W504
+
 import imp
 import os
 import re
@@ -879,7 +879,7 @@ class AndroidDeviceBase(DeviceBase):
         try:
             if status == Global.SUCCESS:
                 splitted_output = status_msg.splitlines()
-                key_regex = ".*\\[(?P<key>(.*))\\]: \\[(?P<value>(.*))\\].*"
+                key_regex = ".*\[(?P<key>(.*))\]: \[(?P<value>(.*))\].*"
 
                 # for each string (describing a property name and value),
                 # we will retrieve name and value for store it into a dictionary
@@ -2733,7 +2733,7 @@ class AndroidDeviceBase(DeviceBase):
 
             if status == Global.SUCCESS:
                 # retrieve the first serial number
-                expr = "(?P<serial>[0-9A-Za-z\\-]*).*"
+                expr = "(?P<serial>[0-9A-Za-z\-]*).*"
                 result = re.match(expr, status_msg)
                 # if the result of math method isn't None,
                 # it means that we find a serial number

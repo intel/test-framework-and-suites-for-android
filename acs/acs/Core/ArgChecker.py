@@ -52,7 +52,7 @@ class ArgChecker:
         :return: Email validation status
         """
         error_msg = None
-        expr = "^[^@]+@[^@]+\\.[^@]+$"
+        expr = "^[^@]+@[^@]+\.[^@]+$"
 
         # Test matching correct email
         matches_str = re.compile(expr).search(str(email))

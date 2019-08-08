@@ -18,7 +18,7 @@ SPDX-License-Identifier: Apache-2.0
 """
 
 # pylama:ignore=E501
-# flake8: noqa: W504
+
 import os
 import sys
 from optparse import OptionParser, OptionGroup
