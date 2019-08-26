@@ -7,3 +7,4 @@ tzlocal
 uiautomator
 arrow
 unittest2
+pillow
